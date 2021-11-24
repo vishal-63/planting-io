@@ -1,10 +1,11 @@
 import React from "react";
+import LoginModal from "../Components/LoginModal";
 import Topbar from "../Components/Topbar";
 
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      <LoginModal></LoginModal>
     </>
   );
 };
