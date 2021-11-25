@@ -31,6 +31,12 @@ export const LoginContainer = styled.div`
     & p {
       padding: 1rem;
     }
+
+    &.register {
+      height: 750px;
+      top: 15vh;
+      transform: translate(-50%, 0%);
+    }
   }
 `;
 
@@ -53,7 +59,12 @@ export const Tab = styled.div`
   font-size: 30px;
   line-height: 31px;
   padding: 15px 10px;
-  border-bottom: 5px solid #618925;
+  cursor:pointer;
+
+  &.login,
+  &.register {
+    border-bottom: 5px solid #618925;
+  }
 
   @media (max-width: 768px) {
     font-size: 19px;
@@ -64,6 +75,13 @@ export const FormContainer = styled.form`
   padding: 5px 1rem;
   width: 100%;
   display: flex;
+  flex-direction:column;
+
+  &.register{
+    @media (min-width: 768px){
+      flex-direction:row;
+    }
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -88,7 +106,8 @@ export const Input = styled.input`
   padding: 0px 1px;
   margin: 0.5rem 0;
 
-  &:focus ~ .label {
+  &:focus ~ .label,
+  &.text ~ .label {
     transform: translate(0, -2.6rem) scale(1);
   }
 `;
