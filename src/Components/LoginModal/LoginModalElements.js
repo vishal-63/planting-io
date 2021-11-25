@@ -63,6 +63,7 @@ export const Tab = styled.div`
 export const FormContainer = styled.form`
   padding: 5px 1rem;
   width: 100%;
+  display: flex;
 `;
 
 export const Wrapper = styled.div`
@@ -97,6 +98,7 @@ export const ButtonContainer = styled.div`
   margin-top: 25px;
   align-items: center;
   justify-content: space-between;
+  width: 90%;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -152,12 +154,63 @@ export const NewAccount = styled.div`
   margin-top: 1.5rem;
   & a {
     color: #066093;
-    padding-left:3px;
+    padding-left: 3px;
   }
 
   @media (max-width: 768px) {
     width: 100%;
     line-height: 23px;
     justify-content: center;
+  }
+`;
+
+export const Block = styled.div`
+  width: 100%;
+  margin: 0 1rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin: 0 0.38rem;
+  }
+`;
+
+export const SignUpBtn = styled.button`
+  height: 40px;
+  background: #cddfc1;
+  border: 1px solid #cddfc1;
+  border-radius: 34px;
+  font-family: Lora;
+  font-size: 20px;
+  line-height: 30px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 0 32px;
+  color: #0d0d06;
+
+  @media (max-width: 768px) {
+    height: 45px;
+    width: 150px;
+    padding: 5px 35px;
+    margin-top: 1rem;
+  }
+`;
+
+export const AlreadyAccount = styled.div`
+  font-size: 17px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  justify-self: flex-end;
+  margin-top: 0.5rem;
+  & a {
+    color: #066093;
+    padding-left: 3px;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    line-height: 23px;
   }
 `;
