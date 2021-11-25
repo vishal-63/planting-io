@@ -8,6 +8,7 @@ export const TopbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: #fff;
   border-bottom: 2px solid #dddddd88;
 
   @media (min-width: 768px) {
