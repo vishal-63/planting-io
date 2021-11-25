@@ -1,7 +1,86 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import {
+  NavbarContainer,
+  NavlinkWrapper,
+  Navlink,
+  ButtonsContainer,
+  Button,
+  MobileMenu,
+} from "./NavbarElements";
+import logo from "../../Images/logo.svg";
 
 const Navbar = () => {
-  return <></>;
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrollNav, setScrollNav] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", () =>
+      window.scrollY >= "38" ? setScrollNav(true) : setScrollNav(false)
+    );
+  }, []);
+
+  return (
+    <NavbarContainer scrollNav={scrollNav}>
+      <img src={logo} alt="Planting.io Logo" />
+      <NavlinkWrapper className="desktop-menu">
+        <Navlink>
+          <Link to="/">Home</Link>
+        </Navlink>
+        <Navlink>
+          <Link to="/">About</Link>
+        </Navlink>
+        <Navlink>
+          <Link to="/">Shop</Link>
+        </Navlink>
+        <Navlink>
+          <Link to="/">Services</Link>
+        </Navlink>
+        <Navlink>
+          <Link to="/">Become A Seller</Link>
+        </Navlink>
+      </NavlinkWrapper>
+      <ButtonsContainer className="desktop-menu">
+        <Button>Login</Button>
+        <Button registerBtn={true}>Register</Button>
+      </ButtonsContainer>
+      <div className={isOpen ? "burger close-icon" : "burger"} onClick={toggle}>
+        <div className="line1"></div>
+        <div className="line2"></div>
+        <div className="line3"></div>
+      </div>
+      <MobileMenu isOpen={isOpen} scrollNav={scrollNav}>
+        <NavlinkWrapper className="mobile-menu">
+          <Navlink>
+            <Link to="/">Home</Link>
+          </Navlink>
+          <Navlink>
+            <Link to="/">About</Link>
+          </Navlink>
+          <Navlink>
+            <Link to="/">Shop</Link>
+          </Navlink>
+          <Navlink>
+            <Link to="/">Services</Link>
+          </Navlink>
+          <Navlink>
+            <Link to="/">Become A Seller</Link>
+          </Navlink>
+        </NavlinkWrapper>
+        <ButtonsContainer className="mobile-menu">
+          <Button className="mobile-menu">Login</Button>
+          <Button className="mobile-menu" registerBtn={true}>
+            Register
+          </Button>
+        </ButtonsContainer>
+      </MobileMenu>
+    </NavbarContainer>
+  );
 };
 
 export default Navbar;
