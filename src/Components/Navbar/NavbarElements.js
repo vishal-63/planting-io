@@ -138,7 +138,7 @@ export const Button = styled.button`
 
   &:hover {
     transition: all 0.3s ease;
-    box-shadow: 5px 5px 20px #7d9775aa;
+    box-shadow: 5px 5px 20px #7d977566;
   }
 
   &.mobile-menu {
