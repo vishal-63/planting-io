@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   LoginContainer,
   TabsContainer,
@@ -31,12 +32,12 @@ const LoginModal = () => {
           <Label className="label">Password</Label>
         </Wrapper>
         <ButtonContainer>
-          <ForgotPass href="/">Forgot Password?</ForgotPass>
+          <ForgotPass to="/">Forgot Password?</ForgotPass>
           <SignInBtn type="submit">Sign In</SignInBtn>
         </ButtonContainer>
       </FormContainer>
       <NewAccount>
-        New Member?<br/> <a href="/">Create Account</a>
+        New Member?<br/> <a to="/"> Create Account</a>
       </NewAccount>
     </LoginContainer>
   );
