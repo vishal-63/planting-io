@@ -134,12 +134,11 @@ export const Button = styled.button`
   border: 1.5px solid #7d9775;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease-in;
+  transition: all 0.3s ease;
 
   &:hover {
-    color: ${({ registerBtn }) => (registerBtn ? "#7d9775" : "#fff")};
-    background-color: ${({ registerBtn }) =>
-      registerBtn ? "#fff" : "#7d9775"};
+    transition: all 0.3s ease;
+    box-shadow: 5px 5px 20px #7d9775aa;
   }
 
   &.mobile-menu {
