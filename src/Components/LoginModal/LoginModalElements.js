@@ -21,6 +21,11 @@ export const LoginContainer = styled.div`
     padding: 20px 5px;
     text-align: center;
   }
+
+  @media (max-width: 768px) {
+    height: 575px;
+    width: 300px;
+  }
 `;
 
 export const TabsContainer = styled.div`
@@ -30,6 +35,10 @@ export const TabsContainer = styled.div`
   align-content: center;
   justify-content: space-around;
   margin: 5px 55px;
+
+  @media (max-width: 768px) {
+    margin: 5px 2px;
+  }
 `;
 
 export const Tab = styled.div`
@@ -38,6 +47,11 @@ export const Tab = styled.div`
   line-height: 31px;
   padding: 15px 10px;
   border-bottom: 5px solid #618925;
+
+  @media (max-width: 768px) {
+    font-size:19px;
+    margin:12px;
+  }
 `;
 
 export const FormContainer = styled.form`
@@ -77,16 +91,22 @@ export const ButtonContainer = styled.div`
   margin-top: 20px;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 
 export const ForgotPass = styled.a`
   padding: 12px;
   font-family: Poppins;
-  font-style: normal;
-  font-weight: normal;
   font-size: 17px;
   color: #066093;
   margin-left: 30px;
+
+  @media (max-width: 768px) {
+   font-size:16px;
+  }
 `;
 
 export const Label = styled.div`
@@ -114,6 +134,14 @@ export const SignInBtn = styled.button`
   padding: 0 32px;
   color: #0d0d06;
   margin-right: 40px;
+
+  @media (max-width: 768px) {
+    margin:25px 40px;
+    height:45px;
+    width:150px;
+    padding:5px 42px;
+    
+  }
 `;
 
 export const NewAccount = styled.div`
@@ -126,5 +154,13 @@ export const NewAccount = styled.div`
   align-items: center;
   & a {
     color: #066093;
+  }
+
+  @media (max-width: 768px) {
+    top:475px;
+    display:inline;
+    left:80px;
+    width:100%;
+    line-height:23px;
   }
 `;

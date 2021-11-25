@@ -31,12 +31,12 @@ const LoginModal = () => {
           <Label className="label">Password</Label>
         </Wrapper>
         <ButtonContainer>
-          <ForgotPass>Forgot Password?</ForgotPass>
+          <ForgotPass href="/">Forgot Password?</ForgotPass>
           <SignInBtn type="submit">Sign In</SignInBtn>
         </ButtonContainer>
       </FormContainer>
       <NewAccount>
-        New Member? <a href="/">Create Account</a>
+        New Member?<br/> <a href="/">Create Account</a>
       </NewAccount>
     </LoginContainer>
   );
