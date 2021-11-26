@@ -53,7 +53,7 @@ const Navbar = () => {
             <Link to="/">Services</Link>
           </Navlink>
           <Navlink>
-            <Link to="/">Become A Seller</Link>
+            <Link to="/nursery/register">Become A Seller</Link>
           </Navlink>
         </NavlinkWrapper>
         <ButtonsContainer className="desktop-menu">
@@ -85,7 +85,7 @@ const Navbar = () => {
               <Link to="/">Services</Link>
             </Navlink>
             <Navlink>
-              <Link to="/">Become A Seller</Link>
+              <Link to="/nursery/register">Become A Seller</Link>
             </Navlink>
           </NavlinkWrapper>
           <ButtonsContainer className="mobile-menu">

@@ -49,7 +49,7 @@ const LoginModal = ({ mode }) => {
             <Tab onClick={() => setFormMode("register")}>Register</Tab>
           </TabsContainer>
           <p>Please login using account detail below</p>
-          <FormContainer>
+          <FormContainer name="login">
             <Wrapper className="emailinput">
               <Input
                 spellcheck="false"
@@ -91,7 +91,7 @@ const LoginModal = ({ mode }) => {
             <Tab className="register">Register</Tab>
           </TabsContainer>
           <p>Enter your Account Details</p>
-          <FormContainer className="register">
+          <FormContainer className="register" name="register">
             <Block>
               <Wrapper className="register">
                 <Input
