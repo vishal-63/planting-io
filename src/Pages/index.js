@@ -1,9 +1,8 @@
 import React from "react";
 import LoginModal from "../Components/LoginModal";
-import Topbar from "../Components/Topbar";
 
 const Home = () => {
-  return <LoginModal />;
+  return <h1>Home</h1>;
 };
 
 export default Home;

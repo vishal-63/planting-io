@@ -15,6 +15,8 @@ export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 20;
+  background-color: #fff;
 
   & p {
     font-size: 17px;
@@ -26,16 +28,18 @@ export const LoginContainer = styled.div`
   @media (max-width: 768px) {
     height: 530px;
     width: 90vw;
-    padding: 1rem;
+    padding: 0 1rem;
 
     & p {
       padding: 1rem;
     }
 
     &.register {
-      height: 750px;
-      top: 15vh;
-      transform: translate(-50%, 0%);
+      /* height: 750px; */
+      scroll-behavior: auto;
+      overflow: scroll;
+      /* top: 15vh;
+      transform: translate(-50%, 0%); */
     }
   }
 `;
@@ -46,12 +50,8 @@ export const TabsContainer = styled.div`
   flex-wrap: nowrap;
   align-content: center;
   justify-content: space-around;
-  margin: 5px 0px;
+  margin: 0.5rem 0 0;
   width: 100%;
-
-  @media (max-width: 768px) {
-    margin: 5px 0px;
-  }
 `;
 
 export const Tab = styled.div`
@@ -59,7 +59,7 @@ export const Tab = styled.div`
   font-size: 30px;
   line-height: 31px;
   padding: 15px 10px;
-  cursor:pointer;
+  cursor: pointer;
 
   &.login,
   &.register {
@@ -75,13 +75,7 @@ export const FormContainer = styled.form`
   padding: 5px 1rem;
   width: 100%;
   display: flex;
-  flex-direction:column;
-
-  &.register{
-    @media (min-width: 768px){
-      flex-direction:row;
-    }
-  }
+  flex-direction: column;
 `;
 
 export const Wrapper = styled.div`
@@ -91,6 +85,14 @@ export const Wrapper = styled.div`
 
   & .emailinput {
     margin-top: 6px;
+  }
+
+  &.register {
+    width: 45%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
   }
 `;
 
@@ -104,7 +106,7 @@ export const Input = styled.input`
   font-size: 1rem;
   transition: all 0.35s;
   padding: 0px 1px;
-  margin: 0.5rem 0;
+  margin: 0.5rem 0 0;
 
   &:focus ~ .label,
   &.text ~ .label {
@@ -117,12 +119,20 @@ export const ButtonContainer = styled.div`
   margin-top: 25px;
   align-items: center;
   justify-content: space-between;
-  width: 90%;
+  /* width: 90%; */
+
+  &.register {
+    margin: 1rem 0.25rem;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
     margin-top: 1rem;
+
+    &.register {
+      flex-direction: column-reverse;
+    }
   }
 `;
 
@@ -171,21 +181,27 @@ export const NewAccount = styled.div`
   align-items: center;
   justify-self: flex-end;
   margin-top: 1.5rem;
-  & a {
+
+  & span {
     color: #066093;
     padding-left: 3px;
+    cursor: pointer;
   }
 
   @media (max-width: 768px) {
     width: 100%;
     line-height: 23px;
     justify-content: center;
+    margin-top: 3rem;
   }
 `;
 
 export const Block = styled.div`
   width: 100%;
-  margin: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* column-gap: 2rem; */
 
   @media (max-width: 768px) {
     width: 100%;
@@ -195,15 +211,14 @@ export const Block = styled.div`
 
 export const SignUpBtn = styled.button`
   height: 40px;
+  width: fit-content;
   background: #cddfc1;
   border: 1px solid #cddfc1;
   border-radius: 34px;
   font-family: Lora;
   font-size: 20px;
   line-height: 30px;
-  display: flex;
   text-align: center;
-  align-items: center;
   cursor: pointer;
   padding: 0 32px;
   color: #0d0d06;
@@ -212,7 +227,6 @@ export const SignUpBtn = styled.button`
     height: 45px;
     width: 150px;
     padding: 5px 35px;
-    margin-top: 1rem;
   }
 `;
 
@@ -222,14 +236,17 @@ export const AlreadyAccount = styled.div`
   display: flex;
   align-items: center;
   justify-self: flex-end;
-  margin-top: 0.5rem;
-  & a {
+  /* margin-top: 0.5rem; */
+
+  & span {
     color: #066093;
+    cursor: pointer;
     padding-left: 3px;
   }
 
   @media (max-width: 768px) {
     width: 100%;
     line-height: 23px;
+    margin-top: 1rem;
   }
 `;
