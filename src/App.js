@@ -9,8 +9,6 @@ function App() {
   return (
     <>
       <Router>
-        <Topbar />
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} exact />
           <Route path="/nursery/login" element={<NurseryLogin />} exact />
