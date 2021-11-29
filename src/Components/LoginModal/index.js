@@ -32,13 +32,21 @@ const LoginModal = ({ mode }) => {
 
   useEffect(() => {
     const closeModal = (e) => {
-      console.log("clicked");
       if (isOpen && ref.current && !ref.current.contains(e.target)) {
         setIsOpen(!isOpen);
       }
     };
     document.addEventListener("mousedown", closeModal);
   }, [isOpen]);
+
+  const apiCall = async () => {
+    const res = await fetch(
+      "http://localhost:8080/Planting.ioUser/registration",
+      { method: "POST" }
+    );
+    const body = await res.text();
+    console.log(body);
+  };
 
   return (
     <>
@@ -49,7 +57,7 @@ const LoginModal = ({ mode }) => {
             <Tab onClick={() => setFormMode("register")}>Register</Tab>
           </TabsContainer>
           <p>Please login using account detail below</p>
-          <FormContainer>
+          <FormContainer name="login">
             <Wrapper className="emailinput">
               <Input
                 spellcheck="false"
@@ -70,7 +78,7 @@ const LoginModal = ({ mode }) => {
               />
               <Label className="label">Password</Label>
             </Wrapper>
-            <ButtonContainer>
+            <ButtonContainer onClick={apiCall}>
               <ForgotPass to="/">Forgot Password?</ForgotPass>
               <SignInBtn type="submit">Sign In</SignInBtn>
             </ButtonContainer>
@@ -91,7 +99,7 @@ const LoginModal = ({ mode }) => {
             <Tab className="register">Register</Tab>
           </TabsContainer>
           <p>Enter your Account Details</p>
-          <FormContainer className="register">
+          <FormContainer className="register" name="register">
             <Block>
               <Wrapper className="register">
                 <Input

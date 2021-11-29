@@ -111,6 +111,7 @@ export const Input = styled.input`
   &:focus ~ .label,
   &.text ~ .label {
     transform: translate(0, -2.6rem) scale(1);
+    color: #618925;
   }
 `;
 
@@ -182,7 +183,8 @@ export const NewAccount = styled.div`
   justify-self: flex-end;
   margin-top: 1.5rem;
 
-  & span {
+  & span,
+  & a {
     color: #066093;
     padding-left: 3px;
     cursor: pointer;
@@ -238,7 +240,8 @@ export const AlreadyAccount = styled.div`
   justify-self: flex-end;
   /* margin-top: 0.5rem; */
 
-  & span {
+  & span,
+  & a {
     color: #066093;
     cursor: pointer;
     padding-left: 3px;
