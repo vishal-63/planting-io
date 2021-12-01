@@ -19,14 +19,18 @@ export const LoginContainer = styled.div`
   background-color: #fff;
 
   & p {
-    font-size: 17px;
+    font-size: 14px;
     line-height: 21px;
     padding: 20px 5px 10px;
     text-align: center;
+
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
   }
 
   @media (max-width: 768px) {
-    height: 530px;
+    height: auto;
     width: 90vw;
     padding: 0 1rem;
 
@@ -35,11 +39,10 @@ export const LoginContainer = styled.div`
     }
 
     &.register {
-      /* height: 750px; */
+      height: 530px;
       scroll-behavior: auto;
       overflow: scroll;
-      /* top: 15vh;
-      transform: translate(-50%, 0%); */
+      top: 50vh;
     }
   }
 `;
@@ -105,11 +108,29 @@ export const Input = styled.input`
   background: transparent;
   font-size: 1rem;
   transition: all 0.35s;
-  padding: 0px 1px;
-  margin: 0.5rem 0 0;
+  margin: 1.1rem 0 0;
+
+  &.invalid {
+    border-color: #dc3545;
+    background-color: rgb(220 53 69 / 25%);
+  }
+
+  &.invalid ~ .label,
+  &::placeholder,
+  &:-ms-input-placeholder,
+  &::-ms-input-placeholder {
+    color: #dc3545;
+  }
+
+  &::placeholder,
+  &:-ms-input-placeholder,
+  &::-ms-input-placeholder {
+    font-size: 0.75rem;
+  }
 
   &:focus ~ .label,
-  &.text ~ .label {
+  &.text ~ .label,
+  &.invalid ~ .label {
     transform: translate(0, -2.6rem) scale(1);
     color: #618925;
   }
@@ -138,8 +159,12 @@ export const ButtonContainer = styled.div`
 `;
 
 export const ForgotPass = styled(Link)`
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #066093;
+
+  @media (min-wdith: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 export const Label = styled.div`
@@ -176,7 +201,7 @@ export const SignInBtn = styled.button`
 `;
 
 export const NewAccount = styled.div`
-  font-size: 17px;
+  font-size: 16px;
   line-height: 21px;
   display: flex;
   align-items: center;
@@ -192,9 +217,9 @@ export const NewAccount = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
-    line-height: 23px;
+    font-size: 14px;
     justify-content: center;
-    margin-top: 3rem;
+    margin: 1.5rem;
   }
 `;
 
@@ -233,7 +258,7 @@ export const SignUpBtn = styled.button`
 `;
 
 export const AlreadyAccount = styled.div`
-  font-size: 17px;
+  font-size: 16px;
   line-height: 21px;
   display: flex;
   align-items: center;
@@ -251,5 +276,6 @@ export const AlreadyAccount = styled.div`
     width: 100%;
     line-height: 23px;
     margin-top: 1rem;
+    font-size: 14px;
   }
 `;

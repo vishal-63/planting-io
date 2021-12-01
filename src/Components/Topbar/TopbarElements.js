@@ -4,7 +4,7 @@ export const TopbarContainer = styled.div`
   max-width: 85vw;
   margin: 0 auto;
   width: 100%;
-  height: 4vh;
+  height: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,7 +12,7 @@ export const TopbarContainer = styled.div`
   border-bottom: 2px solid #dddddd88;
 
   @media (min-width: 768px) {
-    height: 5vh;
+    height: 40px;
   }
 `;
 

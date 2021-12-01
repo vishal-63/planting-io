@@ -32,7 +32,6 @@ const Navbar = () => {
     setIsOpen(false);
     setIsFormOpen(!isFormOpen);
     setFormMode(mode);
-    console.log(formMode);
   };
 
   return (

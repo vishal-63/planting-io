@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const NavbarContainer = styled.nav`
   width: 100%;
-  height: 8vh;
+  height: 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -148,10 +148,11 @@ export const Button = styled.button`
 
 export const MobileMenu = styled.div`
   position: fixed;
-  top: ${({ scrollNav }) => (scrollNav ? "7vh" : "11vh")};
+  top: ${({ scrollNav }) => (scrollNav ? "80px" : "110px")};
   right: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
   width: 60vw;
-  height: ${({ scrollNav }) => (scrollNav ? "93vh" : "89vh")};
+  height: ${({ scrollNav }) =>
+    scrollNav ? "calc(100vh - 80px)" : "calc(100vh - 110px)"};
   display: flex;
   flex-direction: column;
   justify-content: space-around;

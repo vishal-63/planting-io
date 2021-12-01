@@ -28,6 +28,7 @@ function inputChange(e) {
 const LoginModal = ({ mode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [formMode, setFormMode] = useState(`${mode}`);
+
   const ref = useRef();
 
   useEffect(() => {
@@ -39,15 +40,6 @@ const LoginModal = ({ mode }) => {
     document.addEventListener("mousedown", closeModal);
   }, [isOpen]);
 
-  const apiCall = async () => {
-    const res = await fetch(
-      "http://localhost:8080/Planting.ioUser/registration",
-      { method: "POST" }
-    );
-    const body = await res.text();
-    console.log(body);
-  };
-
   return (
     <>
       {isOpen && formMode === "login" ? (
@@ -57,7 +49,12 @@ const LoginModal = ({ mode }) => {
             <Tab onClick={() => setFormMode("register")}>Register</Tab>
           </TabsContainer>
           <p>Please login using account detail below</p>
-          <FormContainer name="login">
+
+          <FormContainer
+            name="login"
+            method="POST"
+            onSubmit={handleLoginSubmit}
+          >
             <Wrapper className="emailinput">
               <Input
                 spellcheck="false"
@@ -65,6 +62,7 @@ const LoginModal = ({ mode }) => {
                 name="email"
                 id="email"
                 onChange={inputChange}
+                required
               />
               <Label className="label">Email</Label>
             </Wrapper>
@@ -75,23 +73,26 @@ const LoginModal = ({ mode }) => {
                 name="password"
                 id="password"
                 onChange={inputChange}
+                required
               />
               <Label className="label">Password</Label>
             </Wrapper>
-            <ButtonContainer onClick={apiCall}>
+
+            <ButtonContainer>
               <ForgotPass to="/">Forgot Password?</ForgotPass>
               <SignInBtn type="submit">Sign In</SignInBtn>
             </ButtonContainer>
           </FormContainer>
+
           <NewAccount>
             New Member?
-            <br />{" "}
             <span onClick={() => setFormMode("register")}> Create Account</span>
           </NewAccount>
         </LoginContainer>
       ) : (
         <></>
       )}
+
       {isOpen && formMode === "register" ? (
         <LoginContainer className="register" ref={ref}>
           <TabsContainer>
@@ -99,6 +100,7 @@ const LoginModal = ({ mode }) => {
             <Tab className="register">Register</Tab>
           </TabsContainer>
           <p>Enter your Account Details</p>
+
           <FormContainer className="register" name="register">
             <Block>
               <Wrapper className="register">
@@ -162,6 +164,7 @@ const LoginModal = ({ mode }) => {
                 <Label className="label">Confirm Password</Label>
               </Wrapper>
             </Block>
+
             <ButtonContainer className="register">
               <AlreadyAccount>
                 Already a Member?
@@ -176,6 +179,58 @@ const LoginModal = ({ mode }) => {
       )}
     </>
   );
+};
+
+// input validation
+const validEmail = (input) => {
+  var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  if (validRegex.test(input.value)) {
+    input.classList.remove("invalid");
+    return true;
+  } else {
+    input.classList.add("invalid");
+    input.value = "";
+    input.placeholder = "Please enter valid email address";
+    return false;
+  }
+};
+
+const validPassword = (input) => {
+  var validRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/;
+  if (validRegex.test(input.value)) {
+    input.classList.remove("invalid");
+    return true;
+  } else {
+    input.classList.add("invalid");
+    input.value = "";
+    input.placeholder =
+      "Must have at least 8 characters and a lowercase,an uppercase letter and a digit";
+    return false;
+  }
+};
+
+// handle login form submit
+const handleLoginSubmit = (e) => {
+  e.preventDefault();
+  const inputs = document.querySelectorAll("form[name='login'] input");
+  const emailField = inputs[0];
+  const passwordField = inputs[1];
+  if (validEmail(emailField) && validPassword(passwordField)) loginUser(e);
+};
+
+// call api to login user
+const loginUser = async (e) => {
+  e.preventDefault();
+
+  const params = new URLSearchParams([...new FormData(e.target).entries()]);
+
+  const res = await fetch("/Planting.ioUser/registration", {
+    method: "POST",
+    body: params,
+  });
+  const body = await res.text();
+  console.log(body);
 };
 
 export default LoginModal;
