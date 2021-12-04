@@ -6,7 +6,7 @@ export const LoginContainer = styled.div`
   height: 450px;
   align-items: center;
   border-radius: 20px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

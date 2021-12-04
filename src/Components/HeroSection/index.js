@@ -28,7 +28,7 @@ function SampleNextArrow(props) {
         color: "#dadada",
         height: "1.5rem",
         width: "1.5rem",
-        right: "15px",
+        right: "20px",
       }}
       onClick={onClick}
     />
@@ -37,7 +37,6 @@ function SampleNextArrow(props) {
 
 function SamplePrevArrow(props) {
   const { className, onClick } = props;
-  // console.log(props);
   return (
     <BsFillArrowLeftCircleFill
       className={className}
@@ -56,7 +55,7 @@ function SamplePrevArrow(props) {
 const HeroSection = () => {
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -65,12 +64,19 @@ const HeroSection = () => {
   };
 
   const [bgImg, setBgImg] = useState(img1);
+  const [scrollNav, setScrollNav] = useState(false);
+
   useEffect(() => {
-    window.innerWidth < 900 ? setBgImg(imgMobile1) : setBgImg(img1);
+    window.addEventListener("resize", () =>
+      window.innerWidth < 900 ? setBgImg(imgMobile1) : setBgImg(img1)
+    );
+    window.addEventListener("scroll", () =>
+      window.scrollY >= 38 ? setScrollNav(true) : setScrollNav(false)
+    );
   }, [setBgImg]);
 
   return (
-    <HeroContainer>
+    <HeroContainer scrollNav={scrollNav}>
       <Slider {...settings}>
         <HeroSlideWrapper src={bgImg}>
           <HeroContent>

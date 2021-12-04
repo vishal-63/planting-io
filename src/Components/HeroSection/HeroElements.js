@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const HeroContainer = styled.section`
   height: calc(100vh - 110px);
   width: 100vw;
+  margin-top: ${({ scrollNav }) => (scrollNav ? "80px" : "0")};
 
   & .slick-slider,
   & .slick-slider div {

@@ -3,6 +3,7 @@ import LoginModal from "../Components/LoginModal";
 import Topbar from "../Components/Topbar";
 import Navbar from "../Components/Navbar";
 import HeroSection from "../Components/HeroSection";
+import InfoSection from "../Components/InfoSection";
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
       <Topbar />
       <Navbar />
       <HeroSection />
+      <InfoSection />
     </>
   );
 };

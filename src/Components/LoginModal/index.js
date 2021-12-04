@@ -224,6 +224,7 @@ const loginUser = async (e) => {
   e.preventDefault();
 
   const params = new URLSearchParams([...new FormData(e.target).entries()]);
+  console.log(params);
 
   const res = await fetch("/Planting.ioUser/registration", {
     method: "POST",
