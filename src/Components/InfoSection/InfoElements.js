@@ -71,6 +71,7 @@ export const PlantCard = styled.div`
   border-radius: 20px;
   padding: 0.25rem;
   transition: all 0.2s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     box-shadow: 0 0 0.75rem rgba(0, 0, 0, 0.4);

@@ -1,15 +1,37 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const Container = styled.section`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #dadada85;
+  z-index: 99;
+
+  & .close-button {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    height: 1.75rem;
+    width: 1.75rem;
+    cursor: pointer;
+  }
+`;
+
 export const LoginContainer = styled.div`
   width: 700px;
   height: 450px;
   align-items: center;
   border-radius: 20px;
-  position: fixed;
-  top: 50%;
+  /* position: fixed; */
+  /* top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   padding: 0 2rem;
   display: flex;

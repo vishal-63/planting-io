@@ -56,9 +56,11 @@ const HeroSection = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 750,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
@@ -67,9 +69,12 @@ const HeroSection = () => {
   const [scrollNav, setScrollNav] = useState(false);
 
   useEffect(() => {
+    // change background image based on the screen width
     window.addEventListener("resize", () =>
       window.innerWidth < 900 ? setBgImg(imgMobile1) : setBgImg(img1)
     );
+
+    // set scrollNav value based on the scroll position
     window.addEventListener("scroll", () =>
       window.scrollY >= 38 ? setScrollNav(true) : setScrollNav(false)
     );
