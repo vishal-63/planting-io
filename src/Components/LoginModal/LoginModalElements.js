@@ -108,6 +108,11 @@ export const Wrapper = styled.div`
   display: flex;
   height: 5rem;
 
+  &.textarea {
+    height: auto;
+    width: 100%;
+  }
+
   & .emailinput {
     margin-top: 6px;
   }
@@ -154,6 +159,22 @@ export const Input = styled.input`
   &.text ~ .label,
   &.invalid ~ .label {
     transform: translate(0, -2.6rem) scale(1);
+    color: #618925;
+  }
+`;
+
+export const TextArea = styled.textarea`
+  margin: 1.1rem 0 0;
+  height: 75px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #2e2a33;
+
+  &:focus ~ .label,
+  &.text ~ .label,
+  &.invalid ~ .label {
+    transform: translate(0, -3.2rem) scale(1);
     color: #618925;
   }
 `;
@@ -206,29 +227,38 @@ export const SignInBtn = styled.button`
   border-radius: 34px;
   font-family: Lora;
   font-size: 20px;
-  line-height: 30px;
   display: flex;
   text-align: center;
   align-items: center;
   cursor: pointer;
-  padding: 0 32px;
+  padding: 0 2rem;
   color: #0d0d06;
 
   @media (max-width: 768px) {
-    height: 45px;
-    width: 150px;
-    padding: 5px 42px;
+    padding: 0.4rem 2rem;
     margin-top: 1rem;
+
+    &.nursery-page {
+      margin: 0;
+    }
+  }
+
+  &.verify {
+    width: auto;
+    align-self: flex-end;
   }
 `;
 
 export const NewAccount = styled.div`
   font-size: 16px;
-  line-height: 21px;
   display: flex;
   align-items: center;
-  justify-self: flex-end;
   margin-top: 1.5rem;
+
+  &.nursery-page {
+    margin: 1rem 0 0 0;
+    justify-content: flex-start;
+  }
 
   & span,
   & a {

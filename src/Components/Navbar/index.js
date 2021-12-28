@@ -8,11 +8,12 @@ import {
   ButtonsContainer,
   Button,
   MobileMenu,
+  NavImg,
 } from "./NavbarElements";
 import logo from "../../Images/logo.svg";
 import LoginModal from "../LoginModal";
 
-const Navbar = () => {
+export const UserNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollNav, setScrollNav] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -37,7 +38,7 @@ const Navbar = () => {
   return (
     <>
       <NavbarContainer scrollNav={scrollNav}>
-        <img src={logo} alt="Planting.io Logo" />
+        <NavImg src={logo} alt="Planting.io Logo" />
         <NavlinkWrapper className="desktop-menu">
           <Navlink>
             <Link to="/">Home</Link>
@@ -106,4 +107,83 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export const NurseryNavbar = ({ page }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrollNav, setScrollNav] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", () =>
+      window.scrollY >= "40" ? setScrollNav(true) : setScrollNav(false)
+    );
+  }, []);
+
+  return (
+    <NavbarContainer scrollNav={scrollNav} className="nursery-page">
+      <NavImg src={logo} alt="Planting.io Logo" />
+      {page == "home" ? (
+        <>
+          <NavlinkWrapper className="desktop-menu">
+            <Navlink>
+              <a href="#">How it works?</a>
+            </Navlink>
+            <Navlink>
+              <a href="#">Pricing & Commission</a>
+            </Navlink>
+            <Navlink>
+              <a href="#">Shipping & Returns</a>
+            </Navlink>
+          </NavlinkWrapper>
+          <ButtonsContainer className="desktop-menu">
+            <Button className="nursery-page">
+              <Link to="/nursery/login">Login</Link>
+            </Button>
+            <Button className="nursery-page" registerBtn={true}>
+              <Link to="/nursery/register">Start Selling</Link>
+            </Button>
+          </ButtonsContainer>
+          <div
+            className={isOpen ? "burger close-icon" : "burger"}
+            onClick={toggle}
+          >
+            <div className="line1"></div>
+            <div className="line2"></div>
+            <div className="line3"></div>
+          </div>
+          <MobileMenu isOpen={isOpen} scrollNav={scrollNav}>
+            <NavlinkWrapper className="mobile-menu">
+              <Navlink>
+                <a href="#">How it works?</a>
+              </Navlink>
+              <Navlink>
+                <a href="#">Pricing & Commission</a>
+              </Navlink>
+              <Navlink>
+                <a href="#">Shipping & Returns</a>
+              </Navlink>
+            </NavlinkWrapper>
+            <ButtonsContainer className="mobile-menu">
+              <Button className="nursery-page">
+                <Link to="/nursery/login">Login</Link>
+              </Button>
+              <Button className="nursery-page" registerBtn={true}>
+                <Link to="/nursery/register">Start Selling</Link>
+              </Button>
+            </ButtonsContainer>
+          </MobileMenu>
+        </>
+      ) : (
+        page == "login" && (
+          <ButtonsContainer>
+            <Button className="nursery-page" registerBtn={true}>
+              <Link to="/nursery/register">Start Selling</Link>
+            </Button>
+          </ButtonsContainer>
+        )
+      )}
+    </NavbarContainer>
+  );
+};

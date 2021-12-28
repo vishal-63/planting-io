@@ -17,6 +17,12 @@ export const NavbarContainer = styled.nav`
 
   @media (min-width: 768px) {
     padding: 0 6.5vw;
+
+    &.nursery-page {
+      max-width: 80vw;
+      margin: 0 auto;
+      padding: 1rem;
+    }
   }
 
   & .burger {
@@ -58,6 +64,12 @@ export const NavbarContainer = styled.nav`
       width: 25px;
       transform: translateY(-8px);
     }
+  }
+`;
+
+export const NavImg = styled.img`
+  @media (max-width: 768px) {
+    width: 150px;
   }
 `;
 
@@ -143,6 +155,25 @@ export const Button = styled.button`
 
   &.mobile-menu {
     padding: 0.5rem 2rem;
+    /* padding: 0.3rem ${({ registerBtn }) =>
+      registerBtn ? "1rem" : ".8rem"}; */
+  }
+
+  &.nursery-page {
+    color: ${({ registerBtn }) => (registerBtn ? "#fff" : "#28C274")};
+    background-color: ${({ registerBtn }) =>
+      registerBtn ? "#28C274" : "#fff"};
+    border-color: #28c274;
+    border-radius: 25px;
+
+    @media (max-width: 768px) {
+      font-size: 0.8rem;
+    }
+
+    &:hover {
+      transition: all 0.3s ease;
+      box-shadow: 5px 5px 20px #28c27440;
+    }
   }
 `;
 

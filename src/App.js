@@ -1,7 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages";
-import Topbar from "./Components/Topbar";
-import Navbar from "./Components/Navbar";
 import NurseryLogin from "./Pages/nursery/login";
 import NurseryRegister from "./Pages/nursery/register";
 
