@@ -3,20 +3,15 @@ import styled from "styled-components";
 export const MainContainer = styled.main`
   max-width: 80vw;
   height: calc(
-    100vh - 80px - 1rem
-  ); /* 80px for the navbar and 2rem for margin*/
+    100vh - 60px - 1rem
+  ); /* 60px for the navbar and 2rem for margin*/
+  width: 100%;
+  max-width: 90vw;
   margin: 1rem auto 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
-  @media (min-width: 768px) {
-    margin-top: 2rem;
-    height: calc(
-      100vh - 80px - 2rem
-    ); /* 80px for the navbar and 2rem for margin*/
-  }
 `;
 
 export const Title = styled.h2`
@@ -47,10 +42,10 @@ export const ContentWrapper = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem 1rem;
+  margin: 1rem 0;
 
   @media (min-width: 769px) {
-    margin: 2rem auto;
+    margin: 1.5rem auto;
     flex-direction: row;
   }
 
@@ -195,7 +190,7 @@ export const CustomOptions = styled.div`
   top: 100%;
   left: 0;
   right: 0;
-  background-color: #fafafa;
+  background-color: #dfdfdf;
   transition: all 0.3s;
   opacity: 0;
   visibility: hidden;
@@ -211,13 +206,24 @@ export const CustomOption = styled.span`
   cursor: pointer;
   transition: all 0.4s;
   padding: 0.75rem 0.5rem;
+  background-color: #eee;
 
   &:hover {
-    background-color: #ddd;
+    background-color: #a1e4c2;
   }
 
   &.selected {
     color: #fff;
     background-color: #28c274;
+  }
+`;
+
+export const FileInputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
   }
 `;

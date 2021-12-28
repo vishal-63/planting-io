@@ -53,7 +53,7 @@ export const UserNavbar = () => {
             <Link to="/">Services</Link>
           </Navlink>
           <Navlink>
-            <Link to="/nursery/register">Become A Seller</Link>
+            <Link to="/nursery">Become A Seller</Link>
           </Navlink>
         </NavlinkWrapper>
         <ButtonsContainer className="desktop-menu">
@@ -123,7 +123,9 @@ export const NurseryNavbar = ({ page }) => {
 
   return (
     <NavbarContainer scrollNav={scrollNav} className="nursery-page">
-      <NavImg src={logo} alt="Planting.io Logo" />
+      <Link to="/nursery">
+        <NavImg src={logo} alt="Planting.io Logo" />
+      </Link>
       {page == "home" ? (
         <>
           <NavlinkWrapper className="desktop-menu">

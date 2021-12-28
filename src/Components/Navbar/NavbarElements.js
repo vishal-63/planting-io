@@ -15,13 +15,22 @@ export const NavbarContainer = styled.nav`
   box-shadow: ${({ scrollNav }) =>
     scrollNav ? "0 5px 20px rgba(0,0,0,0.2)" : ""};
 
+  &.nursery-page {
+    height: 60px;
+  }
+
   @media (min-width: 768px) {
     padding: 0 6.5vw;
 
     &.nursery-page {
-      max-width: 80vw;
       margin: 0 auto;
       padding: 1rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    &.nursery-page {
+      max-width: 80vw;
     }
   }
 
@@ -115,6 +124,12 @@ export const NavlinkWrapper = styled.ul`
 export const Navlink = styled.li`
   font-size: 1rem;
   line-height: 1.2rem;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
+  }
 `;
 
 export const ButtonsContainer = styled.div`
@@ -155,8 +170,6 @@ export const Button = styled.button`
 
   &.mobile-menu {
     padding: 0.5rem 2rem;
-    /* padding: 0.3rem ${({ registerBtn }) =>
-      registerBtn ? "1rem" : ".8rem"}; */
   }
 
   &.nursery-page {

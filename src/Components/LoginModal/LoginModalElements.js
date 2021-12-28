@@ -257,7 +257,7 @@ export const NewAccount = styled.div`
 
   &.nursery-page {
     margin: 1rem 0 0 0;
-    justify-content: flex-start;
+    align-self: center;
   }
 
   & span,

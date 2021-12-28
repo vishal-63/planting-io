@@ -30,6 +30,7 @@ import {
   Select,
   CustomOptions,
   CustomOption,
+  FileInputWrapper,
 } from "../../Components/NurseryFormElements";
 import { NurseryNavbar } from "../../Components/Navbar";
 
@@ -46,14 +47,14 @@ const NurseryLogin = () => {
   const [step, setStep] = useState("registration");
   const [selectedOption, setSelectedOption] = useState("");
 
-  useEffect(() => {
-    step === "verification" ? setActiveStep(true) : setActiveStep(false);
-  }, [step]);
+  // useEffect(() => {
+  //   step === "verification" ? setActiveStep(true) : setActiveStep(false);
+  // }, [step]);
 
   const changeStep = () => {
     setActiveStep(true);
     setStep("verfication");
-    console.log(step);
+    console.log(step, activeStep);
   };
 
   const openDropdown = (e) => {
@@ -78,7 +79,13 @@ const NurseryLogin = () => {
     <>
       <NurseryNavbar />
       <MainContainer>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <Title>Welcome To Planting.io</Title>
           <Subtitle>Create Your Account To Start Selling</Subtitle>
           <Steps>
@@ -202,20 +209,24 @@ const NurseryLogin = () => {
                       </CustomOptions>
                     </Select>
                   </SelectWrapper>
-                  <input
-                    type="file"
-                    accept="image/jpeg, image/png, image/jpg"
-                    name="front-photo"
-                    id="front-photo"
-                    style={{ marginTop: "1rem" }}
-                  />
-                  <input
-                    type="file"
-                    accept="image/jpeg, image/png, image/jpg"
-                    name="back-photo"
-                    id="back-photo"
-                    style={{ margin: "1rem 0" }}
-                  />
+                  <FileInputWrapper>
+                    <span>Document Photo (Front)</span>
+                    <input
+                      type="file"
+                      accept="image/jpeg, image/png, image/jpg"
+                      name="front-photo"
+                      id="front-photo"
+                    />
+                  </FileInputWrapper>
+                  <FileInputWrapper>
+                    <span>Document Photo (Back)</span>
+                    <input
+                      type="file"
+                      accept="image/jpeg, image/png, image/jpg"
+                      name="back-photo"
+                      id="back-photo"
+                    />
+                  </FileInputWrapper>
 
                   <SignInBtn className="verify">Verify</SignInBtn>
                 </FormContainer>
