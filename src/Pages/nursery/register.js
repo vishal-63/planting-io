@@ -139,10 +139,60 @@ const NurseryLogin = () => {
                       />
                       <Label className="label">Phone</Label>
                     </Wrapper>
-                    <Wrapper className="textarea">
-                      <TextArea rows="3" onChange={inputChange}></TextArea>
+                    <Wrapper style={{ width: "100%" }}>
+                      <Input
+                        spellcheck="false"
+                        type="text"
+                        name="address"
+                        id="address"
+                        onChange={inputChange}
+                      />
                       <Label className="label">Address</Label>
                     </Wrapper>
+                    <Wrapper className="register">
+                      <Input
+                        spellcheck="false"
+                        type="text"
+                        name="city"
+                        id="city"
+                        onChange={inputChange}
+                      />
+                      <Label className="label">City</Label>
+                    </Wrapper>
+                    <Wrapper className="register">
+                      <Input
+                        spellcheck="false"
+                        type="number"
+                        name="pincode"
+                        id="pincode"
+                        onChange={inputChange}
+                      />
+                      <Label className="label">Pin Code</Label>
+                    </Wrapper>
+                    <Wrapper className="register">
+                      <Input
+                        spellcheck="false"
+                        type="text"
+                        name="state"
+                        id="state"
+                        onChange={inputChange}
+                      />
+                      <Label className="label">State</Label>
+                    </Wrapper>
+                    <Wrapper className="register">
+                      <Input
+                        spellcheck="false"
+                        type="text"
+                        name="country"
+                        id="country"
+                        onChange={inputChange}
+                      />
+                      <Label className="label">Country</Label>
+                    </Wrapper>
+                    {/* <Wrapper className="textarea">
+                      <TextArea rows="3" onChange={inputChange}></TextArea>
+                      <Label className="label">Address</Label>
+                    </Wrapper> */}
                     <Wrapper className="register">
                       <Input
                         spellcheck="false"

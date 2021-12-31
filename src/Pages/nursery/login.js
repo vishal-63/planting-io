@@ -67,7 +67,9 @@ const NurseryLogin = () => {
               </Wrapper>
               <ButtonContainer>
                 <ForgotPass to="/">Forgot Password?</ForgotPass>
-                <SignInBtn type="submit">Sign In</SignInBtn>
+                <SignInBtn>
+                  <Link to="/nursery/dashboard">Sign In</Link>
+                </SignInBtn>
               </ButtonContainer>
             </FormContainer>
             <NewAccount style={{ justifyContent: "center" }}>

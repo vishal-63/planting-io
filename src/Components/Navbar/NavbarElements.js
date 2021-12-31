@@ -102,21 +102,23 @@ export const NavlinkWrapper = styled.ul`
   }
 
   &.mobile-menu {
-    height: 40%;
     flex-direction: column;
-    justify-content: space-around;
     align-items: flex-end;
+    gap: 2rem;
 
     & li {
       font-size: 1rem;
       padding-bottom: 0.75rem;
       padding-left: 0.5rem;
-      border-bottom: 1px solid #7d7d7d;
 
       @media (min-width: 375px) {
         font-size: 1.25rem;
         padding-bottom: 1rem;
       }
+    }
+
+    & li.nursery-page {
+      font-size: 1rem;
     }
   }
 `;
@@ -180,7 +182,8 @@ export const Button = styled.button`
     border-radius: 25px;
 
     @media (max-width: 768px) {
-      font-size: 0.8rem;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.8rem;
     }
 
     &:hover {
@@ -206,4 +209,9 @@ export const MobileMenu = styled.div`
   box-shadow: -2px 18px 15px rgba(0, 0, 0, 0.55);
   z-index: 10;
   transition: all 0.2s;
+
+  &.nursery-page {
+    top: 60px;
+    height: calc(100vh - 60px);
+  }
 `;

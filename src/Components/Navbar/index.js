@@ -85,7 +85,7 @@ export const UserNavbar = () => {
               <Link to="/">Services</Link>
             </Navlink>
             <Navlink>
-              <Link to="/nursery/register">Become A Seller</Link>
+              <Link to="/nursery">Become A Seller</Link>
             </Navlink>
           </NavlinkWrapper>
           <ButtonsContainer className="mobile-menu">
@@ -155,15 +155,19 @@ export const NurseryNavbar = ({ page }) => {
             <div className="line2"></div>
             <div className="line3"></div>
           </div>
-          <MobileMenu isOpen={isOpen} scrollNav={scrollNav}>
+          <MobileMenu
+            isOpen={isOpen}
+            scrollNav={scrollNav}
+            className="nursery-page"
+          >
             <NavlinkWrapper className="mobile-menu">
-              <Navlink>
+              <Navlink className="nursery-page">
                 <a href="#">How it works?</a>
               </Navlink>
-              <Navlink>
+              <Navlink className="nursery-page">
                 <a href="#">Pricing & Commission</a>
               </Navlink>
-              <Navlink>
+              <Navlink className="nursery-page">
                 <a href="#">Shipping & Returns</a>
               </Navlink>
             </NavlinkWrapper>
