@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.section`
   width: 50vw;
@@ -69,22 +70,22 @@ const DashboardMenu = ({ activePage, menuOpen }) => {
     <Container menuOpen={menuOpen}>
       <List>
         <ListItem className={activePage === "dashboard" ? "active" : ""}>
-          Dashboard
+          <Link to="/nursery/dashboard">Dashboard</Link>
         </ListItem>
         <ListItem className={activePage === "add-products" ? "active" : ""}>
-          Add Products
+          <Link to="/nursery/dashboard">Add Products</Link>
         </ListItem>
         <ListItem className={activePage === "add-services" ? "active" : ""}>
-          Add Services
+          <Link to="/nursery/dashboard">Add Services</Link>
         </ListItem>
         <ListItem className={activePage === "order-list" ? "active" : ""}>
-          Order List
+          <Link to="/nursery/dashboard/order-list">Order List</Link>
         </ListItem>
         <ListItem className={activePage === "manage-products" ? "active" : ""}>
-          Manage Products
+          <Link to="/nursery/dashboard">Manage Products</Link>
         </ListItem>
         <ListItem className={activePage === "manage-services" ? "active" : ""}>
-          Manage Services
+          <Link to="/nursery/dashboard">Manage Services</Link>
         </ListItem>
       </List>
     </Container>

@@ -219,27 +219,19 @@ export const DashboardTable = styled.table`
   border-spacing: 0;
   overflow: scroll;
 
-  @media (max-width: 540px) {
-    width: 150%;
-
-    &.recent-orders {
-      width: 200%;
-    }
+  @media (max-width: 900px) {
+    width: max-content;
   }
 
   & th,
   td {
     border-bottom: 1px solid #dadada;
-    padding: 0.75rem 0 0.5rem;
+    padding: 0.75rem 0.5rem;
   }
 
   & th {
     text-align: left;
     color: #000;
-  }
-
-  & td {
-    color: #444;
   }
 `;
 
@@ -250,16 +242,18 @@ export const DashboardTableStatus = styled.div`
   padding: 0.2rem 0.5rem;
   border-radius: 10px;
 
-  &.recieved {
+  &.received {
     background-color: #ff9666;
   }
 
   &.completed,
-  &.delivered {
+  &.delivered,
+  &.payment.received {
     background-color: #29db2d;
   }
 
-  &.shipping {
+  &.shipping,
+  &.payment.pending {
     background-color: #669aff;
   }
 `;

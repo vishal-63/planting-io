@@ -195,42 +195,46 @@ const DashboardItems = () => {
       <DashboardCard className="most-purchased">
         <DashboardCardTitle>Most Purchased Items</DashboardCardTitle>
         <DashboardTable>
-          <tr>
-            <th>Product</th>
-            <th>ID</th>
-            <th>Category</th>
-            <th>Quantity</th>
-          </tr>
-          <tr>
-            <td>Jade Plant Mini</td>
-            <td>#11013</td>
-            <td>Plants</td>
-            <td>22</td>
-          </tr>
-          <tr>
-            <td>Monstera Deliciosa Plant</td>
-            <td>#11017</td>
-            <td>Plants</td>
-            <td>13</td>
-          </tr>
-          <tr>
-            <td>Italian Basil Seeds</td>
-            <td>#21045</td>
-            <td>Seeds</td>
-            <td>43</td>
-          </tr>
-          <tr>
-            <td>Garden Maintenance</td>
-            <td>#40156</td>
-            <td>Services</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>Double Prong Weeder</td>
-            <td>#32078</td>
-            <td>Tools</td>
-            <td>07</td>
-          </tr>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>ID</th>
+              <th>Category</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Jade Plant Mini</td>
+              <td>#11013</td>
+              <td>Plants</td>
+              <td>22</td>
+            </tr>
+            <tr>
+              <td>Monstera Deliciosa Plant</td>
+              <td>#11017</td>
+              <td>Plants</td>
+              <td>13</td>
+            </tr>
+            <tr>
+              <td>Italian Basil Seeds</td>
+              <td>#21045</td>
+              <td>Seeds</td>
+              <td>43</td>
+            </tr>
+            <tr>
+              <td>Garden Maintenance</td>
+              <td>#40156</td>
+              <td>Services</td>
+              <td>10</td>
+            </tr>
+            <tr>
+              <td>Double Prong Weeder</td>
+              <td>#32078</td>
+              <td>Tools</td>
+              <td>07</td>
+            </tr>
+          </tbody>
         </DashboardTable>
       </DashboardCard>
 
@@ -238,74 +242,78 @@ const DashboardItems = () => {
       <DashboardCard className="recent-orders">
         <DashboardCardTitle>Recent Orders</DashboardCardTitle>
         <DashboardTable className="recent-orders">
-          <tr>
-            <th>Product</th>
-            <th>Order ID</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Total Amount</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <td>Areca Palm Plant</td>
-            <td>#60234</td>
-            <td>Plants</td>
-            <td>3</td>
-            <td>1197</td>
-            <td>
-              <DashboardTableStatus className="recieved">
-                Recieved
-              </DashboardTableStatus>
-            </td>
-          </tr>
-          <tr>
-            <td>Peace Lily Plant</td>
-            <td>#60232</td>
-            <td>Plants</td>
-            <td>2</td>
-            <td>690</td>
-            <td>
-              <DashboardTableStatus className="recieved">
-                Recieved
-              </DashboardTableStatus>
-            </td>
-          </tr>
-          <tr>
-            <td>Garden Setup</td>
-            <td>#60231</td>
-            <td>Services</td>
-            <td>1</td>
-            <td>999</td>
-            <td>
-              <DashboardTableStatus className="completed">
-                Completed
-              </DashboardTableStatus>
-            </td>
-          </tr>
-          <tr>
-            <td>X826 Five Way Dial Plastic Hose Nozzle</td>
-            <td>#60235</td>
-            <td>Tools</td>
-            <td>1</td>
-            <td>199</td>
-            <td>
-              <DashboardTableStatus className="shipping">
-                Shipping
-              </DashboardTableStatus>
-            </td>
-          </tr>
-          <tr>
-            <td>Italian Basil Seeds</td>
-            <td>#60237</td>
-            <td>Seeds</td>
-            <td>3</td>
-            <td>246</td>
-            <td>
-              <DashboardTableStatus className="delivered">
-                Delivered
-              </DashboardTableStatus>
-            </td>
-          </tr>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Order ID</th>
+              <th>Category</th>
+              <th>Quantity</th>
+              <th>Total Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Areca Palm Plant</td>
+              <td>#60234</td>
+              <td>Plants</td>
+              <td>3</td>
+              <td>1197</td>
+              <td>
+                <DashboardTableStatus className="received">
+                  Recieved
+                </DashboardTableStatus>
+              </td>
+            </tr>
+            <tr>
+              <td>Peace Lily Plant</td>
+              <td>#60232</td>
+              <td>Plants</td>
+              <td>2</td>
+              <td>690</td>
+              <td>
+                <DashboardTableStatus className="received">
+                  Recieved
+                </DashboardTableStatus>
+              </td>
+            </tr>
+            <tr>
+              <td>Garden Setup</td>
+              <td>#60231</td>
+              <td>Services</td>
+              <td>1</td>
+              <td>999</td>
+              <td>
+                <DashboardTableStatus className="completed">
+                  Completed
+                </DashboardTableStatus>
+              </td>
+            </tr>
+            <tr>
+              <td>X826 Five Way Dial Plastic Hose Nozzle</td>
+              <td>#60235</td>
+              <td>Tools</td>
+              <td>1</td>
+              <td>199</td>
+              <td>
+                <DashboardTableStatus className="shipping">
+                  Shipping
+                </DashboardTableStatus>
+              </td>
+            </tr>
+            <tr>
+              <td>Italian Basil Seeds</td>
+              <td>#60237</td>
+              <td>Seeds</td>
+              <td>3</td>
+              <td>246</td>
+              <td>
+                <DashboardTableStatus className="delivered">
+                  Delivered
+                </DashboardTableStatus>
+              </td>
+            </tr>
+          </tbody>
         </DashboardTable>
       </DashboardCard>
     </Container>
