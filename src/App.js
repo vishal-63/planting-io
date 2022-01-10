@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages";
 import NurseryHomePage from "./Pages/nursery";
+import AddProduct from "./Pages/nursery/dashboard/add-product";
+import AddServices from "./Pages/nursery/dashboard/add-services";
 import Dashboard from "./Pages/nursery/dashboard/index.js";
 import OrderList from "./Pages/nursery/dashboard/order-list";
 import NurseryLogin from "./Pages/nursery/login";
@@ -19,6 +21,16 @@ function App() {
           <Route
             path="/nursery/dashboard/order-list"
             element={<OrderList />}
+            exact
+          />
+          <Route
+            path="/nursery/dashboard/add-product"
+            element={<AddProduct />}
+            exact
+          />
+          <Route
+            path="/nursery/dashboard/add-services"
+            element={<AddServices />}
             exact
           />
         </Routes>

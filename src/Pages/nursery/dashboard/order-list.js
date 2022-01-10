@@ -25,9 +25,10 @@ const Container = styled.section`
 `;
 
 const Title = styled.h4`
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #444;
   font-weight: 500;
+  margin: 1rem;
 `;
 
 const Icon = styled.span`
