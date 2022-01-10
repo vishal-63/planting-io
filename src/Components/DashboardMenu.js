@@ -82,10 +82,10 @@ const DashboardMenu = ({ activePage, menuOpen }) => {
           <Link to="/nursery/dashboard/order-list">Order List</Link>
         </ListItem>
         <ListItem className={activePage === "manage-products" ? "active" : ""}>
-          <Link to="/nursery/dashboard">Manage Products</Link>
+          <Link to="/nursery/dashboard/manage-products">Manage Products</Link>
         </ListItem>
         <ListItem className={activePage === "manage-services" ? "active" : ""}>
-          <Link to="/nursery/dashboard">Manage Services</Link>
+          <Link to="/nursery/dashboard/manage-services">Manage Services</Link>
         </ListItem>
       </List>
     </Container>

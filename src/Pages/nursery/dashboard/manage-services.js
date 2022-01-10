@@ -44,7 +44,7 @@ const Title = styled.h4`
   margin: 1rem;
 `;
 
-const ManageProducts = () => {
+const ManageServices = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -75,51 +75,56 @@ const ManageProducts = () => {
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu activePage="manage-products" menuOpen={menuOpen} />
+      <DashboardMenu activePage="manage-services" menuOpen={menuOpen} />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
-          <Title>Add Products</Title>
+          <Title>Add Services</Title>
           <AddProductsForm>
             <Wrapper1>
-              <Label>Product Name</Label>
-              <Input spellcheck="false" type="text" name="productName" />
+              <Label>Services Name</Label>
+              <Input spellcheck="false" type="text" name="serviceName" />
             </Wrapper1>
             <Wrapper1>
               <SelectWrapper className="select-wrapper" onClick={openDropdown}>
-                <SelectLabel style={{ top: "0" }}>Product Type</SelectLabel>
+                <SelectLabel style={{ top: "0" }}>Service Type</SelectLabel>
                 <Select className="select">
                   <SelectTrigger style={{ height: "73px" }}>
                     <span style={{ paddingTop: "1rem" }}>{selectedOption}</span>
                     <IoIosArrowDown />
                   </SelectTrigger>
                   <CustomOptions className="custom-options">
-                    <CustomOption data-value="Plant" onClick={changeSelection}>
-                      Plant
+                    <CustomOption
+                      data-value="gardenSetup"
+                      onClick={changeSelection}
+                    >
+                      Garden Setup
                     </CustomOption>
-                    <CustomOption data-value="Seed" onClick={changeSelection}>
-                      Seed
+                    <CustomOption
+                      data-value="maintenance"
+                      onClick={changeSelection}
+                    >
+                      Maintenance
                     </CustomOption>
-                    <CustomOption data-value="Tool" onClick={changeSelection}>
-                      Tool
+                    <CustomOption
+                      data-value="gardenClearance"
+                      onClick={changeSelection}
+                    >
+                      Garden Clearance
                     </CustomOption>
                   </CustomOptions>
                 </Select>
               </SelectWrapper>
             </Wrapper1>
             <Wrapper1>
-              <Label>Product Price</Label>
+              <Label>Service Rate</Label>
               <Input spellcheck="false" type="text" name="productPrice" />
             </Wrapper1>
             <Wrapper1>
-              <Label>Product Discount</Label>
+              <Label>Service Discount</Label>
               <Input spellcheck="false" type="text" name="productDiscount" />
             </Wrapper1>
-            <Wrapper1>
-              <Label>Quantity</Label>
-              <Input spellcheck="false" type="text" name="quantity" />
-            </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
-              <Label>Product Description</Label>
+              <Label>Service Description</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
@@ -133,4 +138,4 @@ const ManageProducts = () => {
   );
 };
 
-export default ManageProducts;
+export default ManageServices;

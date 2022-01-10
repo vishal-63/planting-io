@@ -4,6 +4,9 @@ import NurseryHomePage from "./Pages/nursery";
 import AddProduct from "./Pages/nursery/dashboard/add-product";
 import AddServices from "./Pages/nursery/dashboard/add-services";
 import Dashboard from "./Pages/nursery/dashboard/index.js";
+import ManageProducts from "./Pages/nursery/dashboard/manage-product";
+import ManageProduct from "./Pages/nursery/dashboard/manage-product";
+import ManageServices from "./Pages/nursery/dashboard/manage-services";
 import OrderList from "./Pages/nursery/dashboard/order-list";
 import NurseryLogin from "./Pages/nursery/login";
 import NurseryRegister from "./Pages/nursery/register";
@@ -31,6 +34,16 @@ function App() {
           <Route
             path="/nursery/dashboard/add-services"
             element={<AddServices />}
+            exact
+          />
+          <Route
+            path="/nursery/dashboard/manage-products"
+            element={<ManageProducts />}
+            exact
+          />
+          <Route
+            path="/nursery/dashboard/manage-services"
+            element={<ManageServices />}
             exact
           />
         </Routes>
