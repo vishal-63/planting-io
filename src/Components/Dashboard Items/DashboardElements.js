@@ -60,7 +60,7 @@ export const DashboardCard = styled.div`
 
   & canvas.earnings {
     height: 200px !important;
-    width: 200px !important;
+    /* width: 100% !important; */
     margin: 1rem auto auto;
   }
 
