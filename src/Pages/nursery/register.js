@@ -189,10 +189,6 @@ const NurseryLogin = () => {
                       />
                       <Label className="label">Country</Label>
                     </Wrapper>
-                    {/* <Wrapper className="textarea">
-                      <TextArea rows="3" onChange={inputChange}></TextArea>
-                      <Label className="label">Address</Label>
-                    </Wrapper> */}
                     <Wrapper className="register">
                       <Input
                         spellcheck="false"

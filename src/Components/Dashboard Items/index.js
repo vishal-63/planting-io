@@ -84,6 +84,8 @@ const DashboardItems = () => {
             ],
           }}
           options={{
+            radius: 5,
+            hitRadius: 10,
             maintainAspectRatio: false,
             responsive: true,
             plugins: { legend: { display: false } },
@@ -94,6 +96,9 @@ const DashboardItems = () => {
                 },
               },
               yAxis: { display: false },
+            },
+            y: {
+              min: 1300,
             },
             layout: { padding: 0 },
           }}
@@ -164,7 +169,6 @@ const DashboardItems = () => {
             labels: ["Services", "Plants", "Seeds", "Tools"],
             datasets: [
               {
-                label: "Earning Distribution",
                 data: [40, 35, 10, 15],
                 backgroundColor: ["#05B6FC", "#0263FF", "#FF7723", "#8E30FF"],
               },
@@ -174,19 +178,14 @@ const DashboardItems = () => {
             maintainAspectRatio: false,
             responsive: true,
             plugins: {
-              legend: { display: false },
+              legend: { position: "left" },
               title: {
                 display: true,
-                text: "Earnings Distribution",
+                text: "Earnings Distribution (in %)",
                 position: "bottom",
                 font: { family: "Poppins", weight: "400", size: "16" },
               },
             },
-            scales: {
-              XAxis: { display: false },
-              yAxis: { display: false },
-            },
-            layout: { padding: 0 },
           }}
         />
       </DashboardCard>
