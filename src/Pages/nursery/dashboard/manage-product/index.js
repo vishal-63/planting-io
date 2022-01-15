@@ -2,15 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { FiEdit, FiEye } from "react-icons/fi";
 
-import DashboardHeader from "../../../Components/DashboardHeader";
-import DashboardMenu from "../../../Components/DashboardMenu";
+import DashboardHeader from "../../../../Components/DashboardHeader";
+import DashboardMenu from "../../../../Components/DashboardMenu";
 import {
   DashboardCard,
   DashboardTable,
   DashboardTableStatus,
-} from "../../../Components/Dashboard Items/DashboardElements";
-import { orders } from "../../../data/orders";
-import { NurseryMenu } from "../../../data/dashboard-menu-items";
+} from "../../../../Components/Dashboard Items/DashboardElements";
+import { orders } from "../../../../data/orders";
+import { getProducts, products } from "../../../../data/products";
+import { AiOutlineDelete } from "react-icons/ai";
+import { Link } from "react-router-dom";
+import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 
 const Container = styled.section`
   width: 100vw;
@@ -51,9 +54,14 @@ const Icon = styled.span`
   &.view {
     background-color: #2e7bc2;
   }
+  &.delete {
+    background-color: #e16565;
+  }
 `;
 
-const OrderList = () => {
+const ManageProducts = () => {
+  const products = getProducts();
+
   const [menuOpen, setMenuOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -66,7 +74,7 @@ const OrderList = () => {
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
       <DashboardMenu
-        activePage="order-list"
+        activePage="manage-products"
         menuOpen={menuOpen}
         listItems={NurseryMenu}
       />
@@ -76,51 +84,37 @@ const OrderList = () => {
           <DashboardTable className="order-list">
             <thead>
               <tr>
-                <th>Order Id</th>
+                <th>Product Id</th>
                 <th>Product Name</th>
-                <th>Customer</th>
+                <th>Type</th>
                 <th>Price</th>
+                <th>Discount</th>
                 <th>Quantity</th>
-                <th>Date</th>
-                <th>Order Status</th>
-                <th>Payment Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
+              {products.map((product, index) => (
                 <tr key={index}>
-                  <td>{order.id}</td>
-                  <td style={{ width: "18%" }}>{order.name}</td>
-                  <td>{order.customer}</td>
-                  <td>{order.price}</td>
-                  <td>{order.quantity}</td>
-                  <td>{order.date}</td>
-                  <td>
-                    <DashboardTableStatus className={order.orderStatusClass}>
-                      {order.orderStatus}
-                    </DashboardTableStatus>
-                  </td>
-                  <td>
-                    <DashboardTableStatus
-                      className={`payment ${order.paymentStatusClass}`}
-                    >
-                      {order.paymentStatus}
-                    </DashboardTableStatus>
-                    {order.paymentStatusClass == "pending" && (
-                      <span style={{ fontSize: "0.75rem", color: "#7d7d7d" }}>
-                        (Due {order.paymentDue})
-                      </span>
-                    )}
-                  </td>
+                  <td>{product.id}</td>
+                  <td style={{ width: "18%" }}>{product.name}</td>
+                  <td>{product.type}</td>
+                  <td>{product.price}</td>
+                  <td>{product.quantity}</td>
+                  <td>{product.discount}</td>
+
                   <td>
                     <div style={{ display: "flex" }}>
-                      <Icon className="edit">
-                        <FiEdit />
+                      <Icon className="delete">
+                        <AiOutlineDelete />
                       </Icon>
-                      <Icon className="view">
-                        <FiEye />
-                      </Icon>
+                      <Link
+                        to={`/nursery/dashboard/manage-products/${product.id}`}
+                      >
+                        <Icon className="edit">
+                          <FiEdit />
+                        </Icon>
+                      </Link>
                     </div>
                   </td>
                 </tr>
@@ -133,4 +127,4 @@ const OrderList = () => {
   );
 };
 
-export default OrderList;
+export default ManageProducts;

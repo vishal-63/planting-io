@@ -76,9 +76,8 @@ const Icons = styled.div`
   }
 `;
 
-const DashboardHeader = ({ toggleMenu }) => {
-  const nurseryName = "Vrundavan Nursery";
-
+const DashboardHeader = ({ toggleMenu, name }) => {
+  const nurseryName = name;
   return (
     <Container>
       <Div>

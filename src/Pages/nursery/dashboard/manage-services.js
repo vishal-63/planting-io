@@ -12,6 +12,7 @@ import {
   Label,
   Input,
   ProductDescription,
+  DashboardButton,
 } from "../../../Components/DashboardInputs";
 
 import {
@@ -22,6 +23,7 @@ import {
   SelectTrigger,
   SelectWrapper,
 } from "../../../Components/NurseryFormElements";
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
 const Container = styled.section`
   width: 100vw;
@@ -75,14 +77,18 @@ const ManageServices = () => {
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu activePage="manage-services" menuOpen={menuOpen} />
+      <DashboardMenu
+        activePage="manage-services"
+        menuOpen={menuOpen}
+        listItems={NurseryMenu}
+      />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Add Services</Title>
           <AddProductsForm>
             <Wrapper1>
               <Label>Services Name</Label>
-              <Input spellcheck="false" type="text" name="serviceName" />
+              <Input spellcheck="false" type="text" name="name" />
             </Wrapper1>
             <Wrapper1>
               <SelectWrapper className="select-wrapper" onClick={openDropdown}>
@@ -117,20 +123,24 @@ const ManageServices = () => {
             </Wrapper1>
             <Wrapper1>
               <Label>Service Rate</Label>
-              <Input spellcheck="false" type="text" name="productPrice" />
+              <Input spellcheck="false" type="text" name="price" />
             </Wrapper1>
             <Wrapper1>
               <Label>Service Discount</Label>
-              <Input spellcheck="false" type="text" name="productDiscount" />
+              <Input spellcheck="false" type="text" name="discount" />
             </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
               <Label>Service Description</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
-                name="productDescription"
+                name="description"
               />
             </Wrapper1>
+            <div>
+              <DashboardButton className="primary">Publish</DashboardButton>
+              <DashboardButton className="cancel">Cancel</DashboardButton>
+            </div>
           </AddProductsForm>
         </DashboardCard>
       </Container>

@@ -12,6 +12,7 @@ import {
   Label,
   Input,
   ProductDescription,
+  DashboardButton,
 } from "../../../Components/DashboardInputs";
 
 import {
@@ -22,6 +23,7 @@ import {
   SelectTrigger,
   SelectWrapper,
 } from "../../../Components/NurseryFormElements";
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
 const Container = styled.section`
   width: 100vw;
@@ -75,38 +77,42 @@ const AddServices = () => {
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu activePage="add-services" menuOpen={menuOpen} />
+      <DashboardMenu
+        activePage="add-services"
+        menuOpen={menuOpen}
+        listItems={NurseryMenu}
+      />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Add Services</Title>
           <AddProductsForm>
             <Wrapper1>
               <Label>Services Name</Label>
-              <Input spellcheck="false" type="text" name="serviceName" />
+              <Input spellcheck="false" type="text" name="name" />
             </Wrapper1>
             <Wrapper1>
               <SelectWrapper className="select-wrapper" onClick={openDropdown}>
                 <SelectLabel style={{ top: "0" }}>Service Type</SelectLabel>
                 <Select className="select">
                   <SelectTrigger style={{ height: "73px" }}>
-                    <span style={{paddingTop:"1rem"}}>{selectedOption}</span>
+                    <span style={{ paddingTop: "1rem" }}>{selectedOption}</span>
                     <IoIosArrowDown />
                   </SelectTrigger>
                   <CustomOptions className="custom-options">
                     <CustomOption
-                      data-value="gardenSetup"
+                      data-value="Garden Setup"
                       onClick={changeSelection}
                     >
                       Garden Setup
                     </CustomOption>
                     <CustomOption
-                      data-value="maintenance"
+                      data-value="Maintenance"
                       onClick={changeSelection}
                     >
                       Maintenance
                     </CustomOption>
                     <CustomOption
-                      data-value="gardenClearance"
+                      data-value="Garden Clearance"
                       onClick={changeSelection}
                     >
                       Garden Clearance
@@ -117,20 +123,36 @@ const AddServices = () => {
             </Wrapper1>
             <Wrapper1>
               <Label>Service Rate</Label>
-              <Input spellcheck="false" type="text" name="productPrice" />
+              <Input spellcheck="false" type="text" name="price" />
             </Wrapper1>
             <Wrapper1>
               <Label>Service Discount</Label>
-              <Input spellcheck="false" type="text" name="productDiscount" />
+              <Input spellcheck="false" type="text" name="discount" />
             </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
               <Label>Service Description</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
-                name="productDescription"
+                name="description"
               />
             </Wrapper1>
+            <div className="photo-input">
+              <Label htmlFor="product-photos" className="photo-label">
+                Add Photos
+              </Label>
+              <input
+                type="file"
+                accept="image/*"
+                name="product-photos"
+                id="product-photos"
+                multiple
+              />
+            </div>
+            <div>
+              <DashboardButton className="primary">Publish</DashboardButton>
+              <DashboardButton className="cancel">Cancel</DashboardButton>
+            </div>
           </AddProductsForm>
         </DashboardCard>
       </Container>

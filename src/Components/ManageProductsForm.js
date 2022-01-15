@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import DashboardHeader from "../../../Components/DashboardHeader";
-import DashboardMenu from "../../../Components/DashboardMenu";
+import DashboardHeader from "./DashboardHeader";
+import DashboardMenu from "./DashboardMenu";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
 
-import { DashboardCard } from "../../../Components/Dashboard Items/DashboardElements";
+import { DashboardCard } from "./Dashboard Items/DashboardElements";
 
 import {
   AddProductsForm,
@@ -12,7 +12,8 @@ import {
   Label,
   Input,
   ProductDescription,
-} from "../../../Components/DashboardInputs";
+  DashboardButton,
+} from "./DashboardInputs";
 
 import {
   CustomOption,
@@ -21,7 +22,9 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectWrapper,
-} from "../../../Components/NurseryFormElements";
+} from "./NurseryFormElements";
+import { getProduct } from "../data/products";
+import { useParams } from "react-router-dom";
 
 const Container = styled.section`
   width: 100vw;
@@ -44,9 +47,12 @@ const Title = styled.h4`
   margin: 1rem;
 `;
 
-const ManageProducts = () => {
+const ManageProductsForm = () => {
+  let params = useParams();
+  let product = getProduct(params.id);
+
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(product.type);
 
   const openDropdown = (e) => {
     e.target.closest(".select").classList.toggle("open");
@@ -82,7 +88,12 @@ const ManageProducts = () => {
           <AddProductsForm>
             <Wrapper1>
               <Label>Product Name</Label>
-              <Input spellcheck="false" type="text" name="productName" />
+              <Input
+                spellcheck="false"
+                type="text"
+                name="name"
+                defaultValue={product.name}
+              />
             </Wrapper1>
             <Wrapper1>
               <SelectWrapper className="select-wrapper" onClick={openDropdown}>
@@ -108,24 +119,43 @@ const ManageProducts = () => {
             </Wrapper1>
             <Wrapper1>
               <Label>Product Price</Label>
-              <Input spellcheck="false" type="text" name="productPrice" />
+              <Input
+                spellcheck="false"
+                type="text"
+                name="price"
+                defaultValue={product.price}
+              />
             </Wrapper1>
             <Wrapper1>
               <Label>Product Discount</Label>
-              <Input spellcheck="false" type="text" name="productDiscount" />
+              <Input
+                spellcheck="false"
+                type="text"
+                name="discount"
+                defaultValue={product.discount}
+              />
             </Wrapper1>
             <Wrapper1>
               <Label>Quantity</Label>
-              <Input spellcheck="false" type="text" name="quantity" />
+              <Input
+                spellcheck="false"
+                type="text"
+                name="quantity"
+                defaultValue={product.quantity}
+              />
             </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
               <Label>Product Description</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
-                name="productDescription"
+                name="description"
               />
             </Wrapper1>
+            <div>
+              <DashboardButton className="primary">Publish</DashboardButton>
+              <DashboardButton className="cancel">Cancel</DashboardButton>
+            </div>
           </AddProductsForm>
         </DashboardCard>
       </Container>
@@ -133,4 +163,4 @@ const ManageProducts = () => {
   );
 };
 
-export default ManageProducts;
+export default ManageProductsForm;

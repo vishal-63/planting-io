@@ -4,18 +4,26 @@ import DashboardMenu from "../../../Components/DashboardMenu";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
 
-import {
-  DashboardCard
-} from "../../../Components/Dashboard Items/DashboardElements";
+import { DashboardCard } from "../../../Components/Dashboard Items/DashboardElements";
 
-import { 
+import {
   AddProductsForm,
   Wrapper1,
   Label,
   Input,
-  ProductDescription } from "../../../Components/DashboardInputs";
+  ProductDescription,
+  DashboardButton,
+} from "../../../Components/DashboardInputs";
 
-import { CustomOption, CustomOptions, Select, SelectLabel, SelectTrigger, SelectWrapper } from "../../../Components/NurseryFormElements";
+import {
+  CustomOption,
+  CustomOptions,
+  Select,
+  SelectLabel,
+  SelectTrigger,
+  SelectWrapper,
+} from "../../../Components/NurseryFormElements";
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
 const Container = styled.section`
   width: 100vw;
@@ -35,7 +43,7 @@ const Title = styled.h4`
   font-size: 1.1rem;
   color: #444;
   font-weight: 500;
-  margin:1rem;
+  margin: 1rem;
 `;
 
 const AddProduct = () => {
@@ -60,8 +68,6 @@ const AddProduct = () => {
     el.classList.add("selected");
   };
 
-
-
   useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
@@ -71,14 +77,18 @@ const AddProduct = () => {
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu activePage="add-products" menuOpen={menuOpen} />
+      <DashboardMenu
+        activePage="add-products"
+        menuOpen={menuOpen}
+        listItems={NurseryMenu}
+      />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Add Products</Title>
           <AddProductsForm>
             <Wrapper1>
               <Label>Product Name</Label>
-              <Input spellcheck="false" type="text" name="productName" />
+              <Input spellcheck="false" type="text" name="name" />
             </Wrapper1>
             <Wrapper1>
               <SelectWrapper className="select-wrapper" onClick={openDropdown}>
@@ -104,11 +114,11 @@ const AddProduct = () => {
             </Wrapper1>
             <Wrapper1>
               <Label>Product Price</Label>
-              <Input spellcheck="false" type="text" name="productPrice" />
+              <Input spellcheck="false" type="text" name="price" />
             </Wrapper1>
             <Wrapper1>
               <Label>Product Discount</Label>
-              <Input spellcheck="false" type="text" name="productDiscount" />
+              <Input spellcheck="false" type="text" name="discount" />
             </Wrapper1>
             <Wrapper1>
               <Label>Quantity</Label>
@@ -119,9 +129,25 @@ const AddProduct = () => {
               <ProductDescription
                 spellcheck="false"
                 row="4"
-                name="productDescription"
+                name="description"
               />
             </Wrapper1>
+            <div className="photo-input">
+              <Label htmlFor="product-photos" className="photo-label">
+                Add Photos
+              </Label>
+              <input
+                type="file"
+                accept="image/*"
+                name="product-photos"
+                id="product-photos"
+                multiple
+              />
+            </div>
+            <div>
+              <DashboardButton className="primary">Publish</DashboardButton>
+              <DashboardButton className="cancel">Cancel</DashboardButton>
+            </div>
           </AddProductsForm>
         </DashboardCard>
       </Container>

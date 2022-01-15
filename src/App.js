@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ManageProductsForm from "./Components/ManageProductsForm";
 import Home from "./Pages";
+import Admin from "./Pages/admin";
 import NurseryHomePage from "./Pages/nursery";
 import AddProduct from "./Pages/nursery/dashboard/add-product";
 import AddServices from "./Pages/nursery/dashboard/add-services";
 import Dashboard from "./Pages/nursery/dashboard/index.js";
-import ManageProducts from "./Pages/nursery/dashboard/manage-product";
-import ManageProduct from "./Pages/nursery/dashboard/manage-product";
+import ManageProducts from "./Pages/nursery/dashboard/manage-product/index";
 import ManageServices from "./Pages/nursery/dashboard/manage-services";
 import OrderList from "./Pages/nursery/dashboard/order-list";
 import NurseryLogin from "./Pages/nursery/login";
@@ -27,7 +28,7 @@ function App() {
             exact
           />
           <Route
-            path="/nursery/dashboard/add-product"
+            path="/nursery/dashboard/add-products"
             element={<AddProduct />}
             exact
           />
@@ -42,10 +43,16 @@ function App() {
             exact
           />
           <Route
+            path="/nursery/dashboard/manage-products/:id"
+            element={<ManageProductsForm />}
+            exact
+          />
+          <Route
             path="/nursery/dashboard/manage-services"
             element={<ManageServices />}
             exact
           />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
     </>

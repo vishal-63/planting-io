@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DashboardItems from "../../../Components/Dashboard Items";
 import DashboardHeader from "../../../Components/DashboardHeader";
 import DashboardMenu from "../../../Components/DashboardMenu";
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
 const Dashboard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -14,8 +15,12 @@ const Dashboard = () => {
 
   return (
     <>
-      <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu activePage="dashboard" menuOpen={menuOpen} />
+      <DashboardHeader toggleMenu={toggleMenu} name="Vrundavan Nursery" />
+      <DashboardMenu
+        activePage="dashboard"
+        menuOpen={menuOpen}
+        listItems={NurseryMenu}
+      />
       <DashboardItems />
     </>
   );
