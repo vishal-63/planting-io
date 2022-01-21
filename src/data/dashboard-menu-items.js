@@ -16,12 +16,12 @@ export const AdminMenu = [
   },
   {
     name: "Product List",
-    page: "product List",
+    page: "product-list",
     path: "/admin/product-list",
   },
   {
     name: "Service List",
-    page: "service List",
+    page: "service-list",
     path: "/admin/service-list",
   },
   {

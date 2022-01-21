@@ -246,7 +246,7 @@ export const DashboardTableStatus = styled.div`
     background-color: #ff9666;
   }
 
-  &.completed,
+  &.payment.completed,
   &.delivered,
   &.payment.received {
     background-color: #29db2d;

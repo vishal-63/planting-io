@@ -1,7 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import ManageProductsForm from "./Components/ManageProductsForm";
 import Home from "./Pages";
 import Admin from "./Pages/admin";
+import AdminLogin from "./Pages/admin/login";
 import NurseryHomePage from "./Pages/nursery";
 import AddProduct from "./Pages/nursery/dashboard/add-product";
 import AddServices from "./Pages/nursery/dashboard/add-services";
@@ -13,6 +21,8 @@ import NurseryLogin from "./Pages/nursery/login";
 import NurseryRegister from "./Pages/nursery/register";
 
 function App() {
+  const [isAdminLoggedin, setIsAdminLoggedin] = useState(false);
+  const loginAdmin = () => setIsAdminLoggedin(true);
   return (
     <>
       <Router>
@@ -52,11 +62,37 @@ function App() {
             element={<ManageServices />}
             exact
           />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/admin"
+            element={
+              // <RequireAuth navigateTo="/admin/login">
+              <Admin />
+              // </RequireAuth>
+            }
+          />
+          <Route
+            path="/admin/login"
+            element={<AdminLogin loginAdmin={loginAdmin} />}
+          />
         </Routes>
       </Router>
     </>
   );
+
+  function RequireAuth({ children, navigateTo }) {
+    let location = useLocation();
+    if (!isAdminLoggedin)
+      return (
+        <Navigate
+          to={navigateTo}
+          loginAdmin={loginAdmin}
+          state={{ from: location }}
+          replace
+        />
+      );
+
+    return children;
+  }
 }
 
 export default App;

@@ -3,6 +3,7 @@ import DashboardHeader from "./DashboardHeader";
 import DashboardMenu from "./DashboardMenu";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
+import { NurseryMenu } from "../data/dashboard-menu-items";
 
 import { DashboardCard } from "./Dashboard Items/DashboardElements";
 
@@ -81,7 +82,11 @@ const ManageProductsForm = () => {
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu activePage="manage-products" menuOpen={menuOpen} />
+      <DashboardMenu
+        activePage="manage-products"
+        menuOpen={menuOpen}
+        listItems={NurseryMenu}
+      />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Add Products</Title>
