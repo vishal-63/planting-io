@@ -1,127 +1,127 @@
-import img1 from "../Images/plant-1.jpg";
-import img2 from "../Images/plant-2.jpg";
-import img3 from "../Images/plant-3.jpg";
-import img4 from "../Images/plant-4.jpg";
-import img5 from "../Images/plant-5.jpg";
-import img6 from "../Images/plant-6.jpg";
-import img7 from "../Images/plant-7.png";
-import img8 from "../Images/plant-8.png";
+import img1 from "../Images/tool1.webp";
+import img2 from "../Images/tool2.webp";
+import img3 from "../Images/tool3.webp";
+import img4 from "../Images/tool4.webp";
+import img5 from "../Images/tool5.webp";
+import img6 from "../Images/tool6.webp";
+import img7 from "../Images/tool7.webp";
+import img8 from "../Images/tool8.webp";
 
-export const plants = [
+export const tools = [
   {
-    id: "20341",
-    link: "/shop-plants",
+    id: "40341",
+    link: "/shop-tools",
     img: img1,
-    name: "Amaryllis",
+    name: "Double Prong Weeder",
     stars: 4,
-    discountedPrice: "399.00",
-    actualPrice: "599.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
+    discountedPrice: "165.00",
+    actualPrice: "255.00",
+    category: "Tools",
+    categoryLink: "/shop-tools",
     vendor: "Shri Ramesh Nursery",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
   },
   {
-    id: "20342",
-    link: "/shop-plants",
+    id: "40342",
+    link: "/shop-tools",
     img: img2,
-    name: "African Violet",
+    name: "Single Prong Weeder",
     stars: 5,
-    discountedPrice: "599.00",
-    actualPrice: "999.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
+    discountedPrice: "165.00",
+    actualPrice: "255.00",
+    category: "Tools",
+    categoryLink: "/shop-tools",
     vendor: "Shri Ramesh Nursery",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
   },
   {
-    id: "20343",
-    link: "/shop-plants",
+    id: "40343",
+    link: "/shop-tools",
     img: img3,
-    name: "Snake Plant",
+    name: "Five Prong Weeder",
     stars: 4,
-    discountedPrice: "499.00",
-    actualPrice: "599.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
-    vendor: "Mother Nature",
+    discountedPrice: "225.00",
+    actualPrice: "320.00",
+    category: "Tools",
+    categoryLink: "/shop-tools",
+    vendor: "Shri Ramesh Nursery",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
   },
   {
-    id: "20344",
-    link: "/shop-plants",
+    id: "40344",
+    link: "/shop-tools",
     img: img4,
-    name: "Calla Lily",
+    name: "Cultivator with Wooden Handle",
     stars: 4,
-    discountedPrice: "399.00",
-    actualPrice: "599.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
+    discountedPrice: "225.00",
+    actualPrice: "380.00",
+    category: "Tools",
+    categoryLink: "/shop-tools",
     vendor: "Mother Nature",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
   },
   {
-    id: "20345",
-    link: "/shop-plants",
+    id: "40345",
+    link: "/shop-tools",
     img: img5,
-    name: "Amaryllis",
+    name: "5 Dial Sprinkler With Quick",
     stars: 3,
-    discountedPrice: "399.00",
-    actualPrice: "599.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
-    vendor: "Mother Nature",
+    discountedPrice: "245.00",
+    actualPrice: "",
+    category: "Tools",
+    categoryLink: "/shop-tools",
+    vendor: "Bajrang Nursery",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
   },
   {
-    id: "20346",
-    link: "/shop-plants",
+    id: "40346",
+    link: "/shop-tools",
     img: img6,
-    name: "Amaryllis",
+    name: "Single-Edge Sickle",
     stars: 4,
-    discountedPrice: "399.00",
-    actualPrice: "599.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
+    discountedPrice: "245.00",
+    actualPrice: "365.00",
+    category: "Tools",
+    categoryLink: "/shop-tools",
+    vendor: "Bajrang Nursery",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+  },
+  {
+    id: "40347",
+    link: "/shop-tools",
+    img: img7,
+    name: "X828 Plastic Sprinkler Nozzle",
+    stars: 4,
+    discountedPrice: "245.00",
+    actualPrice: "",
+    category: "Tools",
+    categoryLink: "/shop-tools",
     vendor: "Mother Nature",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
   },
   {
-    id: "20347",
-    link: "/shop-plants",
-    img: img7,
-    name: "Amaryllis",
-    stars: 4,
-    discountedPrice: "399.00",
-    actualPrice: "599.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
-    vendor: "Bajrang Nursery",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
-  },
-  {
-    id: "20348",
-    link: "/shop-plants",
+    id: "40348",
+    link: "/shop-tools",
     img: img8,
-    name: "Amaryllis",
+    name: "Double Side Rake & Trowel",
     stars: 4,
-    discountedPrice: "399.00",
-    actualPrice: "599.00",
-    category: "Plants",
-    categoryLink: "/shop-plants",
-    vendor: "Bajrang Nursery",
+    discountedPrice: "295.00",
+    actualPrice: "",
+    category: "Tools",
+    categoryLink: "/shop-tools",
+    vendor: "Mother Nature",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
   },
 ];
 
-export function getPlant(id) {
-  return plants.find((plant) => plant.id === id);
+export function getTool(id) {
+  return tools.find((tool) => tool.id === id);
 }

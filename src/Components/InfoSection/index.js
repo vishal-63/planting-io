@@ -80,36 +80,40 @@ const FeaturedProducts = () => {
       <PlantCardWrapper>
         {plants.map((plant, index) => (
           <PlantCard key={index}>
-            <PlantImg src={plant.img} alt={plant.name} />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                margin: "1rem .5rem 0",
-              }}
-            >
-              <PlantName>{plant.name}</PlantName>
-              <PlantStarsWrapper>
-                {[...Array(plant.stars)].map((index) => (
-                  <AiFillStar key={index} />
-                ))}
-                {[...Array(5 - plant.stars)].map((index) => (
-                  <AiFillStar key={index} style={{ color: "#dadada" }} />
-                ))}
-              </PlantStarsWrapper>
-            </div>
-            <PlantPrice>
-              <DiscountedPrice>
-                <BiRupee />
-                <span>{plant.discountedPrice}</span>
-              </DiscountedPrice>
-              <ActualPrice>{plant.actualPrice}</ActualPrice>
-            </PlantPrice>
+            <Link to={`${plant.link}/${plant.id}`}>
+              <PlantImg src={plant.img} alt={plant.name} />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  margin: "1rem .5rem 0",
+                }}
+              >
+                <PlantName>{plant.name}</PlantName>
+                <PlantStarsWrapper>
+                  {[...Array(plant.stars)].map((index) => (
+                    <AiFillStar key={index} />
+                  ))}
+                  {[...Array(5 - plant.stars)].map((index) => (
+                    <AiFillStar key={index} style={{ color: "#dadada" }} />
+                  ))}
+                </PlantStarsWrapper>
+              </div>
+              <PlantPrice>
+                <DiscountedPrice>
+                  <BiRupee />
+                  <span>{plant.discountedPrice}</span>
+                </DiscountedPrice>
+                <ActualPrice>{plant.actualPrice}</ActualPrice>
+              </PlantPrice>
+            </Link>
           </PlantCard>
         ))}
       </PlantCardWrapper>
-      <Button className="secondary-btn">View All</Button>
+      <Link to="/shop-plants">
+        <Button className="secondary-btn">View All</Button>
+      </Link>
     </SectionContainer>
   );
 };
@@ -133,7 +137,7 @@ const AboutUs = () => {
           <Button className="primary-btn about-us">Book A Gardener</Button>
         </AboutContent>
         <AboutImg>
-          <img src={aboutImg} alt="Gardener Image" />
+          <img src={aboutImg} alt="Gardener" />
         </AboutImg>
       </AboutWrapper>
     </SectionContainer>
@@ -146,28 +150,28 @@ const ServicesOffered = () => {
       <Title>Services We Offer</Title>
       <ServicesCardWrapper>
         <ServicesCard>
-          <img src={svg1} />
+          <img alt="" src={svg1} />
           <h4>Garden Setup</h4>
           <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
-          <img src={leafSvg} className="leaf" />
+          <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
         <ServicesCard>
-          <img src={svg2} />
+          <img alt="" src={svg2} />
           <h4>Lawn & Garden Care</h4>
           <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
-          <img src={leafSvg} className="leaf" />
+          <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
         <ServicesCard>
-          <img src={svg3} />
+          <img alt="" src={svg3} />
           <h4>Irrigation & Drainage</h4>
           <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
-          <img src={leafSvg} className="leaf" />
+          <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
         <ServicesCard>
-          <img src={svg4} />
+          <img alt="" src={svg4} />
           <h4>Garden Clearance</h4>
           <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
-          <img src={leafSvg} className="leaf" />
+          <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
       </ServicesCardWrapper>
     </SectionContainer>

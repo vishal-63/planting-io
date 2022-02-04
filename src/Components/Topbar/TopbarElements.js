@@ -56,16 +56,17 @@ export const UserIconsWrapper = styled.div`
   align-items: center;
   gap: 0.25rem;
   height: 100%;
+  padding-right: 0.5rem;
 
   @media (min-width: 768px) {
     gap: 0.5rem;
   }
 
-  & svg {
+  & a {
     color: #7d7d7d;
-    padding: 0;
-    height: 100%;
-    width: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
     padding: 8%;
     cursor: pointer;
   }

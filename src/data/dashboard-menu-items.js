@@ -30,12 +30,12 @@ export const AdminMenu = [
     path: "/admin/orders",
   },
   {
-    name: "Bookinngs",
-    page: "bookinngs",
+    name: "Bookings",
+    page: "bookings",
     path: "/admin/bookings",
   },
   {
-    item: "Complaints",
+    name: "Complaints",
     page: "complaints",
     path: "/admin/complaints",
   },
@@ -45,7 +45,7 @@ export const NurseryMenu = [
   {
     name: "Dashboard",
     page: "dashboard",
-    path: "/admin",
+    path: "/nursery/dashboard",
   },
   {
     name: "Add Products",

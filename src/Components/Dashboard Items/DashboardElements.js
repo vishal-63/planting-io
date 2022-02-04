@@ -233,6 +233,19 @@ export const DashboardTable = styled.table`
     text-align: left;
     color: #000;
   }
+
+  & td.complaint-status {
+    font-weight: 500;
+    font-size: 1rem;
+
+    &.unresolved {
+      color: #e05e35;
+    }
+
+    &.resolved {
+      color: #355ae0;
+    }
+  }
 `;
 
 export const DashboardTableStatus = styled.div`

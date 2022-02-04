@@ -9,6 +9,8 @@ import {
   Button,
   MobileMenu,
   NavImg,
+  HoverMenu,
+  DropdownContainer,
 } from "./NavbarElements";
 import logo from "../../Images/logo.svg";
 import LoginModal from "../LoginModal";
@@ -27,18 +29,44 @@ export const UserNavbar = () => {
     window.addEventListener("scroll", () =>
       window.scrollY >= "38" ? setScrollNav(true) : setScrollNav(false)
     );
-  }, []);
+
+    // set --scroll-y property when the page is scrolled
+    window.addEventListener("scroll", () => {
+      document.documentElement.style.setProperty(
+        "--scroll-y",
+        `${window.scrollY}px`
+      );
+    });
+    const scrollY =
+      document.documentElement.style.getPropertyValue("--scroll-y");
+
+    // prevent the body from scrolling when the modal is opened
+    if (isFormOpen) {
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}`;
+    } else {
+      const scrollY = document.body.style.top;
+      document.body.style.position = "";
+      document.body.style.top = "";
+      window.scrollTo(0, parseInt(scrollY || "0") * -1);
+    }
+  }, [isFormOpen]);
 
   const openForm = (mode) => {
     setIsOpen(false);
     setIsFormOpen(!isFormOpen);
     setFormMode(mode);
   };
+  const closeForm = () => {
+    setIsFormOpen(false);
+  };
 
   return (
     <>
       <NavbarContainer scrollNav={scrollNav}>
-        <NavImg src={logo} alt="Planting.io Logo" />
+        <Link to="/">
+          <NavImg src={logo} alt="Planting.io Logo" />
+        </Link>
         <NavlinkWrapper className="desktop-menu">
           <Navlink>
             <Link to="/">Home</Link>
@@ -46,11 +74,22 @@ export const UserNavbar = () => {
           <Navlink>
             <Link to="/">About</Link>
           </Navlink>
+          <DropdownContainer>
+            <div>Shop</div>
+            <HoverMenu className="hover-menu">
+              <Navlink>
+                <Link to="/shop-plants">Plants</Link>
+              </Navlink>
+              <Navlink>
+                <Link to="/shop-seeds">Seeds</Link>
+              </Navlink>
+              <Navlink>
+                <Link to="/shop-tools">Tools</Link>
+              </Navlink>
+            </HoverMenu>
+          </DropdownContainer>
           <Navlink>
-            <Link to="/">Shop</Link>
-          </Navlink>
-          <Navlink>
-            <Link to="/">Services</Link>
+            <Link to="/services">Services</Link>
           </Navlink>
           <Navlink>
             <Link to="/nursery">Become A Seller</Link>
@@ -102,7 +141,15 @@ export const UserNavbar = () => {
           </ButtonsContainer>
         </MobileMenu>
       </NavbarContainer>
-      {isFormOpen ? <LoginModal mode={formMode} /> : <></>}
+      {isFormOpen ? (
+        <LoginModal
+          mode={formMode}
+          isFormOpen={isFormOpen}
+          closeForm={closeForm}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 };
@@ -126,17 +173,17 @@ export const NurseryNavbar = ({ page }) => {
       <Link to="/nursery">
         <NavImg src={logo} alt="Planting.io Logo" />
       </Link>
-      {page == "home" ? (
+      {page === "home" ? (
         <>
           <NavlinkWrapper className="desktop-menu">
             <Navlink>
-              <a href="#">How it works?</a>
+              <a href="/nursery">How it works?</a>
             </Navlink>
             <Navlink>
-              <a href="#">Pricing & Commission</a>
+              <a href="/nursery">Pricing & Commission</a>
             </Navlink>
             <Navlink>
-              <a href="#">Shipping & Returns</a>
+              <a href="/nursery">Shipping & Returns</a>
             </Navlink>
           </NavlinkWrapper>
           <ButtonsContainer className="desktop-menu">
@@ -162,13 +209,13 @@ export const NurseryNavbar = ({ page }) => {
           >
             <NavlinkWrapper className="mobile-menu">
               <Navlink className="nursery-page">
-                <a href="#">How it works?</a>
+                <a href="nursery">How it works?</a>
               </Navlink>
               <Navlink className="nursery-page">
-                <a href="#">Pricing & Commission</a>
+                <a href="nursery">Pricing & Commission</a>
               </Navlink>
               <Navlink className="nursery-page">
-                <a href="#">Shipping & Returns</a>
+                <a href="nursery">Shipping & Returns</a>
               </Navlink>
             </NavlinkWrapper>
             <ButtonsContainer className="mobile-menu">
@@ -182,7 +229,7 @@ export const NurseryNavbar = ({ page }) => {
           </MobileMenu>
         </>
       ) : (
-        page == "login" && (
+        page === "login" && (
           <ButtonsContainer>
             <Button className="nursery-page" registerBtn={true}>
               <Link to="/nursery/register">Start Selling</Link>
