@@ -7,6 +7,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import ManageProductsForm from "./Components/ManageProductsForm";
+import { UserIconsWrapper } from "./Components/Topbar/TopbarElements";
 import Home from "./Pages";
 import About from "./Pages/about";
 import Account from "./Pages/account";
@@ -16,6 +17,11 @@ import AdminLogin from "./Pages/admin/login";
 import Cart from "./Pages/cart";
 import Item from "./Pages/item";
 import Nursery from "./Pages/nursery";
+import NurseryList from "./Pages/admin/nursery-list";
+import ProductList from "./Pages/admin/product-list";
+import UserList from "./Pages/admin/user-list";
+import ServiceList from "./Pages/admin/service-list";
+import NurseryHomePage from "./Pages/nursery";
 import AddProduct from "./Pages/nursery/dashboard/add-product";
 import AddServices from "./Pages/nursery/dashboard/add-services";
 import Dashboard from "./Pages/nursery/dashboard/index.js";
@@ -28,6 +34,8 @@ import Services from "./Pages/services";
 import ShopPlants from "./Pages/shop-plants";
 import ShopSeeds from "./Pages/shop-seeds";
 import ShopTools from "./Pages/shop-tools";
+import AdminOrderList from "./Pages/admin/order-list";
+import AdminBooingList from "./Pages/admin/booking-list";
 
 function App() {
   const [isAdminLoggedin, setIsAdminLoggedin] = useState(false);
@@ -101,6 +109,13 @@ function App() {
             element={<AdminLogin loginAdmin={loginAdmin} />}
           />
           <Route path="/admin/complaints" element={<Complaints />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/user-list" element={<UserList />} />
+          <Route path="/admin/nursery-list" element={<NurseryList />} />
+          <Route path="/admin/product-list" element={<ProductList />} />
+          <Route path="/admin/service-list" element={<ServiceList />} />
+          <Route path="/admin/orders" element={<AdminOrderList />} />
+          <Route path="/admin/bookings" element={<AdminBooingList/>} />
         </Routes>
       </Router>
     </>
