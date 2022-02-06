@@ -26,183 +26,156 @@ function inputChange(e) {
   }
 }
 
-const LoginModal = ({ mode }) => {
-  const [isOpen, setIsOpen] = useState(true);
+const LoginModal = ({ mode, isFormOpen, closeForm }) => {
   const [formMode, setFormMode] = useState(`${mode}`);
-
-  useEffect(() => {
-    // set --scroll-y property when the page is scrolled
-    window.addEventListener("scroll", () => {
-      document.documentElement.style.setProperty(
-        "--scroll-y",
-        `${window.scrollY}px`
-      );
-    });
-    const scrollY =
-      document.documentElement.style.getPropertyValue("--scroll-y");
-
-    // prevent the body from scrolling when the modal is opened
-    if (isOpen) {
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}`;
-    } else {
-      const scrollY = document.body.style.top;
-      document.body.style.position = "";
-      document.body.style.top = "";
-      window.scrollTo(0, parseInt(scrollY || "0") * -1);
-    }
-  }, [isOpen]);
 
   return (
     <>
-      {isOpen ? (
-        <Container>
-          {formMode === "login" ? (
-            <LoginContainer>
-              <TabsContainer>
-                <Tab className="login">Login</Tab>
-                <Tab onClick={() => setFormMode("register")}>Register</Tab>
-              </TabsContainer>
-              <p>Please login using account detail below</p>
+      {/* {isOpen ? ( */}
+      <Container>
+        {formMode === "login" ? (
+          <LoginContainer>
+            <TabsContainer>
+              <Tab className="login">Login</Tab>
+              <Tab onClick={() => setFormMode("register")}>Register</Tab>
+            </TabsContainer>
+            <p>Please login using account detail below</p>
 
-              <FormContainer
-                name="login"
-                method="POST"
-                onSubmit={handleLoginSubmit}
-              >
-                <Wrapper className="emailinput">
+            <FormContainer
+              name="login"
+              method="POST"
+              onSubmit={handleLoginSubmit}
+            >
+              <Wrapper className="emailinput">
+                <Input
+                  spellcheck="false"
+                  type="email"
+                  name="email"
+                  id="email"
+                  onChange={inputChange}
+                  required
+                />
+                <Label className="label">Email</Label>
+              </Wrapper>
+              <Wrapper>
+                <Input
+                  spellcheck="false"
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={inputChange}
+                  required
+                />
+                <Label className="label">Password</Label>
+              </Wrapper>
+
+              <ButtonContainer>
+                <ForgotPass to="/">Forgot Password?</ForgotPass>
+                <SignInBtn type="submit">Sign In</SignInBtn>
+              </ButtonContainer>
+            </FormContainer>
+
+            <NewAccount>
+              New Member?
+              <span onClick={() => setFormMode("register")}>
+                {" "}
+                Create Account
+              </span>
+            </NewAccount>
+          </LoginContainer>
+        ) : (
+          <></>
+        )}
+
+        {formMode === "register" ? (
+          <LoginContainer className="register">
+            <TabsContainer>
+              <Tab onClick={() => setFormMode("login")}>Login</Tab>
+              <Tab className="register">Register</Tab>
+            </TabsContainer>
+            <p>Enter your Account Details</p>
+
+            <FormContainer className="register" name="register">
+              <Block>
+                <Wrapper className="register">
+                  <Input
+                    spellcheck="false"
+                    type="text"
+                    name="fname"
+                    id="fname"
+                    onChange={inputChange}
+                  />
+                  <Label className="label">First Name</Label>
+                </Wrapper>
+                <Wrapper className="register">
+                  <Input
+                    spellcheck="false"
+                    type="text"
+                    name="lname"
+                    id="lname"
+                    onChange={inputChange}
+                  />
+                  <Label className="label">Last Name</Label>
+                </Wrapper>
+                <Wrapper className="register">
                   <Input
                     spellcheck="false"
                     type="email"
                     name="email"
                     id="email"
                     onChange={inputChange}
-                    required
                   />
                   <Label className="label">Email</Label>
                 </Wrapper>
-                <Wrapper>
+                <Wrapper className="register">
+                  <Input
+                    spellcheck="false"
+                    type="number"
+                    name="phone"
+                    id="phone"
+                    onChange={inputChange}
+                  />
+                  <Label className="label">Phone</Label>
+                </Wrapper>
+                <Wrapper className="register">
                   <Input
                     spellcheck="false"
                     type="password"
                     name="password"
                     id="password"
                     onChange={inputChange}
-                    required
                   />
                   <Label className="label">Password</Label>
                 </Wrapper>
+                <Wrapper className="register">
+                  <Input
+                    spellcheck="false"
+                    type="password"
+                    name="confirm-password"
+                    id="confirm-password"
+                    onChange={inputChange}
+                  />
+                  <Label className="label">Confirm Password</Label>
+                </Wrapper>
+              </Block>
 
-                <ButtonContainer>
-                  <ForgotPass to="/">Forgot Password?</ForgotPass>
-                  <SignInBtn type="submit">Sign In</SignInBtn>
-                </ButtonContainer>
-              </FormContainer>
-
-              <NewAccount>
-                New Member?
-                <span onClick={() => setFormMode("register")}>
-                  {" "}
-                  Create Account
-                </span>
-              </NewAccount>
-            </LoginContainer>
-          ) : (
-            <></>
-          )}
-
-          {formMode === "register" ? (
-            <LoginContainer className="register">
-              <TabsContainer>
-                <Tab onClick={() => setFormMode("login")}>Login</Tab>
-                <Tab className="register">Register</Tab>
-              </TabsContainer>
-              <p>Enter your Account Details</p>
-
-              <FormContainer className="register" name="register">
-                <Block>
-                  <Wrapper className="register">
-                    <Input
-                      spellcheck="false"
-                      type="text"
-                      name="fname"
-                      id="fname"
-                      onChange={inputChange}
-                    />
-                    <Label className="label">First Name</Label>
-                  </Wrapper>
-                  <Wrapper className="register">
-                    <Input
-                      spellcheck="false"
-                      type="text"
-                      name="lname"
-                      id="lname"
-                      onChange={inputChange}
-                    />
-                    <Label className="label">Last Name</Label>
-                  </Wrapper>
-                  <Wrapper className="register">
-                    <Input
-                      spellcheck="false"
-                      type="email"
-                      name="email"
-                      id="email"
-                      onChange={inputChange}
-                    />
-                    <Label className="label">Email</Label>
-                  </Wrapper>
-                  <Wrapper className="register">
-                    <Input
-                      spellcheck="false"
-                      type="number"
-                      name="phone"
-                      id="phone"
-                      onChange={inputChange}
-                    />
-                    <Label className="label">Phone</Label>
-                  </Wrapper>
-                  <Wrapper className="register">
-                    <Input
-                      spellcheck="false"
-                      type="password"
-                      name="password"
-                      id="password"
-                      onChange={inputChange}
-                    />
-                    <Label className="label">Password</Label>
-                  </Wrapper>
-                  <Wrapper className="register">
-                    <Input
-                      spellcheck="false"
-                      type="password"
-                      name="confirm-password"
-                      id="confirm-password"
-                      onChange={inputChange}
-                    />
-                    <Label className="label">Confirm Password</Label>
-                  </Wrapper>
-                </Block>
-
-                <ButtonContainer className="register">
-                  <AlreadyAccount>
-                    Already a Member?
-                    <span onClick={() => setFormMode("login")}> Sign In</span>
-                  </AlreadyAccount>
-                  <SignUpBtn type="submit">Sign Up</SignUpBtn>
-                </ButtonContainer>
-              </FormContainer>
-            </LoginContainer>
-          ) : (
-            <></>
-          )}
-          <AiOutlineClose
-            className="close-button"
-            onClick={() => setIsOpen(!isOpen)}
-          />
-        </Container>
-      ) : (
+              <ButtonContainer className="register">
+                <AlreadyAccount>
+                  Already a Member?
+                  <span onClick={() => setFormMode("login")}> Sign In</span>
+                </AlreadyAccount>
+                <SignUpBtn type="submit">Sign Up</SignUpBtn>
+              </ButtonContainer>
+            </FormContainer>
+          </LoginContainer>
+        ) : (
+          <></>
+        )}
+        <AiOutlineClose className="close-button" onClick={closeForm} />
+      </Container>
+      {/* ) : (
         <></>
-      )}
+      )} */}
     </>
   );
 };

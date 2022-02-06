@@ -126,11 +126,54 @@ export const NavlinkWrapper = styled.ul`
 export const Navlink = styled.li`
   font-size: 1rem;
   line-height: 1.2rem;
-  transition: transform 0.3s ease;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
 
   &:hover {
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
+    border-bottom: 3px solid #115533;
+    transition: all 0.3s ease;
+  }
+`;
+
+export const DropdownContainer = styled.div`
+  font-size: 1rem;
+  line-height: 1.2rem;
+  padding: 1rem 0;
+  position: relative;
+  cursor: pointer;
+
+  &:hover ul {
+    visibility: visible;
+  }
+`;
+
+export const HoverMenu = styled.ul`
+  width: 135px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: absolute;
+  top: 65px;
+  z-index: 1;
+  list-style: none;
+  visibility: hidden;
+
+  &.services {
+    width: 225px;
+  }
+
+  & a {
+    margin: 1rem 1.2rem;
+  }
+
+  & li:hover {
+    border: none;
+    border-left: 3px solid #115533;
+    padding-left: 0.5rem;
   }
 `;
 
@@ -158,16 +201,18 @@ export const ButtonsContainer = styled.div`
 export const Button = styled.button`
   font-size: 1.2rem;
   padding: 0.3rem 0.8rem;
-  color: ${({ registerBtn }) => (registerBtn ? "#fff" : "#7d9775")};
-  background-color: ${({ registerBtn }) => (registerBtn ? "#7d9775" : "#fff")};
-  border: 1.5px solid #7d9775;
+  color: ${({ registerBtn }) => (registerBtn ? "#fff" : "#28c274")};
+  background-color: ${({ registerBtn }) => (registerBtn ? "#28c274" : "#fff")};
+  border: 1.5px solid #28c274;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
     transition: all 0.3s ease;
-    box-shadow: 5px 5px 20px #7d977566;
+    color: #fff;
+    background-color: #13864d;
+    border-color: #13864d;
   }
 
   &.mobile-menu {

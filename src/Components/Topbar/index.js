@@ -1,5 +1,5 @@
 import React from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { FiShoppingCart } from "react-icons/fi";
@@ -27,8 +27,12 @@ const Topbar = () => {
         </a>
       </FollowLinksWrapper>
       <UserIconsWrapper>
-        <FiShoppingCart />
-        <CgProfile />
+        <Link to="/cart">
+          <FiShoppingCart />
+        </Link>
+        <Link to="/">
+          <CgProfile />
+        </Link>
       </UserIconsWrapper>
     </TopbarContainer>
   );

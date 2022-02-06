@@ -86,7 +86,6 @@ const DashboardItems = () => {
           options={{
             radius: 5,
             hitRadius: 10,
-            maintainAspectRatio: false,
             responsive: true,
             plugins: { legend: { display: false } },
             scales: {
@@ -175,8 +174,8 @@ const DashboardItems = () => {
             ],
           }}
           options={{
-            maintainAspectRatio: false,
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
               legend: { position: "left" },
               title: {

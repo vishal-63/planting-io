@@ -1,8 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
 import ManageProductsForm from "./Components/ManageProductsForm";
 import { UserIconsWrapper } from "./Components/Topbar/TopbarElements";
 import Home from "./Pages";
 import Admin from "./Pages/admin";
+import Complaints from "./Pages/admin/complaints";
+import AdminLogin from "./Pages/admin/login";
+import Cart from "./Pages/cart";
+import Item from "./Pages/item";
 import NurseryList from "./Pages/admin/nursery-list";
 import ProductList from "./Pages/admin/product-list";
 import UserList from "./Pages/admin/user-list";
@@ -16,15 +27,35 @@ import ManageServices from "./Pages/nursery/dashboard/manage-services";
 import OrderList from "./Pages/nursery/dashboard/order-list";
 import NurseryLogin from "./Pages/nursery/login";
 import NurseryRegister from "./Pages/nursery/register";
+import Services from "./Pages/services";
+import ShopPlants from "./Pages/shop-plants";
+import ShopSeeds from "./Pages/shop-seeds";
+import ShopTools from "./Pages/shop-tools";
 import AdminOrderList from "./Pages/admin/order-list";
 import AdminBooingList from "./Pages/admin/booking-list";
 
 function App() {
+  const [isAdminLoggedin, setIsAdminLoggedin] = useState(false);
+  const loginAdmin = () => setIsAdminLoggedin(true);
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} exact />
+
+          <Route path="/shop-plants" element={<ShopPlants />} exact />
+          <Route path="/shop-plants/:plantId" element={<Item />} exact />
+
+          <Route path="/shop-seeds" element={<ShopSeeds />} exact />
+          <Route path="/shop-seeds/:seedId" element={<Item />} exact />
+
+          <Route path="/shop-tools" element={<ShopTools />} exact />
+          <Route path="/shop-tools/:toolId" element={<Item />} exact />
+
+          <Route path="/services" element={<Services />} exact />
+
+          <Route path="/cart" element={<Cart />} exact />
+
           <Route path="/nursery" element={<NurseryHomePage />} exact></Route>
           <Route path="/nursery/login" element={<NurseryLogin />} exact />
           <Route path="/nursery/register" element={<NurseryRegister />} exact />
@@ -59,6 +90,19 @@ function App() {
             element={<ManageServices />}
             exact
           />
+          <Route
+            path="/admin"
+            element={
+              // <RequireAuth navigateTo="/admin/login">
+              <Admin />
+              // </RequireAuth>
+            }
+          />
+          <Route
+            path="/admin/login"
+            element={<AdminLogin loginAdmin={loginAdmin} />}
+          />
+          <Route path="/admin/complaints" element={<Complaints />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/user-list" element={<UserList />} />
           <Route path="/admin/nursery-list" element={<NurseryList />} />
@@ -70,6 +114,21 @@ function App() {
       </Router>
     </>
   );
+
+  function RequireAuth({ children, navigateTo }) {
+    let location = useLocation();
+    if (!isAdminLoggedin)
+      return (
+        <Navigate
+          to={navigateTo}
+          loginAdmin={loginAdmin}
+          state={{ from: location }}
+          replace
+        />
+      );
+
+    return children;
+  }
 }
 
 export default App;

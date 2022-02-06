@@ -233,6 +233,19 @@ export const DashboardTable = styled.table`
     text-align: left;
     color: #000;
   }
+
+  & td.complaint-status {
+    font-weight: 500;
+    font-size: 1rem;
+
+    &.unresolved {
+      color: #e05e35;
+    }
+
+    &.resolved {
+      color: #355ae0;
+    }
+  }
 `;
 
 export const DashboardTableStatus = styled.div`
@@ -246,7 +259,7 @@ export const DashboardTableStatus = styled.div`
     background-color: #ff9666;
   }
 
-  &.completed,
+  &.payment.completed,
   &.delivered,
   &.payment.received {
     background-color: #29db2d;
