@@ -25,7 +25,7 @@ const CrumbContainer = styled.div`
   }
 `;
 
-const BreadCrumb = () => {
+const BreadCrumb = ({ page }) => {
   const [scrollNav, setScrollNav] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const BreadCrumb = () => {
     <CrumbContainer scrollNav={scrollNav}>
       <div>
         <Link to="/">Home</Link>
-        &nbsp; &gt; Shop &gt; Plants
+        &nbsp; &gt; {page}
       </div>
     </CrumbContainer>
   );

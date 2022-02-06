@@ -35,7 +35,6 @@ const Item = () => {
     <>
       <Topbar />
       <UserNavbar />
-      <BreadCrumb />
       <ItemPage item={item} />
       <Footer />
     </>

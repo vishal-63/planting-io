@@ -56,6 +56,10 @@ export const SidebarTitle = styled.p`
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.75rem;
+
+  & + span {
+    cursor: pointer;
+  }
 `;
 
 export const SidebarLabel = styled.p`

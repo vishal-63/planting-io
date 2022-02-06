@@ -8,12 +8,14 @@ import {
 } from "react-router-dom";
 import ManageProductsForm from "./Components/ManageProductsForm";
 import Home from "./Pages";
+import About from "./Pages/about";
+import Account from "./Pages/account";
 import Admin from "./Pages/admin";
 import Complaints from "./Pages/admin/complaints";
 import AdminLogin from "./Pages/admin/login";
 import Cart from "./Pages/cart";
 import Item from "./Pages/item";
-import NurseryHomePage from "./Pages/nursery";
+import Nursery from "./Pages/nursery";
 import AddProduct from "./Pages/nursery/dashboard/add-product";
 import AddServices from "./Pages/nursery/dashboard/add-services";
 import Dashboard from "./Pages/nursery/dashboard/index.js";
@@ -35,6 +37,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} exact />
+          <Route path="/about" element={<About />} exact />
 
           <Route path="/shop-plants" element={<ShopPlants />} exact />
           <Route path="/shop-plants/:plantId" element={<Item />} exact />
@@ -49,7 +52,9 @@ function App() {
 
           <Route path="/cart" element={<Cart />} exact />
 
-          <Route path="/nursery" element={<NurseryHomePage />} exact></Route>
+          <Route path="/account" element={<Account />} exact />
+
+          <Route path="/nursery" element={<Nursery />} exact></Route>
           <Route path="/nursery/login" element={<NurseryLogin />} exact />
           <Route path="/nursery/register" element={<NurseryRegister />} exact />
           <Route path="/nursery/dashboard" element={<Dashboard />} exact />

@@ -28,7 +28,7 @@ import {
 } from "./ShopPageElements";
 
 const ShopPage = ({ items }) => {
-  const itemsPerPage = 12;
+  const itemsPerPage = 16;
 
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
@@ -72,13 +72,13 @@ const ShopPage = ({ items }) => {
         </div>
         <div>
           <SidebarTitle>Price</SidebarTitle>
-          <Checkbox value="500" label="Below Rs. 500" />
-          <Checkbox value="500" label="Below Rs. 500" />
-          <Checkbox value="500" label="Below Rs. 500" />
-          <Checkbox value="500" label="Below Rs. 500" />
-          <Checkbox value="500" label="Below Rs. 500" />
-          <Checkbox value="500" label="Below Rs. 500" />
-          <Checkbox value="500" label="Below Rs. 500" />
+          <Checkbox value="<500" label="Below Rs. 500" />
+          <Checkbox value="500-1000" label="Rs.500 - Rs.1000" />
+          <Checkbox value="1000-1500" label="Rs.1000 - Rs.1500" />
+          <Checkbox value="1500-2000" label="Rs.1500 - Rs.2000" />
+          <Checkbox value="2000-2500" label="Rs.2000 - Rs.2500" />
+          <Checkbox value="2500-3000" label="Rs.2500 - Rs.3000" />
+          <Checkbox value=">3000" label="Above Rs.3000" />
         </div>
       </Sidebar>
       <div>

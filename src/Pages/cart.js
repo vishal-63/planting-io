@@ -24,7 +24,7 @@ const Cart = () => {
     <>
       <Topbar />
       <UserNavbar />
-      <BreadCrumb />
+      <BreadCrumb page="Cart" />
       <CartContainer>
         <CartTitle>Your Cart</CartTitle>
         <CartTable>

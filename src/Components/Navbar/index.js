@@ -72,7 +72,7 @@ export const UserNavbar = () => {
             <Link to="/">Home</Link>
           </Navlink>
           <Navlink>
-            <Link to="/">About</Link>
+            <Link to="/about">About</Link>
           </Navlink>
           <DropdownContainer>
             <div>Shop</div>

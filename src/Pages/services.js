@@ -13,7 +13,7 @@ const Services = () => {
     <>
       <Topbar />
       <UserNavbar />
-      <BreadCrumb />
+      <BreadCrumb page="Services" />
       <ServiceSection>
         <ServiceTitle>Services</ServiceTitle>
         {services.map((service, index) => (
