@@ -9,11 +9,14 @@ import {
 import ManageProductsForm from "./Components/ManageProductsForm";
 import { UserIconsWrapper } from "./Components/Topbar/TopbarElements";
 import Home from "./Pages";
+import About from "./Pages/about";
+import Account from "./Pages/account";
 import Admin from "./Pages/admin";
 import Complaints from "./Pages/admin/complaints";
 import AdminLogin from "./Pages/admin/login";
 import Cart from "./Pages/cart";
 import Item from "./Pages/item";
+import Nursery from "./Pages/nursery";
 import NurseryList from "./Pages/admin/nursery-list";
 import ProductList from "./Pages/admin/product-list";
 import UserList from "./Pages/admin/user-list";
@@ -42,6 +45,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} exact />
+          <Route path="/about" element={<About />} exact />
 
           <Route path="/shop-plants" element={<ShopPlants />} exact />
           <Route path="/shop-plants/:plantId" element={<Item />} exact />
@@ -56,7 +60,9 @@ function App() {
 
           <Route path="/cart" element={<Cart />} exact />
 
-          <Route path="/nursery" element={<NurseryHomePage />} exact></Route>
+          <Route path="/account" element={<Account />} exact />
+
+          <Route path="/nursery" element={<Nursery />} exact></Route>
           <Route path="/nursery/login" element={<NurseryLogin />} exact />
           <Route path="/nursery/register" element={<NurseryRegister />} exact />
           <Route path="/nursery/dashboard" element={<Dashboard />} exact />

@@ -18,6 +18,7 @@ import {
 import img1 from "../../Images/hero-img-1.jpg";
 import imgMobile1 from "../../Images/hero-img-1-mobile.jpeg";
 import img2 from "../../Images/hero-img-2.jpg";
+import { Link } from "react-router-dom";
 
 function SampleNextArrow(props) {
   const { className, onClick } = props;
@@ -89,7 +90,9 @@ const HeroSection = () => {
             <HeroText>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
             </HeroText>
-            <HeroButton>Shop Now</HeroButton>
+            <HeroButton>
+              <Link to="/shop-plants">Shop Now</Link>
+            </HeroButton>
           </HeroContent>
         </HeroSlideWrapper>
 
@@ -99,7 +102,9 @@ const HeroSection = () => {
             <HeroText className="second-slide-text">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit
             </HeroText>
-            <HeroButton>View All</HeroButton>
+            <HeroButton>
+              <Link to="/services">View All</Link>
+            </HeroButton>
           </HeroContent>
         </HeroSlideWrapper>
       </Slider>

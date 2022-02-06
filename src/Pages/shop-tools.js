@@ -7,7 +7,7 @@ import ShopPage from "../Components/ShopPage";
 import Topbar from "../Components/Topbar";
 
 const ShopTools = () => {
-  let itemsData = [
+  let items = [
     ...tools,
     ...tools,
     ...tools,
@@ -15,14 +15,12 @@ const ShopTools = () => {
     ...tools,
     ...tools,
     ...tools,
-    // ...plants,
   ];
-  let items = itemsData.sort(() => Math.random() - 0.5);
   return (
     <>
       <Topbar />
       <UserNavbar />
-      <BreadCrumb />
+      <BreadCrumb page="Tools" />
       <ShopPage items={items} />
       <Footer />
     </>

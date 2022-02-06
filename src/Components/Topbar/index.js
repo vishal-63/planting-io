@@ -30,7 +30,7 @@ const Topbar = () => {
         <Link to="/cart">
           <FiShoppingCart />
         </Link>
-        <Link to="/">
+        <Link to="/account">
           <CgProfile />
         </Link>
       </UserIconsWrapper>

@@ -134,7 +134,9 @@ const AboutUs = () => {
             vital role in bringing nature into urban spaces and we take great
             joy in restoring green cover for our urban locales.
           </AboutText>
-          <Button className="primary-btn about-us">Book A Gardener</Button>
+          <Button className="primary-btn about-us">
+            <Link to="/services">Book A Gardener</Link>
+          </Button>
         </AboutContent>
         <AboutImg>
           <img src={aboutImg} alt="Gardener" />
