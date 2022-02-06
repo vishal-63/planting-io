@@ -1,7 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ManageProductsForm from "./Components/ManageProductsForm";
+import { UserIconsWrapper } from "./Components/Topbar/TopbarElements";
 import Home from "./Pages";
 import Admin from "./Pages/admin";
+import NurseryList from "./Pages/admin/nursery-list";
+import ProductList from "./Pages/admin/product-list";
+import UserList from "./Pages/admin/user-list";
+import ServiceList from "./Pages/admin/service-list";
 import NurseryHomePage from "./Pages/nursery";
 import AddProduct from "./Pages/nursery/dashboard/add-product";
 import AddServices from "./Pages/nursery/dashboard/add-services";
@@ -11,6 +16,8 @@ import ManageServices from "./Pages/nursery/dashboard/manage-services";
 import OrderList from "./Pages/nursery/dashboard/order-list";
 import NurseryLogin from "./Pages/nursery/login";
 import NurseryRegister from "./Pages/nursery/register";
+import AdminOrderList from "./Pages/admin/order-list";
+import AdminBooingList from "./Pages/admin/booking-list";
 
 function App() {
   return (
@@ -53,6 +60,12 @@ function App() {
             exact
           />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/user-list" element={<UserList />} />
+          <Route path="/admin/nursery-list" element={<NurseryList />} />
+          <Route path="/admin/product-list" element={<ProductList />} />
+          <Route path="/admin/service-list" element={<ServiceList />} />
+          <Route path="/admin/orders" element={<AdminOrderList />} />
+          <Route path="/admin/bookings" element={<AdminBooingList/>} />
         </Routes>
       </Router>
     </>

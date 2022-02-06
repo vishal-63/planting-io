@@ -2,6 +2,7 @@ export const orders = [
   {
     id: "#60234",
     name: "Areca Palm Plant",
+    nursery: "Shree Ramesh Nursery",
     customer: "Vishal Shah",
     price: "399",
     quantity: "3",
@@ -15,6 +16,7 @@ export const orders = [
   {
     id: "#60234",
     name: "Peace Lily Plant",
+    nursery: "Shree Ramesh Nursery",
     customer: "Vishal Shah",
     price: "345",
     quantity: "2",
@@ -28,6 +30,7 @@ export const orders = [
   {
     id: "#60233",
     name: "Garden Setup",
+    nursery: "Shree Ramesh Nursery",
     customer: "Aastha Arora",
     price: "999",
     quantity: "1",
@@ -41,6 +44,7 @@ export const orders = [
   {
     id: "#60232",
     name: "X826 Five Way Dial Plastic Hose Nozzle",
+    nursery: "Vrundavan Nursery",
     customer: "Sidhraj Mori",
     price: "199",
     quantity: "1",
@@ -53,6 +57,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Vrundavan Nursery",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -65,6 +70,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Vrundavan Nursery",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -77,6 +83,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Bajrang Nursery",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -89,6 +96,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Bajrang Nursery",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -101,6 +109,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Bajrang Nursery",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -113,6 +122,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Bajrang Nursery",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -125,6 +135,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Bajrang Nursery",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -137,6 +148,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Mother Nature",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -149,6 +161,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Mother Nature",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -161,6 +174,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Mother Nature",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",
@@ -173,6 +187,7 @@ export const orders = [
   {
     id: "#60231",
     name: "Italian Basil Seeds",
+    nursery: "Mother Nature",
     customer: "Kavyesh Vohra",
     price: "85",
     quantity: "3",

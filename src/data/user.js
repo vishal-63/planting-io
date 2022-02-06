@@ -1,0 +1,98 @@
+export const users = [
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60235",
+    name: "Pujan Adani",
+    email: "pujanadani@gmail.com",
+    phone: "7755339977",
+  },
+  {
+    id: "#60236",
+    name: "Mitul Parikh",
+    email: "mitulparikh@gmail.com",
+    phone: "8855338866",
+  },
+  {
+    id: "#60237",
+    name: "Aditya Dalal",
+    email: "adityadalal@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60238",
+    name: "Ansh Gami",
+    email: "anshgami@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Jeet Shah",
+    email: "jeetshah@gmail.com",
+    phone: "9922885533",
+  },
+];
