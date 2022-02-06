@@ -1,0 +1,86 @@
+export const nursery = [
+  {
+    id: "#60234",
+    name: "Shree Ramesh Nursery",
+    email: "shreeramesh@gmail.com",
+    phone: "9955338866",
+  },
+  {
+    id: "#60235",
+    name: "Vrundavan Nursery",
+    email: "vrundavan@gmail.com",
+    phone: "8877332288",
+  },
+  {
+    id: "#60236",
+    name: "Bajrang Nursery",
+    email: "bajrang@gmail.com",
+    phone: "7744117755",
+  },
+  {
+    id: "#60237",
+    name: "Mother Nature",
+    email: "mothernature@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Shree Ramesh Nursery",
+    email: "shreeramesh@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60237",
+    name: "Mother Nature",
+    email: "mothernature@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Shree Ramesh Nursery",
+    email: "shreeramesh@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60237",
+    name: "Mother Nature",
+    email: "mothernature@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Shree Ramesh Nursery",
+    email: "shreeramesh@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Shree Ramesh Nursery",
+    email: "shreeramesh@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60237",
+    name: "Mother Nature",
+    email: "mothernature@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Shree Ramesh Nursery",
+    email: "shreeramesh@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60234",
+    name: "Shree Ramesh Nursery",
+    email: "shreeramesh@gmail.com",
+    phone: "9922885533",
+  },
+  {
+    id: "#60237",
+    name: "Mother Nature",
+    email: "mothernature@gmail.com",
+    phone: "9922885533",
+  },
+];
