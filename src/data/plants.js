@@ -20,7 +20,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The Victorians associated amaryllis with strength and determination because of their height and sturdiness.The shape of the flower represents the head and upper torso, signifying how Huntington’s disease affects mental and physical functions. The growing flower also represents hope and celebrates the achievements that have been made in Huntington’s disease treatment and research.",
   },
   {
     id: "20342",
@@ -34,7 +34,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Simply looking at the purple of African Violets has been shown to benefit one's health. Gazing at it helps stimulate the release of a small amount of adrenaline, which raises energy levels, and increases the flow of oxygen to your brain, which helps you relax.",
   },
   {
     id: "20343",
@@ -48,7 +48,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Snake plants are considered to be relatively safe, but they’re mildly toxic if consumed. Their leaves contain a poison that can cause swelling and numbness on the tongue if eaten in large doses. It’s wise to keep this plant away from children and animals who are prone to nibbling",
   },
   {
     id: "20344",
@@ -62,7 +62,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Calla lilies purify the air around it and absorb carbon dioxide and release oxygen as part of the photosynthesis process. Also lilies absorb airborne pollutants such as benzene, formaldehyde and trichloroethylene.",
   },
   {
     id: "20345",
@@ -76,7 +76,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The Victorians associated amaryllis with strength and determination because of their height and sturdiness.The shape of the flower represents the head and upper torso, signifying how Huntington’s disease affects mental and physical functions. The growing flower also represents hope and celebrates the achievements that have been made in Huntington’s disease treatment and research.",
   },
   {
     id: "20346",
@@ -90,7 +90,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The Victorians associated amaryllis with strength and determination because of their height and sturdiness.The shape of the flower represents the head and upper torso, signifying how Huntington’s disease affects mental and physical functions. The growing flower also represents hope and celebrates the achievements that have been made in Huntington’s disease treatment and research.",
   },
   {
     id: "20347",
@@ -104,7 +104,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Bajrang Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The Victorians associated amaryllis with strength and determination because of their height and sturdiness.The shape of the flower represents the head and upper torso, signifying how Huntington’s disease affects mental and physical functions. The growing flower also represents hope and celebrates the achievements that have been made in Huntington’s disease treatment and research.",
   },
   {
     id: "20348",
@@ -118,7 +118,7 @@ export const plants = [
     categoryLink: "/shop-plants",
     vendor: "Bajrang Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The Victorians associated amaryllis with strength and determination because of their height and sturdiness.The shape of the flower represents the head and upper torso, signifying how Huntington’s disease affects mental and physical functions. The growing flower also represents hope and celebrates the achievements that have been made in Huntington’s disease treatment and research.",
   },
 ];
 

@@ -20,7 +20,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Spinach is easy to grow in any type of vegetable garden. Mix of soil requires Red soil, Vermicompost and Coco peat in respective ratios (40: 40: 20). Also add handful of Neem cake to each pot to keep the soil pest free.Spinach need at least 1 to 2 hours Sunlight. Add handful of compost for every 10-15 days for each pot to make sure soil has enough nutrition’s to grow plants.",
   },
   {
     id: "30342",
@@ -34,7 +34,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Amaranth is a nutritious, gluten-free grain that provides plenty of fiber, protein and micronutrients.It has also been associated with a number of health benefits, including reduced inflammation, lower cholesterol levels and increased weight loss.Best of all, this grain is easy to prepare and can be added to a variety of dishes, making it an excellent addition to your diet.",
   },
   {
     id: "30343",
@@ -48,7 +48,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Drumstick seeds are a boon to those suffering from joint pains and arthritis. It helps strengthening bones, and reduces soreness around joints with its anti- inflammatory benefits and rich source of calcium. Because of its high content of vitamin C, it's an ideal food to boost immune system ",
   },
   {
     id: "30344",
@@ -62,7 +62,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Carrot seeds are used in aromatherapy applications, Carrot Seed Oil stimulates circulation as well as brain and nerve functions. Its warm, earthy, woody, and herbaceous scent has a soothing, refreshing, and grounding effect that is known to diminish feelings of fatigue, weakness, anxiety, and stress.",
   },
   {
     id: "30345",
@@ -76,7 +76,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Bajrang Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Coriander seed helps in reducing bad cholesterol and promotes good cholesterol in the body. These are rich in copper, zinc, iron and other essential minerals that increases RBC and improves heart health. Coriander seeds also help in increasing metabolism.",
   },
   {
     id: "30346",
@@ -90,7 +90,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Bajrang Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Cucumber one of the most popular and most used vegetable in summer can be consumed raw as well as cooked. They are called as kamala kakdi (Hindi), sowthekay (kannada) and has a lot more local names. Consuming cucumbers fights against inflammation manages stress, reduces cholesterol etc. Cucumbers are climber/creeper plants can be grown in containers as well as in your garden patch which requires good care in the process of growth.",
   },
   {
     id: "30347",
@@ -104,7 +104,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Radish seeds have a pungent and slightly bitter flavor. Their culinary uses are not as numerous as their medicinal ones. They are usually added to salads, herbal vinegars, and seasonings. They go well with brown mustard seeds in condiments and spice mixes.",
   },
   {
     id: "30348",
@@ -118,7 +118,7 @@ export const seeds = [
     categoryLink: "/shop-seeds",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Based on the available evidence, fenugreek has benefits for lowering blood sugar levels, boosting testosterone, and increasing milk production in breastfeeding mothers. Fenugreek may also reduce cholesterol levels, lower inflammation, and help with appetite control, but more research is needed in these areas.",
   },
 ];
 

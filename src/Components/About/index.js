@@ -59,25 +59,31 @@ const AboutComponent = () => {
           <ServicesCard>
             <img alt="" src={svg1} />
             <h4>Garden Setup</h4>
-            <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+            <p>You can get your own garden set up at your home or office.</p>
             <img alt="" src={leafSvg} className="leaf" />
           </ServicesCard>
           <ServicesCard>
             <img alt="" src={svg2} />
             <h4>Lawn & Garden Care</h4>
-            <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+            <p>You can book a one time or regurlar based gardening service.</p>
             <img alt="" src={leafSvg} className="leaf" />
           </ServicesCard>
           <ServicesCard>
             <img alt="" src={svg3} />
             <h4>Irrigation & Drainage</h4>
-            <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+            <p>
+              {" "}
+              You can book a service for irrigating and draining your garden.
+            </p>
             <img alt="" src={leafSvg} className="leaf" />
           </ServicesCard>
           <ServicesCard>
             <img alt="" src={svg4} />
             <h4>Garden Clearance</h4>
-            <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+            <p>
+              You can get your garden neat and clean by booking garden clearance
+              service.
+            </p>
             <img alt="" src={leafSvg} className="leaf" />
           </ServicesCard>
         </ServicesCardWrapper>

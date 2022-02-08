@@ -20,7 +20,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Double Prong Weeder is an upgrade to the Single Prong and is used for weeding, small root removal, loosening the soil efficiently and digging holes to sow seeds. It comes with a wooden handle for a powerful and firm grip and is perfectly sized for flower beds and small vegetable gardens.",
   },
   {
     id: "40342",
@@ -34,7 +34,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "Single Prong Weeder is an essential tool that is required in every gardener's inventory for weeding and small root removal as well also dig in holes to sow seeds. It comes with a wooden handle for a powerful and firm grip and is perfectly sized for flower beds and small vegetable gardens.",
   },
   {
     id: "40343",
@@ -48,7 +48,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Shri Ramesh Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The Five Prong Weeder comes with 5 metal prongs and wooden handles for comfortably turning soil and cleaning leaves from the garden.",
   },
   {
     id: "40344",
@@ -62,7 +62,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      " Cultivator with Wooden Handle is a gardening tool that is used to turn the soil where you plan on planting and for removing weeds. In small flower or vegetable gardens, it can also be used like a small plow to dig the planting rows.",
   },
   {
     id: "40345",
@@ -76,7 +76,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Bajrang Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The 5 Dial Sprinkler with Quick is operated via a revolving shower head with 5 different patterns for irrigating the garden. It can cover a radius of 3 to 5 ft and it waters the garden in a semi-circle formation.",
   },
   {
     id: "40346",
@@ -90,7 +90,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Bajrang Nursery",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The Single-Edge Sickle is one of the most ancient of harvesting tools. It is a superior quality tool used to cut grass or harvest crops very easily. It features a wooden handle which is provided for a firm grip and allows the user to complete their task with speed and efficiency.",
   },
   {
     id: "40347",
@@ -104,7 +104,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "The X828 Plastic Sprinkler Nozzle is perfect for cleaning or general watering purposes and has clips for its opening. It features an adaptable nozzle that can fit any garden hose. The nozzle smooth on-off lever handle allows for continuous spraying.",
   },
   {
     id: "40348",
@@ -118,7 +118,7 @@ export const tools = [
     categoryLink: "/shop-tools",
     vendor: "Mother Nature",
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a maximus ex, sit amet vestibulum enim. Maecenas semper tortor ligula, at aliquet nisi porta vitae. Mauris vitae elementum urna. In vitae pharetra purus. Curabitur rutrum erat ut purus dapibus pellentesque. Vestibulum porttitor feugiat arcu, ut tincidunt sapien ullamcorper eget.",
+      "A multi-purpose tool that is highly beneficial for your garden, the Pyramid double side rake and trowel should be a constant fixture amongst your garden tools. It clears leaves, grass and other debris with the rake on one side and digs, scoops and moves dirt with the trowel the other side.",
   },
 ];
 
