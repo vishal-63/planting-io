@@ -154,25 +154,28 @@ const ServicesOffered = () => {
         <ServicesCard>
           <img alt="" src={svg1} />
           <h4>Garden Setup</h4>
-          <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+          <p>You can get your own garden set up at your home or office.</p>
           <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
         <ServicesCard>
           <img alt="" src={svg2} />
           <h4>Lawn & Garden Care</h4>
-          <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+          <p>You can book a one time or regurlar based gardening service.</p>
           <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
         <ServicesCard>
           <img alt="" src={svg3} />
           <h4>Irrigation & Drainage</h4>
-          <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+          <p> You can book a service for irrigating and draining your garden</p>
           <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
         <ServicesCard>
           <img alt="" src={svg4} />
           <h4>Garden Clearance</h4>
-          <p>Nunc a dui at orci tincidunt pulvinar vel nec libero.</p>
+          <p>
+            You can get your garden neat and clean by booking garden clearance
+            service.
+          </p>
           <img alt="" src={leafSvg} className="leaf" />
         </ServicesCard>
       </ServicesCardWrapper>
@@ -215,9 +218,10 @@ const PlantCare = () => {
     <PlantCareContainer>
       <Title>Plant Care Guide</Title>
       <PlantCareSubtitle>
-        Lorem ipsum dolor sit amet, consectetur adipiscing ss elit, sed and more
-        recently with desktop publishing software like Aldus PageMaker including
-        versions of Lorem Ipsum.
+        Indoor plants often add to the ambience of a house or any place they are
+        kept at. Not only they make a place look more beautiful but some also
+        purify inside environment. Plants also improve your health and help
+        increase your focus.
       </PlantCareSubtitle>
 
       <img src={plantCare} alt="" className="plant-care-img" />
@@ -228,7 +232,8 @@ const PlantCare = () => {
             <div>
               <h5>Clean Air</h5>
               <p>
-                Lorem Ipsum Is Simply Dummy Text Generator Volput Nulla Content
+                Plants need to breathe for the same reason people and animals
+                must breathe they need clean air to convert food into energy.
               </p>
             </div>
           </PlantCareCard>
@@ -237,7 +242,9 @@ const PlantCare = () => {
             <div>
               <h5>Hand Planted</h5>
               <p>
-                Lorem Ipsum Is Simply Dummy Text Generator Volput Nulla Content
+                For proper growth, plants need sufficient quantity or
+                fertilizers or manure of the right type. We should provide them
+                with these with hands.
               </p>
             </div>
           </PlantCareCard>
@@ -248,7 +255,9 @@ const PlantCare = () => {
             <div>
               <h5>Water Deeply</h5>
               <p>
-                Lorem Ipsum Is Simply Dummy Text Generator Volput Nulla Content
+                Water is necessary for germination, rapid growth and healthy
+                life of the plants.We should take care to water the plants
+                regularly at proper intervals.
               </p>
             </div>
           </PlantCareCard>
@@ -257,7 +266,9 @@ const PlantCare = () => {
             <div>
               <h5>Natural Sunlight</h5>
               <p>
-                Lorem Ipsum Is Simply Dummy Text Generator Volput Nulla Content
+                The process of photosynthesis, which produces food for plants,
+                is performed only in presence of sunlight.Thus the should get
+                sufficient amount of sunlight.
               </p>
             </div>
           </PlantCareCard>

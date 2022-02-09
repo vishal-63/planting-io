@@ -86,10 +86,8 @@ const HeroSection = () => {
       <Slider {...settings}>
         <HeroSlideWrapper src={bgImg}>
           <HeroContent>
-            <HeroTitle>Lorem Ipsum</HeroTitle>
-            <HeroText>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-            </HeroText>
+            <HeroTitle>Blossom your Indoors</HeroTitle>
+            <HeroText>Buy plants, you need from the nearest nursery.</HeroText>
             <HeroButton>
               <Link to="/shop-plants">Shop Now</Link>
             </HeroButton>
@@ -98,9 +96,10 @@ const HeroSection = () => {
 
         <HeroSlideWrapper src={img2} className="second-slide">
           <HeroContent className="second-slide">
-            <HeroTitle>Lorem Ipsum</HeroTitle>
+            <HeroTitle>Go Green</HeroTitle>
             <HeroText className="second-slide-text">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
+              Book gardening services for your garden setup, maintenance and
+              irrigation.
             </HeroText>
             <HeroButton>
               <Link to="/services">View All</Link>
