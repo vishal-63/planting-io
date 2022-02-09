@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DashboardHeader from "./DashboardHeader";
-import DashboardMenu from "./DashboardMenu";
+import DashboardHeader from "../../../../Components/DashboardHeader";
+import DashboardMenu from "../../../../Components/DashboardMenu";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
-import { NurseryMenu } from "../data/dashboard-menu-items";
+import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 
-import { DashboardCard } from "./Dashboard Items/DashboardElements";
+import { DashboardCard } from "../../../../Components/Dashboard Items/DashboardElements";
 
 import {
   AddProductsForm,
@@ -14,7 +14,7 @@ import {
   Input,
   ProductDescription,
   DashboardButton,
-} from "./DashboardInputs";
+} from "../../../../Components/DashboardInputs";
 
 import {
   CustomOption,
@@ -23,8 +23,9 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectWrapper,
-} from "./NurseryFormElements";
-import { getProduct } from "../data/products";
+} from "../../../../Components/NurseryFormElements";
+import { services } from "../../../../data/service";
+import { getProduct } from "../../../../data/products";
 import { useParams } from "react-router-dom";
 
 const Container = styled.section`
@@ -48,12 +49,12 @@ const Title = styled.h4`
   margin: 1rem;
 `;
 
-const ManageProductsForm = () => {
+const ManageServiceForm = () => {
   let params = useParams();
-  let product = getProduct(params.id);
+  let service = services.filter((service) => service.id === params.id)[0];
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(product.type);
+  const [selectedOption, setSelectedOption] = useState(service.type);
 
   const openDropdown = (e) => {
     e.target.closest(".select").classList.toggle("open");
@@ -83,74 +84,74 @@ const ManageProductsForm = () => {
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
       <DashboardMenu
-        activePage="manage-products"
+        activePage="manage-services"
         menuOpen={menuOpen}
         listItems={NurseryMenu}
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
-          <Title>Add Products</Title>
+          <Title>Manage Service</Title>
           <AddProductsForm>
             <Wrapper1>
-              <Label>Product Name</Label>
+              <Label>Service Name</Label>
               <Input
                 spellcheck="false"
                 type="text"
                 name="name"
-                defaultValue={product.name}
+                defaultValue={service.serviceName}
               />
             </Wrapper1>
             <Wrapper1>
               <SelectWrapper className="select-wrapper" onClick={openDropdown}>
-                <SelectLabel style={{ top: "0" }}>Product Type</SelectLabel>
+                <SelectLabel style={{ top: "0" }}>Service Type</SelectLabel>
                 <Select className="select">
                   <SelectTrigger style={{ height: "73px" }}>
                     <span style={{ paddingTop: "1rem" }}>{selectedOption}</span>
                     <IoIosArrowDown />
                   </SelectTrigger>
                   <CustomOptions className="custom-options">
-                    <CustomOption data-value="Plant" onClick={changeSelection}>
-                      Plant
+                    <CustomOption
+                      data-value="Garden Setup"
+                      onClick={changeSelection}
+                    >
+                      Garden Setup
                     </CustomOption>
-                    <CustomOption data-value="Seed" onClick={changeSelection}>
-                      Seed
+                    <CustomOption
+                      data-value="Garden Maintenace"
+                      onClick={changeSelection}
+                    >
+                      Garden Maintenace
                     </CustomOption>
-                    <CustomOption data-value="Tool" onClick={changeSelection}>
-                      Tool
+                    <CustomOption
+                      data-value="Garden Clearance"
+                      onClick={changeSelection}
+                    >
+                      Garden Clearance
                     </CustomOption>
                   </CustomOptions>
                 </Select>
               </SelectWrapper>
             </Wrapper1>
             <Wrapper1>
-              <Label>Product Price</Label>
+              <Label>Service Rate</Label>
               <Input
                 spellcheck="false"
                 type="text"
                 name="price"
-                defaultValue={product.price}
+                defaultValue={service.price}
               />
             </Wrapper1>
             <Wrapper1>
-              <Label>Product Discount</Label>
+              <Label>Service Discount</Label>
               <Input
                 spellcheck="false"
                 type="text"
                 name="discount"
-                defaultValue={product.discount}
-              />
-            </Wrapper1>
-            <Wrapper1>
-              <Label>Quantity</Label>
-              <Input
-                spellcheck="false"
-                type="text"
-                name="quantity"
-                defaultValue={product.quantity}
+                defaultValue={service.discount}
               />
             </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
-              <Label>Product Description</Label>
+              <Label>Service Description</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
@@ -168,4 +169,4 @@ const ManageProductsForm = () => {
   );
 };
 
-export default ManageProductsForm;
+export default ManageServiceForm;

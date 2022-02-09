@@ -2,12 +2,10 @@ import styled from "styled-components";
 
 export const MainContainer = styled.main`
   max-width: 80vw;
-  height: calc(
-    100vh - 60px - 1rem
-  ); /* 60px for the navbar and 2rem for margin*/
+  height: calc(100vh - 80px); /* 80px for the navbar */
   width: 100%;
   max-width: 90vw;
-  margin: 1rem auto 0;
+  margin: 80px auto 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

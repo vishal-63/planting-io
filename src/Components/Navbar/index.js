@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { Link as ScrollLink } from "react-scroll";
 import {
   NavbarContainer,
   NavlinkWrapper,
@@ -177,13 +177,43 @@ export const NurseryNavbar = ({ page }) => {
         <>
           <NavlinkWrapper className="desktop-menu">
             <Navlink>
-              <a href="/nursery">How it works?</a>
+              <ScrollLink
+                to="how-it-works"
+                activeClass="active"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={300}
+                style={{ padding: "1rem 0" }}
+              >
+                How it works?
+              </ScrollLink>
             </Navlink>
             <Navlink>
-              <a href="/nursery">Pricing & Commission</a>
+              <ScrollLink
+                to="pricing-commission"
+                activeClass="active"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={300}
+                style={{ padding: "1rem 0" }}
+              >
+                Pricing & Commission
+              </ScrollLink>
             </Navlink>
             <Navlink>
-              <a href="/nursery">Shipping & Returns</a>
+              <ScrollLink
+                to="shipping-returns"
+                activeClass="active"
+                spy={true}
+                smooth={true}
+                offset={-80}
+                duration={300}
+                style={{ padding: "1rem 0" }}
+              >
+                Shipping & Returns
+              </ScrollLink>
             </Navlink>
           </NavlinkWrapper>
           <ButtonsContainer className="desktop-menu">

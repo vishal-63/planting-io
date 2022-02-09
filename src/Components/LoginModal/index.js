@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { inputsValid } from "../../validation/loginValidation";
+import { handleRegisterSubmit } from "../../validation/registrationValidation";
 import {
   Container,
   LoginContainer,
@@ -16,6 +18,8 @@ import {
   Block,
   SignUpBtn,
   AlreadyAccount,
+  Error,
+  Response,
 } from "./LoginModalElements";
 
 function inputChange(e) {
@@ -28,6 +32,41 @@ function inputChange(e) {
 
 const LoginModal = ({ mode, isFormOpen, closeForm }) => {
   const [formMode, setFormMode] = useState(`${mode}`);
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
+
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+
+    if (inputsValid) loginUser(e);
+  };
+
+  // call api to login user
+  const loginUser = async (e) => {
+    e.preventDefault();
+
+    // console.log(e.target);
+    // console.log(new FormData(e.target).entries);
+    // console.log([...new FormData(e.target)]);
+    const params = new URLSearchParams([...new FormData(e.target).entries()]);
+    // console.log(params);
+
+    const res = await fetch("CRUD/login", {
+      method: "POST",
+      body: params,
+    });
+    await console.log(res);
+    const body = await res.text();
+    setResponse(body);
+    setResponseVisible(true);
+    if (!res.ok) {
+      setResponseClass("login-error");
+    } else {
+      setResponseClass("login-success");
+    }
+    console.log(body);
+  };
 
   return (
     <>
@@ -41,6 +80,10 @@ const LoginModal = ({ mode, isFormOpen, closeForm }) => {
             </TabsContainer>
             <p>Please login using account detail below</p>
 
+            <Response className={responseClass} isVisible={responseVisible}>
+              {response}
+            </Response>
+
             <FormContainer
               name="login"
               method="POST"
@@ -53,7 +96,7 @@ const LoginModal = ({ mode, isFormOpen, closeForm }) => {
                   name="email"
                   id="email"
                   onChange={inputChange}
-                  required
+                  // required
                 />
                 <Label className="label">Email</Label>
               </Wrapper>
@@ -64,7 +107,7 @@ const LoginModal = ({ mode, isFormOpen, closeForm }) => {
                   name="password"
                   id="password"
                   onChange={inputChange}
-                  required
+                  // required
                 />
                 <Label className="label">Password</Label>
               </Wrapper>
@@ -95,7 +138,11 @@ const LoginModal = ({ mode, isFormOpen, closeForm }) => {
             </TabsContainer>
             <p>Enter your Account Details</p>
 
-            <FormContainer className="register" name="register">
+            <FormContainer
+              className="register"
+              name="register"
+              onSubmit={handleRegisterSubmit}
+            >
               <Block>
                 <Wrapper className="register">
                   <Input
@@ -159,6 +206,11 @@ const LoginModal = ({ mode, isFormOpen, closeForm }) => {
                 </Wrapper>
               </Block>
 
+              <span className="password-info">
+                Password must contain at least 8 characters, a digit, lowercase
+                and and uppercase letters
+              </span>
+
               <ButtonContainer className="register">
                 <AlreadyAccount>
                   Already a Member?
@@ -178,59 +230,6 @@ const LoginModal = ({ mode, isFormOpen, closeForm }) => {
       )} */}
     </>
   );
-};
-
-// input validation
-const validEmail = (input) => {
-  var validRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-  if (validRegex.test(input.value)) {
-    input.classList.remove("invalid");
-    return true;
-  } else {
-    input.classList.add("invalid");
-    input.value = "";
-    input.placeholder = "Please enter valid email address";
-    return false;
-  }
-};
-
-const validPassword = (input) => {
-  var validRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/;
-  if (validRegex.test(input.value)) {
-    input.classList.remove("invalid");
-    return true;
-  } else {
-    input.classList.add("invalid");
-    input.value = "";
-    input.placeholder =
-      "Must have at least 8 characters and a lowercase,an uppercase letter and a digit";
-    return false;
-  }
-};
-
-// handle login form submit
-const handleLoginSubmit = (e) => {
-  e.preventDefault();
-  const inputs = document.querySelectorAll("form[name='login'] input");
-  const emailField = inputs[0];
-  const passwordField = inputs[1];
-  if (validEmail(emailField) && validPassword(passwordField)) loginUser(e);
-};
-
-// call api to login user
-const loginUser = async (e) => {
-  e.preventDefault();
-
-  const params = new URLSearchParams([...new FormData(e.target).entries()]);
-  console.log(params);
-
-  const res = await fetch("/Planting.ioUser/registration", {
-    method: "POST",
-    body: params,
-  });
-  const body = await res.text();
-  console.log(body);
 };
 
 export default LoginModal;
