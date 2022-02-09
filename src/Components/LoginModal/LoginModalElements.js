@@ -25,7 +25,7 @@ export const Container = styled.section`
 
 export const LoginContainer = styled.div`
   width: 700px;
-  height: 450px;
+  height: auto;
   align-items: center;
   border-radius: 20px;
   /* position: fixed; */
@@ -96,11 +96,34 @@ export const Tab = styled.div`
   }
 `;
 
+export const Response = styled.span`
+  display: ${({ isVisible }) => (isVisible ? "block" : "none")};
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  border-radius: 4px;
+
+  &.login-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+  }
+
+  &.login-error {
+    background-color: rgb(220 53 69 / 25%);
+    color: #dc3545;
+  }
+`;
+
 export const FormContainer = styled.form`
-  padding: 5px 1rem;
+  padding: 5px 0;
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  & span.password-info {
+    font-size: 0.8rem;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -254,6 +277,7 @@ export const NewAccount = styled.div`
   display: flex;
   align-items: center;
   margin-top: 1.5rem;
+  margin-bottom: 1rem;
 
   &.nursery-page {
     margin: 1rem 0 0 0;

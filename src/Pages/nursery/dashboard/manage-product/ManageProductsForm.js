@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import DashboardHeader from "../../../Components/DashboardHeader";
-import DashboardMenu from "../../../Components/DashboardMenu";
+import DashboardHeader from "../../../../Components/DashboardHeader";
+import DashboardMenu from "../../../../Components/DashboardMenu";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
+import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 
-import { DashboardCard } from "../../../Components/Dashboard Items/DashboardElements";
+import { DashboardCard } from "../../../../Components/Dashboard Items/DashboardElements";
 
 import {
   AddProductsForm,
@@ -13,7 +14,7 @@ import {
   Input,
   ProductDescription,
   DashboardButton,
-} from "../../../Components/DashboardInputs";
+} from "../../../../Components/DashboardInputs";
 
 import {
   CustomOption,
@@ -22,8 +23,9 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectWrapper,
-} from "../../../Components/NurseryFormElements";
-import { NurseryMenu } from "../../../data/dashboard-menu-items";
+} from "../../../../Components/NurseryFormElements";
+import { getProduct } from "../../../../data/products";
+import { useParams } from "react-router-dom";
 
 const Container = styled.section`
   width: 100vw;
@@ -46,9 +48,12 @@ const Title = styled.h4`
   margin: 1rem;
 `;
 
-const AddServices = () => {
+const ManageProductsForm = () => {
+  let params = useParams();
+  let product = getProduct(params.id);
+
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(product.type);
 
   const openDropdown = (e) => {
     e.target.closest(".select").classList.toggle("open");
@@ -78,77 +83,80 @@ const AddServices = () => {
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
       <DashboardMenu
-        activePage="add-services"
+        activePage="manage-products"
         menuOpen={menuOpen}
         listItems={NurseryMenu}
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
-          <Title>Add Services</Title>
+          <Title>Add Products</Title>
           <AddProductsForm>
-            {/* <Wrapper1>
-              <Label>Services Name</Label>
-              <Input spellcheck="false" type="text" name="name" />
-            </Wrapper1> */}
+            <Wrapper1>
+              <Label>Product Name</Label>
+              <Input
+                spellcheck="false"
+                type="text"
+                name="name"
+                defaultValue={product.name}
+              />
+            </Wrapper1>
             <Wrapper1>
               <SelectWrapper className="select-wrapper" onClick={openDropdown}>
-                <SelectLabel style={{ top: "0" }}>Service Type</SelectLabel>
+                <SelectLabel style={{ top: "0" }}>Product Type</SelectLabel>
                 <Select className="select">
                   <SelectTrigger style={{ height: "73px" }}>
                     <span style={{ paddingTop: "1rem" }}>{selectedOption}</span>
                     <IoIosArrowDown />
                   </SelectTrigger>
                   <CustomOptions className="custom-options">
-                    <CustomOption
-                      data-value="Garden Setup"
-                      onClick={changeSelection}
-                    >
-                      Garden Setup
+                    <CustomOption data-value="Plant" onClick={changeSelection}>
+                      Plant
                     </CustomOption>
-                    <CustomOption
-                      data-value="Maintenance"
-                      onClick={changeSelection}
-                    >
-                      Maintenance
+                    <CustomOption data-value="Seed" onClick={changeSelection}>
+                      Seed
                     </CustomOption>
-                    <CustomOption
-                      data-value="Garden Clearance"
-                      onClick={changeSelection}
-                    >
-                      Garden Clearance
+                    <CustomOption data-value="Tool" onClick={changeSelection}>
+                      Tool
                     </CustomOption>
                   </CustomOptions>
                 </Select>
               </SelectWrapper>
             </Wrapper1>
             <Wrapper1>
-              <Label>Service Rate</Label>
-              <Input spellcheck="false" type="text" name="price" />
+              <Label>Product Price</Label>
+              <Input
+                spellcheck="false"
+                type="text"
+                name="price"
+                defaultValue={product.price}
+              />
             </Wrapper1>
             <Wrapper1>
-              <Label>Service Discount</Label>
-              <Input spellcheck="false" type="text" name="discount" />
+              <Label>Product Discount</Label>
+              <Input
+                spellcheck="false"
+                type="text"
+                name="discount"
+                defaultValue={product.discount}
+              />
+            </Wrapper1>
+            <Wrapper1>
+              <Label>Quantity</Label>
+              <Input
+                spellcheck="false"
+                type="text"
+                name="quantity"
+                defaultValue={product.quantity}
+              />
             </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
-              <Label>Service Description</Label>
+              <Label>Product Description</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
                 name="description"
               />
             </Wrapper1>
-            <div className="photo-input">
-              <Label htmlFor="product-photos" className="photo-label">
-                Add Photos
-              </Label>
-              <input
-                type="file"
-                accept="image/*"
-                name="product-photos"
-                id="product-photos"
-                multiple
-              />
-            </div>
             <div>
               <DashboardButton className="primary">Publish</DashboardButton>
               <DashboardButton className="cancel">Cancel</DashboardButton>
@@ -160,4 +168,4 @@ const AddServices = () => {
   );
 };
 
-export default AddServices;
+export default ManageProductsForm;

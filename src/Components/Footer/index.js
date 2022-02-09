@@ -31,7 +31,7 @@ const Footer = () => {
         </FooterLinks>
         <Button className="primary-btn">Become a Seller</Button>
       </FooterWrapper>
-      <CopyRights>Planting.io @ 2021. All rights reserved.</CopyRights>
+      <CopyRights>Planting.io &copy; 2021. All rights reserved.</CopyRights>
     </footer>
   );
 };
