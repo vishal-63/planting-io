@@ -6,7 +6,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import ManageProductsForm from "./Components/ManageProductsForm";
+import ManageProductsForm from "./Pages/nursery/dashboard/manage-product/ManageProductsForm";
 import { UserIconsWrapper } from "./Components/Topbar/TopbarElements";
 import Home from "./Pages";
 import About from "./Pages/about";
@@ -26,7 +26,7 @@ import AddProduct from "./Pages/nursery/dashboard/add-product";
 import AddServices from "./Pages/nursery/dashboard/add-services";
 import Dashboard from "./Pages/nursery/dashboard/index.js";
 import ManageProducts from "./Pages/nursery/dashboard/manage-product/index";
-import ManageServices from "./Pages/nursery/dashboard/manage-services";
+import ManageServices from "./Pages/nursery/dashboard/manage-services/index";
 import OrderList from "./Pages/nursery/dashboard/order-list";
 import NurseryLogin from "./Pages/nursery/login";
 import NurseryRegister from "./Pages/nursery/register";
@@ -36,6 +36,7 @@ import ShopSeeds from "./Pages/shop-seeds";
 import ShopTools from "./Pages/shop-tools";
 import AdminOrderList from "./Pages/admin/order-list";
 import AdminBooingList from "./Pages/admin/booking-list";
+import ManageServiceForm from "./Pages/nursery/dashboard/manage-services/ManageServiceForm";
 
 function App() {
   const [isAdminLoggedin, setIsAdminLoggedin] = useState(false);
@@ -97,6 +98,11 @@ function App() {
             exact
           />
           <Route
+            path="/nursery/dashboard/manage-services/:id"
+            element={<ManageServiceForm />}
+            exact
+          />
+          <Route
             path="/admin"
             element={
               // <RequireAuth navigateTo="/admin/login">
@@ -115,7 +121,7 @@ function App() {
           <Route path="/admin/product-list" element={<ProductList />} />
           <Route path="/admin/service-list" element={<ServiceList />} />
           <Route path="/admin/orders" element={<AdminOrderList />} />
-          <Route path="/admin/bookings" element={<AdminBooingList/>} />
+          <Route path="/admin/bookings" element={<AdminBooingList />} />
         </Routes>
       </Router>
     </>

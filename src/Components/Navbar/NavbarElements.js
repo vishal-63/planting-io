@@ -16,22 +16,12 @@ export const NavbarContainer = styled.nav`
     scrollNav ? "0 5px 20px rgba(0,0,0,0.2)" : ""};
 
   &.nursery-page {
-    height: 60px;
+    position: fixed;
+    top: 0px;
   }
 
   @media (min-width: 768px) {
     padding: 0 6.5vw;
-
-    &.nursery-page {
-      margin: 0 auto;
-      padding: 1rem;
-    }
-  }
-
-  @media (min-width: 1100px) {
-    &.nursery-page {
-      max-width: 80vw;
-    }
   }
 
   & .burger {

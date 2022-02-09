@@ -15,7 +15,10 @@
     "react-parallax": "^3.3.0",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
+    "react-scroll": "^1.8.4",
+    "react-scrollmagic": "^2.3.0",
     "react-slick": "^0.28.1",
+    "scrollmagic": "^2.0.8",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.3",
     "web-vitals": "^1.0.1"
@@ -26,7 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:8080/",
   "eslintConfig": {
     "extends": [
       "react-app",
