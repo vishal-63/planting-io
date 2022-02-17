@@ -29,12 +29,12 @@ export const services = [
       {
         customerName: "Anusha Basu",
         comment:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, culpa.",
+          "Very prompt, efficient and thorough. Andy and his colleague did a great job.",
       },
       {
         customerName: "Rajendra Prabhu",
         comment:
-          "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ratione nesciunt facilis, aspernatur maxime similique cumque perferendis quis fugit modi dolor!",
+          "Bob and team arrived on time, did a great job cutting hedges, pruning everything back, mowing the lawn and taking all garden rubbish away. They did in a mornings work what would have taken me three weekends and a load of runs to the tip. Thanks guys",
       },
     ],
   },
@@ -55,7 +55,7 @@ export const services = [
       {
         customerName: "Sirish Narang",
         comment:
-          "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Modi fugit corrupti quae nihil quasi quam.",
+          "Bob and Richie were punctual, friendly and worked really hard all day in our garden trimming hedges, clearing beds and general tidying up. They did a great job and the garden looks amazing! Would definitely recommend!",
       },
     ],
   },

@@ -4,6 +4,7 @@ import { BsTruck, BsBell, BsPersonCircle } from "react-icons/bs";
 import { BiMenu } from "react-icons/bi";
 
 import logo from "../../src/Images/logo.svg";
+import { Link } from "react-router-dom";
 
 const Container = styled.header`
   width: 100vw;
@@ -88,7 +89,9 @@ const DashboardHeader = ({ toggleMenu, name }) => {
         <BsTruck />
         <BsBell />
         <span>{nurseryName}</span>
-        <BsPersonCircle />
+        <Link to="/nursery/profile">
+          <BsPersonCircle />
+        </Link>
       </Icons>
     </Container>
   );

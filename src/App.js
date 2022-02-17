@@ -37,6 +37,8 @@ import ShopTools from "./Pages/shop-tools";
 import AdminOrderList from "./Pages/admin/order-list";
 import AdminBooingList from "./Pages/admin/booking-list";
 import ManageServiceForm from "./Pages/nursery/dashboard/manage-services/ManageServiceForm";
+import NurseryProfile from "./Pages/nursery/dashboard/profile";
+import AdminProfile from "./Pages/admin/profile";
 
 function App() {
   const [isAdminLoggedin, setIsAdminLoggedin] = useState(false);
@@ -103,6 +105,11 @@ function App() {
             exact
           />
           <Route
+            path="/nursery/profile"
+            element={<NurseryProfile/>}
+            exact
+          />
+          <Route
             path="/admin"
             element={
               // <RequireAuth navigateTo="/admin/login">
@@ -122,6 +129,7 @@ function App() {
           <Route path="/admin/service-list" element={<ServiceList />} />
           <Route path="/admin/orders" element={<AdminOrderList />} />
           <Route path="/admin/bookings" element={<AdminBooingList />} />
+          <Route path="/admin/profile" element={<AdminProfile />} />
         </Routes>
       </Router>
     </>
