@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { AiOutlineStar } from "react-icons/ai";
 import { BiRupee } from "react-icons/bi";
 
 import img1 from "../Images/plant-1.jpg";
@@ -12,7 +13,10 @@ import {
   OrderDetails,
   OrderInfo,
   ProductDetails,
+  ReviewContainer,
   ShippingInfo,
+  SubmitButton,
+  Title,
 } from "./AccountElements";
 
 const orders = [
@@ -50,7 +54,7 @@ const orders = [
 const RecentOrders = () => {
   return (
     <MainWrapper>
-      <div className="title">Recent Orders</div>
+      <Title>Recent Orders</Title>
       {orders.map((order, index) => (
         <OrderSection key={index} order={order} />
       ))}
@@ -121,6 +125,18 @@ const OrderSection = ({ order }) => {
           <DetailTitle>Shipping Address:</DetailTitle>
           <p>{order.shippingAddress}</p>
         </div>
+        <ReviewContainer>
+          <DetailTitle>Rate your product:</DetailTitle>
+          <div className="stars">
+            <AiOutlineStar />
+            <AiOutlineStar />
+            <AiOutlineStar />
+            <AiOutlineStar />
+            <AiOutlineStar />
+          </div>
+          <textarea placeholder="Write a review" rows={4}></textarea>
+          <SubmitButton>Submit</SubmitButton>
+        </ReviewContainer>
       </OrderDetails>
     </OrderCard>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
+import { useForm } from "react-hook-form";
 
 import loginSvg from "../../Images/login.svg";
 import {
@@ -10,7 +11,8 @@ import {
   Label,
   SignInBtn,
   NewAccount,
-  // TextArea,
+  Alert,
+  ValidationError,
 } from "../../Components/LoginModal/LoginModalElements";
 import {
   MainContainer,
@@ -33,6 +35,7 @@ import {
   FileInputWrapper,
 } from "../../Components/NurseryFormElements";
 import { NurseryNavbar } from "../../Components/Navbar";
+import { handleNurseryRegisterSubmit } from "../../validation/registrationValidation";
 
 function inputChange(e) {
   if (e.target.value !== "") {
@@ -46,6 +49,8 @@ const NurseryLogin = () => {
   const [activeStep, setActiveStep] = useState(false);
   const [step, setStep] = useState("registration");
   const [selectedOption, setSelectedOption] = useState("");
+
+  const [errorVisible, setErrorVisible] = useState(false);
 
   // useEffect(() => {
   //   step === "verification" ? setActiveStep(true) : setActiveStep(false);
@@ -75,6 +80,24 @@ const NurseryLogin = () => {
     el.classList.add("selected");
   };
 
+  const handleFileUpload = (e) => {
+    const acceptedFiles = ["image/png", "image/jpeg"];
+    const fileType = e.target.files[0].type;
+    if (!acceptedFiles.includes(fileType)) {
+      setErrorVisible(true);
+      e.target.value = null;
+    } else {
+      setErrorVisible(false);
+    }
+  };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <>
       <NurseryNavbar />
@@ -100,7 +123,11 @@ const NurseryLogin = () => {
 
             <NurseryLoginContainer>
               {step === "registration" ? (
-                <FormContainer name="register">
+                <FormContainer
+                  name="register"
+                  method="POST"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   <div
                     style={{
                       display: "flex",
@@ -115,9 +142,13 @@ const NurseryLogin = () => {
                         type="text"
                         name="name"
                         id="name"
-                        onChange={inputChange}
+                        {...register("name", {
+                          required: "Name is required",
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Name</Label>
+                      <ValidationError>{errors.name?.message}</ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
@@ -125,9 +156,18 @@ const NurseryLogin = () => {
                         type="email"
                         name="email"
                         id="email"
-                        onChange={inputChange}
+                        {...register("email", {
+                          required: "Email is required",
+                          pattern: {
+                            value:
+                              /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                            message: "Invalid email address",
+                          },
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Email</Label>
+                      <ValidationError>{errors.email?.message}</ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
@@ -135,9 +175,21 @@ const NurseryLogin = () => {
                         type="number"
                         name="phone"
                         id="phone"
-                        onChange={inputChange}
+                        {...register("phone", {
+                          required: "Phone field is required",
+                          maxLength: {
+                            value: 10,
+                            message: "Phone No must be of 10 digits",
+                          },
+                          minLength: {
+                            value: 10,
+                            message: "Phone No must be of 10 digits",
+                          },
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Phone</Label>
+                      <ValidationError>{errors.phone?.message}</ValidationError>
                     </Wrapper>
                     <Wrapper style={{ width: "100%" }}>
                       <Input
@@ -145,9 +197,15 @@ const NurseryLogin = () => {
                         type="text"
                         name="address"
                         id="address"
-                        onChange={inputChange}
+                        {...register("address", {
+                          required: "Address is required",
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Address</Label>
+                      <ValidationError>
+                        {errors.address?.message}
+                      </ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
@@ -155,9 +213,13 @@ const NurseryLogin = () => {
                         type="text"
                         name="city"
                         id="city"
-                        onChange={inputChange}
+                        {...register("city", {
+                          required: "City is required",
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">City</Label>
+                      <ValidationError>{errors.city?.message}</ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
@@ -165,9 +227,23 @@ const NurseryLogin = () => {
                         type="number"
                         name="pincode"
                         id="pincode"
-                        onChange={inputChange}
+                        {...register("pincode", {
+                          required: "Pincode is required",
+                          maxLength: {
+                            value: 6,
+                            message: "Pincode must be of 6 digits",
+                          },
+                          minLength: {
+                            value: 6,
+                            message: "Pincode must be of 6 digits",
+                          },
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Pin Code</Label>
+                      <ValidationError>
+                        {errors.pincode?.message}
+                      </ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
@@ -175,9 +251,13 @@ const NurseryLogin = () => {
                         type="text"
                         name="state"
                         id="state"
-                        onChange={inputChange}
+                        {...register("state", {
+                          required: "State is required",
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">State</Label>
+                      <ValidationError>{errors.state?.message}</ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
@@ -185,9 +265,15 @@ const NurseryLogin = () => {
                         type="text"
                         name="country"
                         id="country"
-                        onChange={inputChange}
+                        {...register("country", {
+                          required: "Country is required",
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Country</Label>
+                      <ValidationError>
+                        {errors.country?.message}
+                      </ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
@@ -195,19 +281,39 @@ const NurseryLogin = () => {
                         type="password"
                         name="password"
                         id="password"
-                        onChange={inputChange}
+                        {...register("password", {
+                          required: "Password field is required",
+                          pattern: {
+                            value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/,
+                            message: "Invalid password",
+                          },
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Password</Label>
+                      <ValidationError>
+                        {errors.password?.message}
+                      </ValidationError>
                     </Wrapper>
                     <Wrapper className="register">
                       <Input
                         spellcheck="false"
                         type="password"
-                        name="confrim-password"
-                        id="confirm-password"
-                        onChange={inputChange}
+                        name="confrimPassword"
+                        id="confirmPassword"
+                        {...register("confirmPassword", {
+                          required: "Confrim Password field is required",
+                          pattern: {
+                            value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/,
+                            message: "Invalid password",
+                          },
+                          onChange: (e) => inputChange(e),
+                        })}
                       />
                       <Label className="label">Confirm Password</Label>
+                      <ValidationError>
+                        {errors.confirmPassword?.message}
+                      </ValidationError>
                     </Wrapper>
                   </div>
                   <div
@@ -219,7 +325,7 @@ const NurseryLogin = () => {
                       marginTop: "1rem",
                     }}
                   >
-                    <SignInBtn onClick={changeStep} className="nursery-page">
+                    <SignInBtn type="submit" className="nursery-page">
                       Sign Up
                     </SignInBtn>
                     <NewAccount className="nursery-page">
@@ -255,17 +361,19 @@ const NurseryLogin = () => {
                       </CustomOptions>
                     </Select>
                   </SelectWrapper>
+
                   <FileInputWrapper>
-                    <span>Document Photo (Front)</span>
+                    <span>Document Photo (Front) &nbsp; &nbsp;</span>
                     <input
                       type="file"
                       accept="image/jpeg, image/png, image/jpg"
                       name="front-photo"
                       id="front-photo"
+                      onChange={handleFileUpload}
                     />
                   </FileInputWrapper>
                   <FileInputWrapper>
-                    <span>Document Photo (Back)</span>
+                    <span>Document Photo (Back) &nbsp; &nbsp;</span>
                     <input
                       type="file"
                       accept="image/jpeg, image/png, image/jpg"
@@ -273,6 +381,10 @@ const NurseryLogin = () => {
                       id="back-photo"
                     />
                   </FileInputWrapper>
+
+                  <Alert className="error" isVisible={errorVisible}>
+                    You can only upload images of jpg/png format.
+                  </Alert>
 
                   <SignInBtn className="verify">Verify</SignInBtn>
                 </FormContainer>

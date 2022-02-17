@@ -1,6 +1,7 @@
 import React from "react";
-// import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
 import loginSvg from "../../Images/login.svg";
 import {
   FormContainer,
@@ -11,6 +12,7 @@ import {
   ForgotPass,
   SignInBtn,
   NewAccount,
+  ValidationError,
 } from "../../Components/LoginModal/LoginModalElements";
 
 import {
@@ -24,6 +26,7 @@ import {
 } from "../../Components/NurseryFormElements";
 
 import { NurseryNavbar } from "../../Components/Navbar";
+import { inputsValid } from "../../validation/loginValidation";
 
 function inputChange(e) {
   if (e.target.value !== "") {
@@ -34,6 +37,13 @@ function inputChange(e) {
 }
 
 const NurseryLogin = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+
   return (
     <>
       <NurseryNavbar page="login" />
@@ -44,32 +54,46 @@ const NurseryLogin = () => {
           <LoginSvg src={loginSvg} alt="illustration" />
 
           <NurseryLoginContainer>
-            <FormContainer name="login">
+            <FormContainer
+              method="POST"
+              name="login"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <Wrapper className="emailinput">
                 <Input
                   spellcheck="false"
                   type="email"
                   name="email"
                   id="email"
-                  onChange={inputChange}
+                  {...register("email", {
+                    required: "Email field is required",
+                    pattern: {
+                      value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                      message: "Invalid email address",
+                    },
+                    onChange: (e) => inputChange(e),
+                  })}
                 />
                 <Label className="label">Email</Label>
+                <ValidationError>{errors.email?.message}</ValidationError>
               </Wrapper>
-              <Wrapper>
+              <Wrapper style={{ marginTop: "1rem" }}>
                 <Input
                   spellcheck="false"
                   type="password"
                   name="password"
                   id="password"
-                  onChange={inputChange}
+                  {...register("password", {
+                    required: "Password field is required",
+                    onChange: (e) => inputChange(e),
+                  })}
                 />
                 <Label className="label">Password</Label>
+                <ValidationError>{errors.password?.message}</ValidationError>
               </Wrapper>
               <ButtonContainer>
                 <ForgotPass to="/">Forgot Password?</ForgotPass>
-                <SignInBtn>
-                  <Link to="/nursery/dashboard">Sign In</Link>
-                </SignInBtn>
+                <SignInBtn type="submit">Sign In</SignInBtn>
               </ButtonContainer>
             </FormContainer>
             <NewAccount style={{ justifyContent: "center" }}>

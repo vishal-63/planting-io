@@ -24,6 +24,7 @@ import {
   SelectWrapper,
 } from "../../../Components/NurseryFormElements";
 import { NurseryMenu } from "../../../data/dashboard-menu-items";
+import { Alert } from "../../../Components/LoginModal/LoginModalElements";
 
 const Container = styled.section`
   width: 100vw;
@@ -49,6 +50,7 @@ const Title = styled.h4`
 const AddServices = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
+  const [errorVisible, setErrorVisible] = useState(false);
 
   const openDropdown = (e) => {
     e.target.closest(".select").classList.toggle("open");
@@ -74,6 +76,45 @@ const AddServices = () => {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
+  // validate form inputs
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const inputs = document.querySelectorAll("form[name='add-service'] input");
+    const description = document.querySelector(
+      "form[name='add-service'] textarea"
+    );
+
+    inputs.forEach((input) => {
+      if (input.value === "") {
+        input.classList.add("invalid");
+        input.placeholder = "Field cannot be empty";
+      } else {
+        input.classList.remove("invalid");
+        input.placeholder = "";
+      }
+    });
+
+    if (description.value === "") {
+      description.classList.add("invalid");
+      description.placeholder = "Field cannot be empty";
+    } else {
+      description.classList.remove("invalid");
+      description.placeholder = "";
+    }
+  };
+
+  const handleFileUpload = (e) => {
+    const acceptedFiles = ["image/png", "image/jpeg"];
+    const fileType = e.target.files[0].type;
+    if (!acceptedFiles.includes(fileType)) {
+      setErrorVisible(true);
+      e.target.value = null;
+    } else {
+      setErrorVisible(false);
+    }
+  };
+
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
@@ -85,7 +126,11 @@ const AddServices = () => {
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Add Services</Title>
-          <AddProductsForm>
+          <AddProductsForm
+            name="add-service"
+            method="POST"
+            onSubmit={handleFormSubmit}
+          >
             {/* <Wrapper1>
               <Label>Services Name</Label>
               <Input spellcheck="false" type="text" name="name" />
@@ -146,9 +191,15 @@ const AddServices = () => {
                 accept="image/*"
                 name="product-photos"
                 id="product-photos"
+                onChange={handleFileUpload}
                 multiple
               />
             </div>
+
+            <Alert className="error" isVisible={errorVisible}>
+              You can only upload images of jpg/png format.
+            </Alert>
+
             <div>
               <DashboardButton className="primary">Publish</DashboardButton>
               <DashboardButton className="cancel">Cancel</DashboardButton>

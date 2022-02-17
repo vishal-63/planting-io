@@ -10,7 +10,7 @@ export const Container = styled.section`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #dadada85;
+  background-color: #000000e1;
   z-index: 99;
 
   & .close-button {
@@ -28,10 +28,6 @@ export const LoginContainer = styled.div`
   height: auto;
   align-items: center;
   border-radius: 20px;
-  /* position: fixed; */
-  /* top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
   padding: 0 2rem;
   display: flex;
@@ -43,7 +39,7 @@ export const LoginContainer = styled.div`
   & p {
     font-size: 14px;
     line-height: 21px;
-    padding: 20px 5px 10px;
+    padding: 20px 5px 0;
     text-align: center;
 
     @media (min-width: 768px) {
@@ -96,7 +92,7 @@ export const Tab = styled.div`
   }
 `;
 
-export const Response = styled.span`
+export const Alert = styled.span`
   display: ${({ isVisible }) => (isVisible ? "block" : "none")};
   width: 100%;
   margin: 0.5rem 0;
@@ -104,12 +100,12 @@ export const Response = styled.span`
   font-size: 0.8rem;
   border-radius: 4px;
 
-  &.login-success {
+  &.success {
     color: #0f5132;
     background-color: #d1e7dd;
   }
 
-  &.login-error {
+  &.error {
     background-color: rgb(220 53 69 / 25%);
     color: #dc3545;
   }
@@ -123,13 +119,15 @@ export const FormContainer = styled.form`
 
   & span.password-info {
     font-size: 0.8rem;
+    margin-top: 1rem;
   }
 `;
 
 export const Wrapper = styled.div`
   position: relative;
-  display: flex;
+  /* display: flex; */
   height: 5rem;
+  margin-top: 0.5rem;
 
   &.textarea {
     height: auto;
@@ -141,7 +139,7 @@ export const Wrapper = styled.div`
   }
 
   &.register {
-    width: 45%;
+    width: 47%;
 
     @media (max-width: 768px) {
       width: 100%;
@@ -207,7 +205,6 @@ export const ButtonContainer = styled.div`
   margin-top: 25px;
   align-items: center;
   justify-content: space-between;
-  /* width: 90%; */
 
   &.register {
     margin: 1rem 0.25rem;
@@ -354,4 +351,9 @@ export const AlreadyAccount = styled.div`
     margin-top: 1rem;
     font-size: 14px;
   }
+`;
+
+export const ValidationError = styled.span`
+  font-size: 0.8rem;
+  color: #ac1212;
 `;

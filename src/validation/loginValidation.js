@@ -2,6 +2,7 @@ import { validEmail } from "./regex";
 
 // handle login form submit
 export const inputsValid = (e) => {
+  console.log(e.target);
   const inputs = document.querySelectorAll("form[name='login'] input");
   const emailField = inputs[0];
   const passwordField = inputs[1];

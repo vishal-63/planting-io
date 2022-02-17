@@ -1,68 +1,46 @@
 import React, { useEffect, useState } from "react";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FiEdit, FiEye } from "react-icons/fi";
+
 import {
   DashboardCard,
   DashboardTable,
 } from "../../Components/Dashboard Items/DashboardElements";
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
+import ModalContainer from "../../Components/Backdrop";
+
 import { AdminMenu } from "../../data/dashboard-menu-items";
 import { complaints } from "../../data/complaints";
-import { AiOutlineDelete } from "react-icons/ai";
-import { FiEdit, FiEye } from "react-icons/fi";
-import styled from "styled-components";
-
-const Container = styled.section`
-  width: 100vw;
-  height: calc(100vh - 60px);
-  overflow-y: scroll;
-  background-color: #fbfbfb;
-  padding: 2.5rem 1.5rem;
-  position: relative;
-
-  @media (min-width: 1100px) {
-    width: calc(100vw - 275px);
-    left: 275px;
-  }
-`;
-
-const Title = styled.h4`
-  font-size: 1.1rem;
-  color: #444;
-  font-weight: 500;
-  margin-bottom: 1rem;
-`;
-
-const Icon = styled.span`
-  color: #fff;
-  font-size: 0.85rem;
-  width: fit-content;
-  margin-right: 0.5rem;
-  padding: 0.25rem;
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  &.edit {
-    background-color: #2ec272;
-  }
-  &.view {
-    background-color: #2e7bc2;
-  }
-  &.delete {
-    background-color: #e16565;
-  }
-`;
+import {
+  ComplaintDescription,
+  ComplaintModalWrapper,
+  Container,
+  Icon,
+  Row,
+  Title,
+  ComplaintReply,
+  Grid,
+  ComplaintStatus,
+} from "../../Components/ComplaintElements";
+import { DashboardButton } from "../../Components/DashboardInputs";
 
 const Complaints = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [activeComplaint, setActiveComplaint] = useState({});
 
   useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const openModal = (complaint) => {
+    setActiveComplaint(complaint);
+    setModalOpen(true);
+  };
+  const closeModal = () => setModalOpen(false);
 
   return (
     <>
@@ -103,10 +81,13 @@ const Complaints = () => {
                   </td>
                   <td>
                     <div style={{ display: "flex" }}>
-                      <Icon className="view">
+                      {/* <Icon className="view">
                         <FiEye />
-                      </Icon>
-                      <Icon className="edit">
+                      </Icon> */}
+                      <Icon
+                        className="edit"
+                        onClick={() => openModal(complaint)}
+                      >
                         <FiEdit />
                       </Icon>
                       <Icon className="delete">
@@ -118,19 +99,52 @@ const Complaints = () => {
               ))}
             </tbody>
           </DashboardTable>
+
+          {modalOpen && (
+            <ComplaintModal
+              handleClose={closeModal}
+              complaint={activeComplaint}
+            />
+          )}
         </DashboardCard>
       </Container>
     </>
   );
 };
 
-export default Complaints;
+const ComplaintModal = ({ handleClose, complaint }) => {
+  return (
+    <ModalContainer onClick={handleClose}>
+      <ComplaintModalWrapper onClick={(e) => e.stopPropagation()}>
+        <div className="id">{complaint.id}</div>
+        <ComplaintStatus className={complaint.statusClass}>
+          {complaint.status}
+        </ComplaintStatus>
+        <Grid>
+          <div className="heading">Issue Date:</div>{" "}
+          <div className="content">{complaint.issueDate}</div>
+          <div className="heading">Issued By:</div>{" "}
+          <div className="content">{complaint.issuedBy}</div>
+          <div className="heading">Subject:</div>
+          <div className="content">{complaint.subject}</div>
+          <div className="heading">Description:</div>
+          <div className="content">{complaint.description}</div>
+        </Grid>
 
-const ComplaintDescription = styled.p`
-  color: #5c5b5b;
-  font-size: 0.8rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: inherit;
-`;
+        <ComplaintReply
+          rows={5}
+          placeholder="Reply to the Complaint"
+          disabled={complaint.status === "Resolved" ? true : false}
+        ></ComplaintReply>
+        <div>
+          <DashboardButton type="submit" className="primary">
+            Save
+          </DashboardButton>
+          <DashboardButton className="cancel">Cancel</DashboardButton>
+        </div>
+      </ComplaintModalWrapper>
+    </ModalContainer>
+  );
+};
+
+export default Complaints;

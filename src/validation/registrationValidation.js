@@ -28,40 +28,9 @@ export const handleRegisterSubmit = (e) => {
     lnameField.placeholder = "";
   }
 
-  if (emailField.value === "") {
-    emailField.classList.add("invalid");
-    emailField.value = "";
-    emailField.placeholder = "Field cannot be empty";
-  } else {
-    if (validEmail(emailField)) {
-      emailField.classList.remove("invlaid");
-      emailField.placeholder = "";
-    }
-  }
-
-  if (phoneField.value == "") {
-    phoneField.classList.add("invalid");
-    phoneField.value = "";
-    phoneField.placeholder = "Field cannot be empty";
-  } else if (phoneField.value.length != 10) {
-    phoneField.classList.add("invalid");
-    phoneField.value = "";
-    phoneField.placeholder = "Phone no must be of 10 digits";
-  } else {
-    phoneField.classList.remove("invalid");
-    phoneField.placeholder = "";
-  }
-
-  if (passwordField.value === "") {
-    passwordField.classList.add("invalid");
-    passwordField.value = "";
-    passwordField.placeholder = "Field cannot be empty";
-  } else {
-    if (validPassword(passwordField)) {
-      passwordField.classList.remove("invlaid");
-      passwordField.placeholder = "";
-    }
-  }
+  emailValid(emailField);
+  digitsValid(phoneField, "Phone no", 10);
+  passwordValid(passwordField);
 
   if (confirmPasswordField.value === "") {
     confirmPasswordField.classList.add("invalid");
@@ -74,6 +43,88 @@ export const handleRegisterSubmit = (e) => {
         confirmPasswordField.value = "";
         confirmPasswordField.placeholder = "Passwords do not match";
       }
+    }
+  }
+};
+
+export const handleNurseryRegisterSubmit = (e) => {
+  e.preventDefault();
+  const inputs = document.querySelectorAll("form[name='register'] input");
+
+  const emailField = inputs[1];
+  const phoneField = inputs[2];
+  const pincodeField = inputs[5];
+  const passwordField = inputs[8];
+  const confirmPasswordField = inputs[9];
+
+  inputs.forEach((input) => {
+    if (input.value === "") {
+      input.classList.add("invalid");
+      input.value = "";
+      input.placeholder = "Field cannot be empty";
+    } else {
+      input.classList.remove("invalid");
+      input.placeholder = "";
+    }
+  });
+
+  emailValid(emailField);
+  digitsValid(phoneField, "Phone no", 10);
+  digitsValid(pincodeField, "Pincode ", 6);
+  passwordValid(passwordField);
+
+  if (confirmPasswordField.value === "") {
+    confirmPasswordField.classList.add("invalid");
+    confirmPasswordField.value = "";
+    confirmPasswordField.placeholder = "Field cannot be empty";
+  } else {
+    if (validPassword(confirmPasswordField)) {
+      if (confirmPasswordField.value !== passwordField.value) {
+        confirmPasswordField.classList.add("invalid");
+        confirmPasswordField.value = "";
+        confirmPasswordField.placeholder = "Passwords do not match";
+      }
+    }
+  }
+};
+
+const emailValid = (input) => {
+  if (input.value === "") {
+    input.classList.add("invalid");
+    input.value = "";
+    input.placeholder = "Field cannot be empty";
+  } else {
+    if (validEmail(input)) {
+      input.classList.remove("invlaid");
+      input.placeholder = "";
+    }
+  }
+};
+
+const digitsValid = (input, name, digits) => {
+  if (input.value == "") {
+    input.classList.add("invalid");
+    input.value = "";
+    input.placeholder = "Field cannot be empty";
+  } else if (input.value.length != digits) {
+    input.classList.add("invalid");
+    input.value = "";
+    input.placeholder = `${name} must be of ${digits} digits`;
+  } else {
+    input.classList.remove("invalid");
+    input.placeholder = "";
+  }
+};
+
+const passwordValid = (input) => {
+  if (input.value === "") {
+    input.classList.add("invalid");
+    input.value = "";
+    input.placeholder = "Field cannot be empty";
+  } else {
+    if (validPassword(input)) {
+      input.classList.remove("invlaid");
+      input.placeholder = "";
     }
   }
 };
