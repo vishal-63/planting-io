@@ -26,6 +26,7 @@ import {
 
 import heroSvg from "../../Images/illustration.svg";
 import logo from "../../Images/logo.svg";
+import { Link } from "react-router-dom";
 
 const NurseryPage = () => {
   const controller = new ScrollMagic.Controller();
@@ -76,7 +77,8 @@ const NurseryPage = () => {
               <li>- Bank Account</li>
             </ul>
             <p>
-              <a>Click here</a> to create your account.
+              <Link to="/nursery/register">Click here</Link> to create your
+              account.
             </p>
             <p>
               Once you complete your registration, our team will verify you

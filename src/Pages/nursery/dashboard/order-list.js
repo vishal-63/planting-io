@@ -84,7 +84,7 @@ const OrderList = () => {
                 <th>Date</th>
                 <th>Order Status</th>
                 <th>Payment Status</th>
-                <th>Action</th>
+                {/* <th>Action</th> */}
               </tr>
             </thead>
             <tbody>
@@ -113,7 +113,7 @@ const OrderList = () => {
                       </span>
                     )}
                   </td>
-                  <td>
+                  {/* <td>
                     <div style={{ display: "flex" }}>
                       <Icon className="edit">
                         <FiEdit />
@@ -122,7 +122,7 @@ const OrderList = () => {
                         <FiEye />
                       </Icon>
                     </div>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

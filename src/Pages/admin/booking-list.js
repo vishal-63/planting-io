@@ -66,13 +66,13 @@ const AdminBooingList = () => {
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
       <DashboardMenu
-        activePage="order-list"
+        activePage="bookings"
         menuOpen={menuOpen}
         listItems={AdminMenu}
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
-          <Title>Booking List</Title>
+          <Title>Bookings</Title>
           <DashboardTable className="order-list">
             <thead>
               <tr>

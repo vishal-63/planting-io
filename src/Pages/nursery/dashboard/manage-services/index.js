@@ -1,36 +1,18 @@
 import React, { useEffect, useState } from "react";
-import DashboardHeader from "../../../../Components/DashboardHeader";
-import DashboardMenu from "../../../../Components/DashboardMenu";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FiEdit } from "react-icons/fi";
 
 import {
   DashboardCard,
   DashboardTable,
 } from "../../../../Components/Dashboard Items/DashboardElements";
+import DashboardHeader from "../../../../Components/DashboardHeader";
+import DashboardMenu from "../../../../Components/DashboardMenu";
 
-import {
-  AddProductsForm,
-  Wrapper1,
-  Label,
-  Input,
-  ProductDescription,
-  DashboardButton,
-} from "../../../../Components/DashboardInputs";
-
-import {
-  CustomOption,
-  CustomOptions,
-  Select,
-  SelectLabel,
-  SelectTrigger,
-  SelectWrapper,
-} from "../../../../Components/NurseryFormElements";
 import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 import { services } from "../../../../data/service";
-import { AiOutlineDelete } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { FiEdit } from "react-icons/fi";
 
 const Container = styled.section`
   width: 100vw;
@@ -84,24 +66,6 @@ const ManageServices = () => {
     (service) => service.nurseryName === "Vrundavan Nursery"
   );
 
-  const openDropdown = (e) => {
-    e.target.closest(".select").classList.toggle("open");
-  };
-
-  const changeSelection = (e) => {
-    const el = e.target;
-
-    if (selectedOption !== "") {
-      const siblings = Array.from(e.target.parentNode.childNodes);
-      const selectedSibling = siblings.filter((el) =>
-        el.classList.contains("selected")
-      );
-      selectedSibling[0].classList.remove("selected");
-    }
-    setSelectedOption(el.innerText);
-    el.classList.add("selected");
-  };
-
   useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
@@ -118,7 +82,7 @@ const ManageServices = () => {
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
-          <Title>Your Orders</Title>
+          <Title>Your Services</Title>
           <DashboardTable className="order-list">
             <thead>
               <tr>

@@ -20,6 +20,9 @@ export const UserNavbar = () => {
   const [scrollNav, setScrollNav] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formMode, setFormMode] = useState("login");
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+
+  const authenticateUser = () => setIsUserAuthenticated(true);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -96,10 +99,18 @@ export const UserNavbar = () => {
           </Navlink>
         </NavlinkWrapper>
         <ButtonsContainer className="desktop-menu">
-          <Button onClick={() => openForm("login")}>Login</Button>
-          <Button onClick={() => openForm("register")} registerBtn={true}>
-            Register
-          </Button>
+          {isUserAuthenticated ? (
+            <Button onClick={() => setIsUserAuthenticated(false)}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Button onClick={() => openForm("login")}>Login</Button>
+              <Button onClick={() => openForm("register")} registerBtn={true}>
+                Register
+              </Button>
+            </>
+          )}
         </ButtonsContainer>
         <div
           className={isOpen ? "burger close-icon" : "burger"}
@@ -145,7 +156,8 @@ export const UserNavbar = () => {
         <LoginModal
           mode={formMode}
           isFormOpen={isFormOpen}
-          closeForm={closeForm}
+          handleClose={closeForm}
+          authenticateUser={authenticateUser}
         />
       ) : (
         <></>

@@ -63,7 +63,7 @@ export const NurseryLoginContainer = styled.div`
   width: 100%;
 
   @media (min-width: 1100px) {
-    max-width: 40%;
+    max-width: 50%;
   }
 `;
 
@@ -79,7 +79,7 @@ export const LoginSvg = styled.img`
   }
 
   @media (min-width: 1100px) {
-    max-width: 30%;
+    max-width: 40%;
   }
 `;
 

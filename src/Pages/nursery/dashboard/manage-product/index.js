@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { FiEdit, FiEye } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { FiEdit } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
 
 import DashboardHeader from "../../../../Components/DashboardHeader";
 import DashboardMenu from "../../../../Components/DashboardMenu";
 import {
   DashboardCard,
   DashboardTable,
-  DashboardTableStatus,
 } from "../../../../Components/Dashboard Items/DashboardElements";
-import { orders } from "../../../../data/orders";
-import { getProducts, products } from "../../../../data/products";
-import { AiOutlineDelete } from "react-icons/ai";
-import { Link } from "react-router-dom";
+
+import { getProducts } from "../../../../data/products";
 import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 
 const Container = styled.section`
@@ -61,6 +60,9 @@ const Icon = styled.span`
 
 const ManageProducts = () => {
   const products = getProducts();
+  const nurseryProducts = products.filter(
+    (product) => product.nurseryName === "Vrundavan Nursery"
+  );
 
   const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -80,7 +82,7 @@ const ManageProducts = () => {
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
-          <Title>Your Orders</Title>
+          <Title>Your Products</Title>
           <DashboardTable className="order-list">
             <thead>
               <tr>
@@ -94,7 +96,7 @@ const ManageProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index) => (
+              {nurseryProducts.map((product, index) => (
                 <tr key={index}>
                   <td>{product.id}</td>
                   <td style={{ width: "18%" }}>{product.name}</td>

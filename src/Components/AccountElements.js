@@ -62,13 +62,13 @@ export const SectionLinks = styled.div`
 
 export const MainWrapper = styled.div`
   padding: 1rem 0 1rem 2rem;
+`;
 
-  & .title {
-    font-size: 1.5rem;
-    font-family: Lora, "sans serif";
-    font-weight: 500;
-    color: #0b3d2c;
-  }
+export const Title = styled.div`
+  font-size: 1.5rem;
+  font-family: Lora, "sans serif";
+  font-weight: 500;
+  color: #0b3d2c;
 `;
 
 export const OrderCard = styled.div`
@@ -154,7 +154,6 @@ export const OrderDetails = styled.div`
   margin-top: 1rem;
   display: flex;
   justify-content: space-between;
-  width: 50%;
   display: none;
 
   &.visible {
@@ -186,7 +185,47 @@ export const OrderDetails = styled.div`
 export const DetailTitle = styled.div`
   font-size: 1.1rem;
   font-weight: 500;
+  color: #2f2f2f;
   margin-bottom: 0.55rem;
+`;
+
+export const ReviewContainer = styled.div`
+  margin-right: 2rem;
+
+  & .stars {
+    display: flex;
+    gap: 1rem;
+    font-size: 1.5rem;
+
+    & svg {
+      cursor: pointer;
+    }
+  }
+
+  & textarea {
+    resize: none;
+    width: 250px;
+    margin-top: 1rem;
+    padding: 0.25rem;
+    background-color: transparent;
+    border-color: #7d7d7d;
+    border-radius: 4px;
+    outline: none;
+
+    &:focus {
+      border-color: #333;
+    }
+  }
+`;
+
+export const SubmitButton = styled.button`
+  color: #fff;
+  background-color: #28c274;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-top: 0.75rem;
+  border: none;
+  cursor: pointer;
 `;
 
 export const AddressWrapper = styled.div`
@@ -235,4 +274,77 @@ export const EditAddress = styled.span`
   right: 1rem;
   padding: 0.25rem 0.5rem;
   cursor: pointer;
+`;
+
+export const AddressModalContainer = styled.div`
+  background-color: #fff;
+  padding: 1.5rem 3rem;
+  border-radius: 12px;
+  width: 50vw;
+`;
+
+export const AccountForm = styled.form`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 10%;
+  margin-top: 2rem;
+`;
+
+export const InputWrapper = styled.div`
+  width: 45%;
+`;
+
+export const Label = styled.label`
+  font-size: 0.875rem;
+  color: #3f3f3f;
+  padding-bottom: 0.5rem;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #7d7d7d;
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  outline: none;
+
+  &.invalid {
+    background-color: rgb(220 53 69 / 25%);
+  }
+  &::placeholder,
+  &:-ms-input-placeholder,
+  &::-ms-input-placeholder {
+    color: #dc3545;
+    font-size: 0.75rem;
+  }
+`;
+
+export const AccountButton = styled.button`
+  font-size: 1rem;
+  padding: 0.4rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 1rem;
+  margin-top: 1rem;
+
+  &.primary {
+    color: #fff;
+    background-color: #28c274;
+    font-weight: 500;
+  }
+  &.cancel {
+    color: #666;
+    border-color: #666;
+    background-color: transparent;
+  }
+`;
+
+export const ChangePasswordWrapper = styled.div`
+  background-color: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  width: 600px;
 `;

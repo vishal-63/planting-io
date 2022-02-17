@@ -22,12 +22,14 @@ export const Label = styled.label`
   pointer-events: none;
   font-size: 0.9rem;
 `;
+
 export const Wrapper1 = styled.div`
   display: flex;
   flex-direction: column;
   width: 45%;
   margin: 1rem 0;
 `;
+
 export const Input = styled.input`
   border: none;
   border-bottom: 1px solid #000000;
@@ -35,6 +37,11 @@ export const Input = styled.input`
   height: 50px;
   outline: none;
   padding: 0 0.5rem;
+
+  &.invalid {
+    border-color: #dc3545;
+    background-color: rgb(220 53 69 / 25%);
+  }
 `;
 
 export const ProductDescription = styled.textarea`
@@ -45,6 +52,14 @@ export const ProductDescription = styled.textarea`
   outline: none;
   border-bottom: 1px solid #000000;
   resize: none;
+
+  &.invalid {
+    border-color: #dc3545;
+  }
+
+  &::placeholder {
+    color: #dc3545;
+  }
 `;
 
 export const DashboardButton = styled.button`
@@ -56,8 +71,8 @@ export const DashboardButton = styled.button`
 
   &.primary {
     color: #fff;
-    background-color: #2ae949;
-    border: 1px solid #2ae949;
+    background-color: #17a42e;
+    border: 1px solid #17a42e;
     margin-right: 1.5rem;
   }
 
