@@ -14,7 +14,7 @@ const Container = styled.section`
   top: 60px;
   left: 0;
   background-color: #fff;
-  z-index: 9;
+  z-index: 1;
 
   @media (min-width: 768px) {
     width: 275px;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BsCartFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 import {
   CustomOption,
@@ -21,22 +21,31 @@ import {
   ServicePrice,
   ServiceStars,
 } from "./ServiceElements";
+import Alert from "./Alert";
+import { Cookies } from "react-cookie";
+import { MdOutlineErrorOutline } from "react-icons/md";
 
-const SericeCardComponent = ({ service }) => {
+const SericeCardComponent = ({ nurseryName, service }) => {
+  const [selectedService, setSelectedService] = useState(service[0]);
+
   const [reviewVisible, setReviewVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(selectedService.type);
 
-  const setupPrice = service.setupPrice;
-  const maintenancePrice = service.maintenancePrice;
-  const clearancePrice = service.clearancePrice;
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertClass, setAlertClass] = useState("");
 
-  const [price, setPrice] = useState(setupPrice);
+  // const setupPrice = service.setupPrice;
+  // const maintenancePrice = service.maintenancePrice;
+  // const clearancePrice = service.clearancePrice;
+
+  // const [price, setPrice] = useState(setupPrice);
 
   const openDropdown = (e) => {
     e.target.closest(".select").classList.toggle("open");
   };
 
-  const changeSelection = (e) => {
+  const changeSelection = (e, index) => {
     const el = e.target;
 
     if (selectedOption !== "") {
@@ -48,40 +57,86 @@ const SericeCardComponent = ({ service }) => {
     }
     setSelectedOption(el.innerText);
     el.classList.add("selected");
+    setSelectedService(service[index]);
   };
 
-  useEffect(() => {
-    if (selectedOption === "Garden Setup") {
-      setPrice(setupPrice);
-    } else if (selectedOption === "Garden Maintenance") {
-      setPrice(maintenancePrice);
-    } else if (selectedOption === "Garden Clearance") {
-      setPrice(clearancePrice);
-    }
-  }, [selectedOption, setPrice, setupPrice, maintenancePrice, clearancePrice]);
+  // useEffect(() => {
+  //   if (selectedOption === "Garden Setup") {
+  //     setPrice(setupPrice);
+  //   } else if (selectedOption === "Garden Maintenance") {
+  //     setPrice(maintenancePrice);
+  //   } else if (selectedOption === "Garden Clearance") {
+  //     setPrice(clearancePrice);
+  //   }
+  // }, [selectedOption, setPrice, setupPrice, maintenancePrice, clearancePrice]);
+
+  // console.log(service);
+
+  const addToCart = async () => {
+    const data = {
+      itemId: selectedService.id,
+      type: "Service",
+      noOfItems: 1,
+    };
+    console.log(data);
+    const res = await fetch(`http://localhost:8080/api/cart/add`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${new Cookies().get("userId")}`,
+      },
+    });
+    const body = await res.text();
+    setAlertMessage(body);
+    if (res.ok) setAlertClass("success");
+    else setAlertClass("error");
+    setAlertOpen(true);
+  };
+
+  const handleClose = () => setAlertOpen(false);
 
   return (
     <ServiceCard reviewVisible={reviewVisible}>
+      {alertOpen && (
+        <Alert onClick={handleClose} className={alertClass}>
+          <span style={{ fontSize: "1.6rem" }}>
+            {alertClass == "success" ? (
+              <IoMdCheckmarkCircleOutline />
+            ) : (
+              <MdOutlineErrorOutline />
+            )}
+          </span>
+          {alertMessage}
+        </Alert>
+      )}
+
       <div className="service-info">
-        <img src={service.img} alt="" />
+        <img src={selectedService.photoPath} alt="" />
         <ServiceContent>
-          <h3>{service.nursery}</h3>
-          <p>{service.description}</p>
+          <h3>{nurseryName}</h3>
+          <p>{selectedService.details}</p>
           <div>
-            <ServicePrice>Rs .&nbsp; {price}</ServicePrice>
+            <ServicePrice>
+              Rs .&nbsp; {selectedService.price - selectedService.discount}
+              .00
+            </ServicePrice>
             <ServiceStars>
-              {[...Array(service.stars)].map((index) => (
+              {[...Array(selectedService.stars)].map((index) => (
                 <AiFillStar key={index} style={{ color: "#FFBF34" }} />
               ))}
-              {[...Array(5 - service.stars)].map((index) => (
+              {[...Array(5 - selectedService.stars)].map((index) => (
                 <AiFillStar key={index} style={{ color: "#dadada" }} />
               ))}
-              <span>{`(${service.feedback})`}</span>
+              <span>{`(${selectedService.feedback})`}</span>
               <div
                 style={{ cursor: "pointer" }}
                 onClick={() => setReviewVisible(!reviewVisible)}
               >
-                {service.reviewCount ? service.reviewCount : "0"} Reviews
+                {selectedService.reviewCount
+                  ? selectedService.reviewCount
+                  : "0"}{" "}
+                Reviews
               </div>
             </ServiceStars>
           </div>
@@ -95,29 +150,21 @@ const SericeCardComponent = ({ service }) => {
                 <IoIosArrowDown />
               </SelectTrigger>
               <CustomOptions className="custom-options">
-                <CustomOption
-                  data-value="Garden Setup"
-                  onClick={changeSelection}
-                >
-                  Garden Setup
-                </CustomOption>
-                <CustomOption
-                  data-value="Garden Maintenance"
-                  onClick={changeSelection}
-                >
-                  Garden Maintenance
-                </CustomOption>
-                <CustomOption
-                  data-value="Garden Clearance"
-                  onClick={changeSelection}
-                >
-                  Garden Clearance
-                </CustomOption>
+                {service.map((s, index) => (
+                  <CustomOption
+                    data-value={s.type}
+                    onClick={(e) => changeSelection(e, index)}
+                    key={index}
+                    className={s.type === selectedOption && "selected"}
+                  >
+                    {s.type}
+                  </CustomOption>
+                ))}
               </CustomOptions>
             </Select>
           </SelectWrapper>
 
-          <AddtoCart>
+          <AddtoCart onClick={addToCart}>
             <BsCartFill />
             Add to Cart
           </AddtoCart>

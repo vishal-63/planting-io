@@ -1,6 +1,12 @@
 import { useState } from "react";
+import { Cookies } from "react-cookie";
+import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import {
+  Alert,
+  ValidationError,
+} from "../../Components/LoginModal/LoginModalElements";
 
 import logo from "../../Images/logo.svg";
 
@@ -9,14 +15,36 @@ const AdminLogin = ({ loginAdmin }) => {
   let location = useLocation();
   let from = location.state?.from?.pathname || "/admin";
 
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (id === "admin" && password === "1234") {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const res = await fetch("http://localhost:8080/api/user/login-admin", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+
+    setResponse(body.message);
+    setResponseVisible(true);
+
+    if (res.ok) {
+      setResponseClass("success");
+      new Cookies().set("adminId", body.jwt);
       loginAdmin();
       navigate(from, { replace: true });
+    } else {
+      setResponseClass("error");
     }
   };
 
@@ -26,24 +54,35 @@ const AdminLogin = ({ loginAdmin }) => {
         <div>
           <img src={logo} alt="" />
         </div>
-        <form method="post" onSubmit={handleSubmit}>
+        <form method="post" onSubmit={handleSubmit(onSubmit)}>
           <p>Admin Login</p>
+          <Alert className={responseClass} isVisible={responseVisible}>
+            {response}
+          </Alert>
           <Input
             type="text"
-            name="id"
-            id="id"
-            placeholder="Enter your Id"
-            value={id}
-            onChange={(e) => setId(e.target.value)}
+            name="email"
+            id="email"
+            placeholder="Enter your email address"
+            {...register("email", {
+              required: "Email field is required",
+              pattern: {
+                value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                message: "Invalid email address",
+              },
+            })}
           />
+          <ValidationError>{errors.email?.message}</ValidationError>
           <Input
             type="password"
             name="password"
             id="password"
             placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            {...register("password", {
+              required: "Password field is required",
+            })}
           />
+          <ValidationError>{errors.password?.message}</ValidationError>
           <SubmitButton type="submit" text="Submit" />
         </form>
       </LoginContainer>

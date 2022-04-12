@@ -1,36 +1,23 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { BsPersonCircle } from "react-icons/bs";
+
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
-import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
-import { BsTruck, BsBell, BsPersonCircle } from "react-icons/bs";
-
 import { DashboardCard } from "../../Components/Dashboard Items/DashboardElements";
-
 import {
   AddProductsForm,
   Wrapper1,
   Label,
   Input,
-  ProductDescription,
   DashboardButton,
 } from "../../Components/DashboardInputs";
-
-import {
-  CustomOption,
-  CustomOptions,
-  Select,
-  SelectLabel,
-  SelectTrigger,
-  SelectWrapper,
-} from "../../Components/NurseryFormElements";
-import { NurseryMenu } from "../../data/dashboard-menu-items";
+import { AdminMenu, NurseryMenu } from "../../data/dashboard-menu-items";
 
 const UserName = styled.p`
   font-size: 1.5rem;
   color: black;
 `;
-
 const Container = styled.section`
   width: 100vw;
   height: calc(100vh - 60px);
@@ -44,8 +31,8 @@ const Container = styled.section`
     left: 275px;
   }
 `;
-const ChangePasswaord = styled.p`
-  font-size: 1.1rem;
+const ChangePassword = styled.p`
+  font-size: 0.9rem;
   color: #066093;
   cursor: pointer;
 `;
@@ -90,25 +77,6 @@ const Icons = styled.div`
 
 const AdminProfile = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
-
-  const openDropdown = (e) => {
-    e.target.closest(".select").classList.toggle("open");
-  };
-
-  const changeSelection = (e) => {
-    const el = e.target;
-
-    if (selectedOption !== "") {
-      const siblings = Array.from(e.target.parentNode.childNodes);
-      const selectedSibling = siblings.filter((el) =>
-        el.classList.contains("selected")
-      );
-      selectedSibling[0].classList.remove("selected");
-    }
-    setSelectedOption(el.innerText);
-    el.classList.add("selected");
-  };
 
   useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
@@ -119,7 +87,7 @@ const AdminProfile = () => {
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu menuOpen={menuOpen} listItems={NurseryMenu} />
+      <DashboardMenu menuOpen={menuOpen} listItems={AdminMenu} />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Your Account</Title>
@@ -144,9 +112,9 @@ const AdminProfile = () => {
               <Label>Phone No</Label>
               <Input spellcheck="false" type="text" name="phone" />
             </Wrapper1>
-            <Wrapper1 style={{ width: "100%" }}>
-              <ChangePasswaord>Change Password</ChangePasswaord>
-            </Wrapper1>
+            {/* <Wrapper1 style={{ width: "100%" }}>
+              <ChangePassword>Change Password</ChangePassword>
+            </Wrapper1> */}
             <div>
               <DashboardButton className="primary">Save</DashboardButton>
               <DashboardButton className="cancel">Cancel</DashboardButton>

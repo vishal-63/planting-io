@@ -11,7 +11,7 @@ const products = [
   {
     id: "60233",
     name: "Peace Lily Plant",
-    nurseryName: "Bajrang Nursery",
+    nurseryName: "Vrundavan Nursery",
     type: "Plant",
     price: 450,
     discount: 105,
@@ -20,7 +20,7 @@ const products = [
   {
     id: "20089",
     name: "X826 Five Way Dial Plastic Hose Nozzle",
-    nurseryName: "Shree Ramesh Nursery",
+    nurseryName: "Vrundavan Nursery",
     type: "Tool",
     price: 249,
     discount: 50,
@@ -29,7 +29,7 @@ const products = [
   {
     id: "30069",
     name: "Italian Basil Seeds",
-    nurseryName: "Mother Nature",
+    nurseryName: "Vrundavan Nature",
     type: "Seed",
     price: 99,
     discount: 14,
@@ -38,7 +38,7 @@ const products = [
   {
     id: "60234",
     name: "Areca Palm Plant",
-    nurseryName: "Vrundavan Nursery",
+    nurseryName: "Bajrang Nursery",
     type: "Plant",
     price: 499,
     discount: 100,

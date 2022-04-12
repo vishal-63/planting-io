@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { BiRupee } from "react-icons/bi";
 import { AiFillStar } from "react-icons/ai";
+import { MdOutlineErrorOutline } from "react-icons/md";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 import {
   ItemName,
@@ -15,6 +17,9 @@ import {
   ReviewsContainer,
   ReviewTitle,
   RelatedProducts,
+  ProductImage,
+  StarsWrapper,
+  Review,
 } from "./ItemPageElements";
 import {
   ActualPrice,
@@ -30,50 +35,131 @@ import { plants } from "../../data/plants";
 import { Link } from "react-router-dom";
 import { seeds } from "../../data/seeds";
 import { tools } from "../../data/tools";
+import { AuthContext } from "../../AuthContext";
+import Alert from "../Alert";
+import { Cookies } from "react-cookie";
+import Slider from "react-slick";
 
 const ItemPage = ({ item }) => {
   const [noOfUnits, setNoOfUnits] = useState(0);
 
-  let relatedProducts;
+  const [mainItem, setMainItem] = useState(item);
+  const [relatedProducts, setRelatedProducts] = useState();
+  const [categoryLink, setCategoryLink] = useState("");
 
-  const setRelatedProducts = () => {
-    if (item.category === "Plants") {
-      relatedProducts = [...plants].filter((plant) => plant.id !== item.id);
-    } else if (item.category === "Seeds") {
-      relatedProducts = [...seeds].filter((seed) => seed.id !== item.id);
-    } else {
-      relatedProducts = [...tools].filter((tool) => tool.id !== item.id);
-    }
-    relatedProducts.length = 4;
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertClass, setAlertClass] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+
+  useEffect(() => {
+    setMainItem(item);
+    setNoOfUnits(0);
+    // console.log("itempage", item);
+    // console.log("first useeffect called");
+  }, [item]);
+
+  useEffect(async () => {
+    // console.log("second");
+    const res = await fetch(
+      `http://localhost:8080/api/product/get-related/${item.type}/${item.id}`,
+      {
+        method: "GET",
+      }
+    );
+    const body = await res.json();
+    // console.log(body);
+    setRelatedProducts(body);
+  }, [mainItem]);
+
+  const [
+    isUserAuthenticated,
+    setIsUserAuthenticated,
+    isAdminAuthenticated,
+    setIsAdminAuthenticated,
+  ] = useContext(AuthContext);
+
+  const handleClose = () => setAlertOpen(false);
+
+  const addToCart = async () => {
+    const data = {
+      itemId: mainItem.id,
+      type: "Product",
+      noOfItems: noOfUnits,
+    };
+    const res = await fetch(`http://localhost:8080/api/cart/add`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${new Cookies().get("userId")}`,
+      },
+    });
+    const body = await res.text();
+    setAlertMessage(body);
+    if (res.ok) setAlertClass("success");
+    else setAlertClass("error");
+    setAlertOpen(true);
   };
 
-  setRelatedProducts();
+  const settings = {
+    dots: true,
+    infinite: false,
+    autoplay: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
+  console.log(item.reviews);
 
   return (
     <ItemPageContainer>
+      {alertOpen && (
+        <Alert onClick={handleClose} className={alertClass}>
+          <span style={{ fontSize: "1.6rem" }}>
+            {alertClass == "success" ? (
+              <IoMdCheckmarkCircleOutline />
+            ) : (
+              <MdOutlineErrorOutline />
+            )}
+          </span>
+          {alertMessage}
+        </Alert>
+      )}
+
       <ItemContent>
-        <div className="product-image">
-          <img src={item.img} alt={item.name} />
-        </div>
+        <ProductImage>
+          <Slider {...settings}>
+            {mainItem.photoPath.map((imgSrc) => (
+              <div className="image">
+                <img src={imgSrc} alt={mainItem.name} />
+              </div>
+            ))}
+          </Slider>
+        </ProductImage>
         <div className="info">
-          <ItemName>{item.name}</ItemName>
+          <ItemName>{mainItem.name}</ItemName>
+          <div className="nursery-name">Vendor - {mainItem.nurseryName}</div>
           <Price>
             <BiRupee />
-            <div className="discounted-price">{item.discountedPrice}</div>
-            <div className="actual-price">{item.actualPrice}</div>
+            <div className="discounted-price">
+              {mainItem.price - mainItem.discount}.00
+            </div>
+            <div className="actual-price">{mainItem.price}.00</div>
           </Price>
           <Description>
             <div>Description:</div>
-            {item.description}
+            {mainItem.details}
           </Description>
-          <div style={{ marginBottom: "1rem", fontSize: "1.15rem" }}>
-            {[...Array(item.stars)].map((index) => (
+          <StarsWrapper>
+            {[...Array(mainItem.stars)].map((val, index) => (
               <AiFillStar key={index} style={{ color: "#FFBF34" }} />
             ))}
-            {[...Array(5 - item.stars)].map((index) => (
+            {[...Array(5 - mainItem.stars)].map((val, index) => (
               <AiFillStar key={index} style={{ color: "#dadada" }} />
             ))}
-          </div>
+            <span> &nbsp;({item.starsCount})</span>
+          </StarsWrapper>
           <AddtoCartWrapper>
             <NoOfUnits>
               <span
@@ -86,61 +172,80 @@ const ItemPage = ({ item }) => {
               <span>{noOfUnits}</span>
               <span onClick={() => setNoOfUnits(noOfUnits + 1)}>+</span>
             </NoOfUnits>
-            <AddtoCartButton disabled={noOfUnits ? false : true}>
+            <AddtoCartButton
+              disabled={isUserAuthenticated && noOfUnits ? false : true}
+              onClick={addToCart}
+            >
               Add to Cart
             </AddtoCartButton>
           </AddtoCartWrapper>
           <Category>
             Category:{" "}
-            <Link to={item.categoryLink}>
-              <div>{item.category}</div>
+            <Link to={mainItem.categoryLink}>
+              <div>{mainItem.type}</div>
             </Link>
           </Category>
         </div>
       </ItemContent>
       <ReviewsContainer>
         <ReviewTitle>
-          <p>Reviews (0)</p>
+          <p>Reviews ({item.reviewCount})</p>
         </ReviewTitle>
-        <div>There are no Reviews yet!</div>
+        {item.reviews ? (
+          <Review>
+            {item.reviews.map((review, index) => (
+              <div key={index}>
+                <div className="customer-name">{review.userName}</div>
+
+                <div>{review.description}</div>
+              </div>
+            ))}
+          </Review>
+        ) : (
+          <div>There are no reviews yet!</div>
+        )}
       </ReviewsContainer>
       <RelatedProducts>
         <div className="title">Related Products</div>
         <PlantCardWrapper
           style={{ width: "inherit", justifyContent: "space-between" }}
         >
-          {relatedProducts.map((item, index) => (
-            <PlantCard key={index}>
-              <Link to={`${item.link}/${item.id}`}>
-                <PlantImg src={item.img} alt={item.name} />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    margin: "1rem .5rem 0",
-                  }}
-                >
-                  <PlantName>{item.name}</PlantName>
-                  <PlantStarsWrapper>
-                    {[...Array(item.stars)].map((index) => (
-                      <AiFillStar key={index} />
-                    ))}
-                    {[...Array(5 - item.stars)].map((index) => (
-                      <AiFillStar key={index} style={{ color: "#dadada" }} />
-                    ))}
-                  </PlantStarsWrapper>
-                </div>
-                <PlantPrice>
-                  <DiscountedPrice>
-                    <BiRupee />
-                    <span>{item.discountedPrice}</span>
-                  </DiscountedPrice>
-                  <ActualPrice>{item.actualPrice}</ActualPrice>
-                </PlantPrice>
-              </Link>
-            </PlantCard>
-          ))}
+          {relatedProducts &&
+            relatedProducts.map((product, index) => {
+              product.stars == undefined && (product["stars"] = 0);
+              return (
+                <PlantCard key={index}>
+                  <Link to={`${mainItem.categoryLink}/${product.id}`}>
+                    <PlantImg src={product.photoPath[0]} alt={product.name} />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        margin: "1rem .5rem 0",
+                      }}
+                    >
+                      <PlantName>{product.name}</PlantName>
+                      <PlantStarsWrapper>
+                        {[...Array(product.stars)].map((val, i) => (
+                          <AiFillStar key={i} />
+                        ))}
+                        {[...Array(5 - product.stars)].map((val, i) => (
+                          <AiFillStar key={i} style={{ color: "#dadada" }} />
+                        ))}
+                      </PlantStarsWrapper>
+                    </div>
+                    <PlantPrice>
+                      <DiscountedPrice>
+                        <BiRupee />
+                        <span>{product.price - product.discount}</span>
+                      </DiscountedPrice>
+                      <ActualPrice>{product.price}</ActualPrice>
+                    </PlantPrice>
+                  </Link>
+                </PlantCard>
+              );
+            })}
         </PlantCardWrapper>
       </RelatedProducts>
     </ItemPageContainer>

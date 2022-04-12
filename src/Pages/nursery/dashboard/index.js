@@ -4,7 +4,7 @@ import DashboardHeader from "../../../Components/DashboardHeader";
 import DashboardMenu from "../../../Components/DashboardMenu";
 import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
-const Dashboard = () => {
+const Dashboard = ({ nurseryName }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <DashboardHeader toggleMenu={toggleMenu} name="Vrundavan Nursery" />
+      <DashboardHeader toggleMenu={toggleMenu} />
       <DashboardMenu
         activePage="dashboard"
         menuOpen={menuOpen}

@@ -1,41 +1,38 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import BreadCrumb from "../Components/BreadCrumb";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, useParams, useHref } from "react-router-dom";
 import Footer from "../Components/Footer";
 import ItemPage from "../Components/ItemPage";
 import { UserNavbar } from "../Components/Navbar";
 import Topbar from "../Components/Topbar";
-import { getPlant } from "../data/plants";
-import { getSeed } from "../data/seeds";
-import { getTool } from "../data/tools";
 
 const Item = () => {
   const params = useParams();
   const key = Object.keys(params)[0];
 
-  let item;
+  const [item, setItem] = useState();
+  const [id, setId] = useState(params[key]);
 
-  function setItem() {
-    if (key === "plantId") {
-      item = getPlant(params.plantId);
-    } else if (key === "seedId") {
-      item = getSeed(params.seedId);
-    } else {
-      item = getTool(params.toolId);
-    }
-  }
-
-  setItem();
-
-  useEffect(() => {
+  useEffect(async () => {
+    setId(params[key]);
     window.scrollTo(0, 0);
-  });
+  }, [params]);
 
+  useEffect(async () => {
+    const res = await fetch(`http://localhost:8080/api/product/get/${id}`, {
+      method: "GET",
+    });
+    const body = await res.json();
+    // console.log("body", body);
+    setItem(body);
+  }, [id]);
+
+  // console.log("item", item);
   return (
     <>
       <Topbar />
       <UserNavbar />
-      <ItemPage item={item} />
+      {item !== undefined && <ItemPage item={item} />}
+
       <Footer />
     </>
   );

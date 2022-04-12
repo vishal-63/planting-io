@@ -44,10 +44,10 @@ const AboutComponent = () => {
           </div>
           <p>
             Be it a balcony brimming with floral gardens, a vegetable patch for
-            your family’s needs or a medicinal garden full of goodness,
-            UrbanMali helps create and maintain your garden. City gardens play a
-            vital role in bringing nature into urban spaces and we take great
-            joy in restoring green cover for our urban locales.
+            your family’s needs or a medicinal garden full of goodness, We help
+            create and maintain your garden. City gardens play a vital role in
+            bringing nature into urban spaces and we take great joy in restoring
+            green cover for our urban locales.
           </p>
         </WelcomeContent>
         <img src={img} alt="" />

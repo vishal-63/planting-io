@@ -17,7 +17,7 @@ export const services = [
     nursery: "Shri Ramesh Nursery",
     img: img6,
     description:
-      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, UrbanMali helps create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
+      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, we help create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
     services: ["Garden Setup", "Garden Maintenance", "Garden Clearance"],
     setupPrice: 550,
     maintenancePrice: 900,
@@ -43,7 +43,7 @@ export const services = [
     nursery: "Bajrang Nursery",
     img: img7,
     description:
-      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, UrbanMali helps create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
+      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, we help create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
     services: ["Garden Setup", "Garden Maintenance", "Garden Clearance"],
     setupPrice: 600,
     maintenancePrice: 950,
@@ -64,7 +64,7 @@ export const services = [
     nursery: "Mother Nature",
     img: img8,
     description:
-      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, UrbanMali helps create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
+      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, we help create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
     services: ["Garden Setup", "Garden Maintenance", "Garden Clearance"],
     setupPrice: 500,
     maintenancePrice: 850,
@@ -77,7 +77,7 @@ export const services = [
     nursery: "Vrundavan Nursery",
     img: img9,
     description:
-      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, UrbanMali helps create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
+      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, we help create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
     services: ["Garden Setup", "Garden Maintenance", "Garden Clearance"],
     setupPrice: 650,
     maintenancePrice: 1100,
@@ -90,7 +90,7 @@ export const services = [
     nursery: "Ashqi Nursery Point",
     img: img10,
     description:
-      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, UrbanMali helps create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
+      "Be it a balcony brimming with flowers, a vegetable patch for your family’s needs or a medicinal garden full of goodness, we help create your own slice of green. City gardens play a vital role in bringing nature into urban spaces and we take great joy in restoring green cover for our urban localities.",
     services: ["Garden Setup", "Garden Maintenance", "Garden Clearance"],
     setupPrice: 450,
     maintenancePrice: 700,

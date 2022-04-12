@@ -11,6 +11,7 @@ import {
 } from "../../Components/Dashboard Items/DashboardElements";
 import { bookings } from "../../data/bookings";
 import { AdminMenu } from "../../data/dashboard-menu-items";
+import { orders } from "../../data/orders";
 
 const Container = styled.section`
   width: 100vw;
@@ -109,11 +110,11 @@ const AdminBooingList = () => {
                     >
                       {booking.paymentStatus}
                     </DashboardTableStatus>
-                    {booking.paymentStatusClass == "pending" && (
-                      <span
-                        style={{ fontSize: "0.75rem", color: "#7d7d7d" }}
-                      ></span>
-                    )}
+                    {/* {booking.paymentStatusClass == "pending" && (
+                      <span style={{ fontSize: "0.75rem", color: "#7d7d7d" }}>
+                        (Due {booking.paymentDue})
+                      </span>
+                    )} */}
                   </td>
                   <td>
                     <div style={{ display: "flex" }}>

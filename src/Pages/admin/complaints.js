@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
 import { FiEdit, FiEye } from "react-icons/fi";
 
 import {
@@ -9,7 +9,6 @@ import {
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
 import ModalContainer from "../../Components/Backdrop";
-
 import { AdminMenu } from "../../data/dashboard-menu-items";
 import { complaints } from "../../data/complaints";
 import {
@@ -17,22 +16,35 @@ import {
   ComplaintModalWrapper,
   Container,
   Icon,
-  Row,
   Title,
   ComplaintReply,
   Grid,
   ComplaintStatus,
 } from "../../Components/ComplaintElements";
 import { DashboardButton } from "../../Components/DashboardInputs";
+import { Cookies } from "react-cookie";
 
 const Complaints = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [activeComplaint, setActiveComplaint] = useState({});
+  const [complaints, setComplaints] = useState([]);
 
   useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
+
+  useEffect(async () => {
+    const res = await fetch("http://localhost:8080/api/complaint/get-all", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${new Cookies().get("adminId")}`,
+      },
+    });
+    const body = await res.json();
+    setComplaints(body);
+    console.log(body);
+  }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -67,17 +79,21 @@ const Complaints = () => {
             <tbody>
               {complaints.map((complaint, index) => (
                 <tr key={index}>
-                  <td>{complaint.id}</td>
+                  <td>#{complaint.complaintId}</td>
                   <td style={{ maxWidth: "300px" }}>
-                    <p>{complaint.subject}</p>
+                    <p>{complaint.complaintSubject}</p>
                     <ComplaintDescription>
-                      {complaint.description}
+                      {complaint.complaintDescription}
                     </ComplaintDescription>
                   </td>
-                  <td>{complaint.issuedBy}</td>
+                  <td>{complaint.userName}</td>
                   <td>{complaint.issueDate}</td>
-                  <td className={`complaint-status ${complaint.statusClass}`}>
-                    {complaint.status}
+                  <td
+                    className={`complaint-status ${
+                      complaint.resolved ? "resolved" : "unresolved"
+                    }`}
+                  >
+                    {complaint.resolved ? "Resolved" : "Unresolved"}
                   </td>
                   <td>
                     <div style={{ display: "flex" }}>
@@ -88,10 +104,7 @@ const Complaints = () => {
                         className="edit"
                         onClick={() => openModal(complaint)}
                       >
-                        <FiEdit />
-                      </Icon>
-                      <Icon className="delete">
-                        <AiOutlineDelete />
+                        <AiFillEdit />
                       </Icon>
                     </div>
                   </td>
@@ -113,34 +126,63 @@ const Complaints = () => {
 };
 
 const ComplaintModal = ({ handleClose, complaint }) => {
+  const [reply, setReply] = useState(complaint.reply);
+
+  const replyToComplaint = async () => {
+    const formData = new FormData();
+    formData.set("reply", reply);
+    const res = await fetch(
+      `http://localhost:8080/api/complaint/reply/${complaint.complaintId}`,
+      {
+        method: "PUT",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("adminId")}`,
+        },
+      }
+    );
+    const body = await res.text();
+    console.log(body);
+  };
+
   return (
     <ModalContainer onClick={handleClose}>
       <ComplaintModalWrapper onClick={(e) => e.stopPropagation()}>
-        <div className="id">{complaint.id}</div>
-        <ComplaintStatus className={complaint.statusClass}>
-          {complaint.status}
+        <div className="id">#{complaint.complaintId}</div>
+        <ComplaintStatus
+          className={complaint.resolved ? "resolved" : "unresolved"}
+        >
+          {complaint.resolved ? "Resolved" : "Unresolved"}
         </ComplaintStatus>
         <Grid>
           <div className="heading">Issue Date:</div>{" "}
           <div className="content">{complaint.issueDate}</div>
           <div className="heading">Issued By:</div>{" "}
-          <div className="content">{complaint.issuedBy}</div>
+          <div className="content">{complaint.userName}</div>
           <div className="heading">Subject:</div>
-          <div className="content">{complaint.subject}</div>
+          <div className="content">{complaint.complaintSubject}</div>
           <div className="heading">Description:</div>
-          <div className="content">{complaint.description}</div>
+          <div className="content">{complaint.complaintDescription}</div>
         </Grid>
 
         <ComplaintReply
           rows={5}
           placeholder="Reply to the Complaint"
+          value={reply}
+          onChange={(e) => setReply(e.target.value)}
           disabled={complaint.status === "Resolved" ? true : false}
         ></ComplaintReply>
         <div>
-          <DashboardButton type="submit" className="primary">
+          <DashboardButton
+            type="submit"
+            className="primary"
+            onClick={replyToComplaint}
+          >
             Save
           </DashboardButton>
-          <DashboardButton className="cancel">Cancel</DashboardButton>
+          <DashboardButton className="cancel" onClick={handleClose}>
+            Cancel
+          </DashboardButton>
         </div>
       </ComplaintModalWrapper>
     </ModalContainer>

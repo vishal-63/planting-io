@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
@@ -13,6 +13,13 @@ import DashboardMenu from "../../../../Components/DashboardMenu";
 
 import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 import { services } from "../../../../data/service";
+import { Cookies } from "react-cookie";
+import ModalContainer from "../../../../Components/Backdrop";
+import {
+  Modalbutton,
+  ModalDiv,
+} from "../../../../Components/DashboardHeader/DashboardHeaderElements";
+import { IoRemoveCircleOutline } from "react-icons/io5";
 
 const Container = styled.section`
   width: 100vw;
@@ -61,16 +68,32 @@ const Icon = styled.span`
 const ManageServices = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
+  const [services, setServices] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteServiceId, setDeleteServiceId] = useState("");
 
-  const nurseryServices = services.filter(
-    (service) => service.nurseryName === "Vrundavan Nursery"
-  );
+  const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(async () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
+
+    if (new Cookies().get("nurseryId") !== undefined) {
+      const res = await fetch("http://localhost:8080/api/service/get", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+        },
+      });
+      const body = await res.json();
+      setServices(body);
+    } else {
+      navigate("/nursery/login");
+    }
   }, [setMenuOpen]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleClose = () => setModalOpen(false);
 
   return (
     <>
@@ -86,27 +109,33 @@ const ManageServices = () => {
           <DashboardTable className="order-list">
             <thead>
               <tr>
-                <th>Service Id</th>
-                <th>Service Name</th>
+                <th>Service Type</th>
                 <th>Price</th>
                 <th>Discount</th>
-                <th>Service Type</th>
+                <th>Details</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {nurseryServices.map((service, index) => (
+              {services.map((service, index) => (
                 <tr key={index}>
-                  <td>#{service.id}</td>
-                  <td>{service.serviceName}</td>
+                  <td>{service.type}</td>
                   <td>{service.price}</td>
                   <td>{service.discount}</td>
-                  <td>{service.type}</td>
+                  <td style={{ maxWidth: "250px" }}>
+                    <p
+                      style={{
+                        width: "inherit",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {service.details}
+                    </p>
+                  </td>
                   <td>
                     <div style={{ display: "flex" }}>
-                      <Icon className="delete">
-                        <AiOutlineDelete />
-                      </Icon>
                       <Link
                         to={`/nursery/dashboard/manage-services/${service.id}`}
                       >
@@ -114,6 +143,15 @@ const ManageServices = () => {
                           <FiEdit />
                         </Icon>
                       </Link>
+                      <Icon
+                        className="delete"
+                        onClick={() => {
+                          setDeleteServiceId(service.id);
+                          setModalOpen(true);
+                        }}
+                      >
+                        <AiOutlineDelete />
+                      </Icon>
                     </div>
                   </td>
                 </tr>
@@ -121,8 +159,49 @@ const ManageServices = () => {
             </tbody>
           </DashboardTable>
         </DashboardCard>
+
+        {modalOpen && (
+          <DeleteModal handleClose={handleClose} serviceId={deleteServiceId} />
+        )}
       </Container>
     </>
+  );
+};
+
+const DeleteModal = ({ handleClose, serviceId }) => {
+  const deactivateService = async () => {
+    const res = await fetch(
+      `http://localhost:8080/api/service/deactivate/${serviceId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+        },
+      }
+    );
+    const body = await res.text();
+    console.log(body);
+    if (res.ok) setTimeout(() => handleClose(), 1000);
+  };
+  return (
+    <ModalContainer onClick={handleClose}>
+      <ModalDiv onClick={(e) => e.stopPropagation()}>
+        <div>
+          <span>
+            <IoRemoveCircleOutline />
+          </span>
+          Are you sure you want to deactivate this service? <br />
+        </div>
+        <div>
+          <Modalbutton className="cancel" onClick={handleClose}>
+            Cancel
+          </Modalbutton>
+          <Modalbutton className="logout" onClick={deactivateService}>
+            Yes
+          </Modalbutton>
+        </div>
+      </ModalDiv>
+    </ModalContainer>
   );
 };
 

@@ -156,7 +156,7 @@ export const DashboardStatistics = styled.div`
 export const StatisticsWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   gap: 1rem;
 
   & .icon {
@@ -227,6 +227,10 @@ export const DashboardTable = styled.table`
     width: max-content;
   }
 
+  & tr.inactive {
+    opacity: 0.75;
+  }
+
   & th,
   td {
     border-bottom: 1px solid #dadada;
@@ -238,7 +242,8 @@ export const DashboardTable = styled.table`
     color: #000;
   }
 
-  & td.complaint-status {
+  & td.complaint-status,
+  td.payment-status {
     font-weight: 500;
     font-size: 1rem;
 
@@ -246,9 +251,25 @@ export const DashboardTable = styled.table`
       color: #e05e35;
     }
 
-    &.resolved {
+    &.resolved,
+    &.Pending {
       color: #355ae0;
     }
+
+    &.Completed {
+      color: #29db2d;
+    }
+  }
+
+  & td > img {
+    height: 75px;
+    width: 80px;
+  }
+
+  & td > span.extra-product {
+    font-size: 0.8rem;
+    color: #333;
+    text-decoration: underline;
   }
 `;
 
@@ -259,19 +280,20 @@ export const DashboardTableStatus = styled.div`
   padding: 0.2rem 0.5rem;
   border-radius: 10px;
 
-  &.received {
+  &.received,
+  &.Ordered {
     background-color: #ff9666;
   }
 
-  &.delivered,
+  &.Delivered,
   &.completed,
-  &.payment.completed,
+  &.payment.Completed,
   &.payment.received {
     background-color: #29db2d;
   }
 
-  &.shipping,
-  &.payment.pending {
+  &.Shipping,
+  &.payment.Pending {
     background-color: #669aff;
   }
 `;

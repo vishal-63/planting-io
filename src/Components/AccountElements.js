@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const AccountSection = styled.section`
   width: 100%;
@@ -69,6 +69,7 @@ export const Title = styled.div`
   font-family: Lora, "sans serif";
   font-weight: 500;
   color: #0b3d2c;
+  margin-bottom: 1rem;
 `;
 
 export const OrderCard = styled.div`
@@ -96,10 +97,6 @@ export const OrderInfo = styled.div`
   align-items: flex-start;
   margin-top: 1rem;
   z-index: 1;
-
-  & img {
-    height: 100px;
-  }
 `;
 
 export const ProductDetails = styled.div`
@@ -109,6 +106,12 @@ export const ProductDetails = styled.div`
     width: 200px;
   }
 
+  & img {
+    width: 75px;
+    max-height: 100px;
+    /* height: 100px; */
+  }
+
   & .product-name {
     margin-left: 1rem;
     font-size: 1rem;
@@ -116,13 +119,23 @@ export const ProductDetails = styled.div`
   & .vendor {
     color: #666;
     margin-left: 1rem;
+    font-size: 0.8rem;
   }
-  & .view-details {
+  & .rate-product {
     color: #669aff;
     text-decoration: underline;
     margin-top: 0.5rem;
     margin-left: 1rem;
     cursor: pointer;
+  }
+`;
+
+export const OrderDate = styled.div`
+  font-size: 1rem;
+
+  & span {
+    font-size: 0.85rem;
+    color: #3f3f3f;
   }
 `;
 
@@ -138,14 +151,22 @@ export const ShippingInfo = styled.div`
   align-items: center;
   min-width: 220px;
 
-  & .shipping {
+  & .Shipping,
+  & .Ordered {
     font-size: 1rem;
     color: #ff5400;
   }
 
-  & .delivered {
+  & .Delivered {
     font-size: 1rem;
     color: #29db2d;
+  }
+
+  & .view-details {
+    color: #669aff;
+    text-decoration: underline;
+    margin-top: 0.5rem;
+    cursor: pointer;
   }
 `;
 
@@ -153,6 +174,7 @@ export const OrderDetails = styled.div`
   font-size: 0.85rem;
   margin-top: 1rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   display: none;
 
@@ -160,7 +182,7 @@ export const OrderDetails = styled.div`
     display: flex;
   }
 
-  & div {
+  & > div {
     max-width: 225px;
 
     & td.tax {
@@ -180,6 +202,13 @@ export const OrderDetails = styled.div`
       font-weight: 500;
     }
   }
+
+  & p.complaint-link {
+    text-decoration: underline;
+    font-size: 0.9rem;
+    color: #3a3a99;
+    cursor: pointer;
+  }
 `;
 
 export const DetailTitle = styled.div`
@@ -190,7 +219,12 @@ export const DetailTitle = styled.div`
 `;
 
 export const ReviewContainer = styled.div`
-  margin-right: 2rem;
+  /* width: 50vw; */
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
 
   & .stars {
     display: flex;
@@ -204,7 +238,7 @@ export const ReviewContainer = styled.div`
 
   & textarea {
     resize: none;
-    width: 250px;
+    width: 375px;
     margin-top: 1rem;
     padding: 0.25rem;
     background-color: transparent;
@@ -216,6 +250,12 @@ export const ReviewContainer = styled.div`
       border-color: #333;
     }
   }
+
+  & .order-id {
+    color: #3a3a3a;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
 `;
 
 export const SubmitButton = styled.button`
@@ -223,9 +263,11 @@ export const SubmitButton = styled.button`
   background-color: #28c274;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
   border: none;
   cursor: pointer;
+  width: fit-content;
 `;
 
 export const AddressWrapper = styled.div`
@@ -289,7 +331,7 @@ export const AccountForm = styled.form`
   flex-wrap: wrap;
   row-gap: 1rem;
   column-gap: 10%;
-  margin-top: 2rem;
+  margin-top: 1rem;
 `;
 
 export const InputWrapper = styled.div`
@@ -321,6 +363,16 @@ export const Input = styled.input`
   }
 `;
 
+const loadingAnimation = keyframes`
+from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 export const AccountButton = styled.button`
   font-size: 1rem;
   padding: 0.4rem 1rem;
@@ -339,6 +391,17 @@ export const AccountButton = styled.button`
     color: #666;
     border-color: #666;
     background-color: transparent;
+  }
+
+  & span.loader {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: none;
+    border: 3px solid #dfdfdf;
+    border-top-color: #999;
+    border-radius: 20px;
+    animation: ${loadingAnimation} 1s linear infinite;
   }
 `;
 

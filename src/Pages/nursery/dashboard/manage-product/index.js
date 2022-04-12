@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Cookies } from "react-cookie";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 
@@ -13,6 +14,15 @@ import {
 
 import { getProducts } from "../../../../data/products";
 import { NurseryMenu } from "../../../../data/dashboard-menu-items";
+import ModalContainer from "../../../../Components/Backdrop";
+import {
+  Modalbutton,
+  ModalDiv,
+} from "../../../../Components/DashboardHeader/DashboardHeaderElements";
+import { IoRemoveCircleOutline } from "react-icons/io5";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import _ from "lodash";
+import { BsKeyFill } from "react-icons/bs";
 
 const Container = styled.section`
   width: 100vw;
@@ -58,19 +68,96 @@ const Icon = styled.span`
   }
 `;
 
+const FilterDropdownContainer = styled.div`
+  color: #3f3f3f;
+  position: relative;
+  font-size: 1rem;
+  cursor: pointer;
+
+  & .label {
+    display: flex;
+  }
+
+  & span {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+  }
+`;
+
+const DropdownMenu = styled.ul`
+  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
+  position: absolute;
+  top: 100%;
+  right: 0;
+  list-style: none;
+  background-color: #fff;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.25);
+
+  & li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #21a021;
+      color: #fff;
+    }
+  }
+`;
+
 const ManageProducts = () => {
-  const products = getProducts();
-  const nurseryProducts = products.filter(
-    (product) => product.nurseryName === "Vrundavan Nursery"
-  );
-
+  const [products, setProducts] = useState([]);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deleteProductId, setDeleteProductId] = useState("");
 
-  React.useEffect(() => {
+  const [selectedOption, setSelectedOption] = useState("Plant");
+  const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+
+  const [activeProducts, setActiveProducts] = useState([]);
+  const [inactiveProducts, setInactiveProducts] = useState([]);
+
+  const navigate = useNavigate();
+
+  React.useEffect(async () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
+
+    if (new Cookies().get("nurseryId") !== undefined) {
+      const res = await fetch("http://localhost:8080/api/product/get", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+        },
+      });
+      const body = await res.json();
+      setProducts(body);
+      setFilteredProducts(_.filter(body, { type: "Plant" }));
+    } else {
+      navigate("/nursery/login");
+    }
   }, [setMenuOpen]);
 
+  useEffect(() => {
+    setActiveProducts(
+      _.remove(filteredProducts, (product) => {
+        return product.active;
+      })
+    );
+    setInactiveProducts(
+      _.remove(filteredProducts, (product) => {
+        return !product.active;
+      })
+    );
+  }, [filteredProducts]);
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleClose = () => setModalOpen(false);
+
+  const filterProducts = (productType) => {
+    setSelectedOption(productType);
+    setFilteredProducts(_.filter(products, { type: productType }));
+  };
 
   return (
     <>
@@ -82,11 +169,36 @@ const ManageProducts = () => {
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
-          <Title>Your Products</Title>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Title>Your Products</Title>
+            <FilterDropdownContainer>
+              <div
+                className="label"
+                onClick={() => setDropdownMenuOpen(!dropdownMenuOpen)}
+              >
+                Filter: {selectedOption}{" "}
+                <span>
+                  <RiArrowDropDownLine />
+                </span>
+              </div>
+              <DropdownMenu isVisible={dropdownMenuOpen}>
+                <li onClick={() => filterProducts("Plant")}>Plants</li>
+                <li onClick={() => filterProducts("Seed")}>Seeds</li>
+                <li onClick={() => filterProducts("Tool")}>Tools</li>
+              </DropdownMenu>
+            </FilterDropdownContainer>
+          </div>
           <DashboardTable className="order-list">
             <thead>
               <tr>
-                <th>Product Id</th>
+                <th>Product Image</th>
                 <th>Product Name</th>
                 <th>Type</th>
                 <th>Price</th>
@@ -96,20 +208,19 @@ const ManageProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {nurseryProducts.map((product, index) => (
+              {activeProducts.map((product, index) => (
                 <tr key={index}>
-                  <td>{product.id}</td>
+                  <td style={{ width: "12%" }}>
+                    <img src={product.photoPath[0]} alt={product.name} />
+                  </td>
                   <td style={{ width: "18%" }}>{product.name}</td>
                   <td>{product.type}</td>
                   <td>{product.price}</td>
-                  <td>{product.quantity}</td>
                   <td>{product.discount}</td>
+                  <td>{product.quantity}</td>
 
                   <td>
                     <div style={{ display: "flex" }}>
-                      <Icon className="delete">
-                        <AiOutlineDelete />
-                      </Icon>
                       <Link
                         to={`/nursery/dashboard/manage-products/${product.id}`}
                       >
@@ -117,6 +228,42 @@ const ManageProducts = () => {
                           <FiEdit />
                         </Icon>
                       </Link>
+                      <Icon
+                        className="delete"
+                        onClick={() => {
+                          setDeleteProductId(product.id);
+                          setModalOpen(true);
+                        }}
+                      >
+                        <AiOutlineDelete />
+                      </Icon>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {inactiveProducts.map((product, index) => (
+                <tr key={index} className="inactive">
+                  <td style={{ width: "12%" }}>
+                    <img src={product.photoPath[0]} alt={product.name} />
+                  </td>
+                  <td style={{ width: "18%" }}>{product.name}</td>
+                  <td>{product.type}</td>
+                  <td>{product.price}</td>
+                  <td>{product.discount}</td>
+                  <td>{product.quantity}</td>
+
+                  <td>
+                    <div style={{ display: "flex" }}>
+                      <Link
+                        to={`/nursery/dashboard/manage-products/${product.id}`}
+                      >
+                        <Icon className="edit">
+                          <FiEdit />
+                        </Icon>
+                      </Link>
+                      <Icon className="view">
+                        <BsKeyFill />
+                      </Icon>
                     </div>
                   </td>
                 </tr>
@@ -124,8 +271,48 @@ const ManageProducts = () => {
             </tbody>
           </DashboardTable>
         </DashboardCard>
+
+        {modalOpen && (
+          <DeleteModal handleClose={handleClose} productId={deleteProductId} />
+        )}
       </Container>
     </>
+  );
+};
+
+const DeleteModal = ({ handleClose, productId }) => {
+  const deactivateProduct = async () => {
+    const res = await fetch(
+      `http://localhost:8080/api/product/nursery-deactivate/${productId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+        },
+      }
+    );
+    const body = await res.text();
+    if (res.ok) setTimeout(() => handleClose(), 1000);
+  };
+  return (
+    <ModalContainer onClick={handleClose}>
+      <ModalDiv onClick={(e) => e.stopPropagation()}>
+        <div>
+          <span>
+            <IoRemoveCircleOutline />
+          </span>
+          Are you sure you want to deactivate this product? <br />
+        </div>
+        <div>
+          <Modalbutton className="cancel" onClick={handleClose}>
+            Cancel
+          </Modalbutton>
+          <Modalbutton className="logout" onClick={deactivateProduct}>
+            Yes
+          </Modalbutton>
+        </div>
+      </ModalDiv>
+    </ModalContainer>
   );
 };
 

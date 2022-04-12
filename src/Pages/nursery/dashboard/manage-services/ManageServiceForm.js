@@ -14,6 +14,8 @@ import {
   Input,
   ProductDescription,
   DashboardButton,
+  ProductImageContainer,
+  ProductImage,
 } from "../../../../Components/DashboardInputs";
 
 import {
@@ -26,7 +28,14 @@ import {
 } from "../../../../Components/NurseryFormElements";
 import { services } from "../../../../data/service";
 import { getProduct } from "../../../../data/products";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Cookies } from "react-cookie";
+import { useForm } from "react-hook-form";
+import {
+  Alert,
+  ValidationError,
+} from "../../../../Components/LoginModal/LoginModalElements";
+import { MdDelete } from "react-icons/md";
 
 const Container = styled.section`
   width: 100vw;
@@ -51,34 +60,137 @@ const Title = styled.h4`
 
 const ManageServiceForm = () => {
   let params = useParams();
-  let service = services.filter((service) => service.id === params.id)[0];
+  let serviceId = params.id;
 
+  const [selectedOption, setSelectedOption] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(service.type);
+  const [service, setService] = useState({});
+  const [details, setDetails] = useState("");
 
-  const openDropdown = (e) => {
-    e.target.closest(".select").classList.toggle("open");
-  };
+  const [file, setFile] = useState();
+  const [fileUpload, setFileUpload] = useState();
+  const [preview, setPreview] = useState();
 
-  const changeSelection = (e) => {
-    const el = e.target;
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
 
-    if (selectedOption !== "") {
-      const siblings = Array.from(e.target.parentNode.childNodes);
-      const selectedSibling = siblings.filter((el) =>
-        el.classList.contains("selected")
-      );
-      selectedSibling[0].classList.remove("selected");
-    }
-    setSelectedOption(el.innerText);
-    el.classList.add("selected");
-  };
+  const navigate = useNavigate();
 
-  useEffect(() => {
+  useEffect(async () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
+
+    if (new Cookies().get("nurseryId") !== undefined) {
+      const res = await fetch(
+        `http://localhost:8080/api/service/get/${serviceId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+          },
+        }
+      );
+      const body = await res.json();
+      if (res.ok) {
+        setService(body);
+        setDetails(body.details);
+        setSelectedOption(body.type);
+        if (body.photoPath !== null) {
+          setPreview(body.photoPath);
+          setFileUpload(false);
+        } else {
+          setFileUpload(true);
+        }
+      }
+    } else {
+      navigate("/nursery/login");
+    }
   }, [setMenuOpen]);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = async (data) => {
+    data.type = selectedOption;
+    console.table(data);
+    delete data.photos;
+
+    const formData = new FormData();
+    formData.append("service", JSON.stringify(data));
+
+    formData.append("file", file);
+    console.log(file);
+    console.log(formData.get("file"));
+
+    const res = await fetch(
+      `http://localhost:8080/api/service/update/${serviceId}`,
+      {
+        method: "PUT",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+        },
+      }
+    );
+    const body = await res.text();
+    setResponse(body);
+    setResponseVisible(true);
+    if (res.ok) setResponseClass("success");
+    else setResponseClass("error");
+
+    window.scrollTo(0, 0);
+  };
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleFileUpload = (e) => {
+    const acceptedFiles = ["image/png", "image/jpeg"];
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!acceptedFiles.includes(file.type)) {
+      document.querySelector(".photo-error").innerHTML =
+        "You must upload images only in JPEG/PNG format";
+      e.target.files = null;
+      setPreview();
+      return;
+    } else {
+      document.querySelector(".photo-error").innerHTML = "";
+    }
+
+    setFile(file);
+    setPreview(URL.createObjectURL(file));
+    setFileUpload(false);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (selectedOption === "") {
+      document.querySelector(".dropdown-error").innerHTML =
+        "Service type is required";
+    }
+    handleSubmit(onSubmit)(e);
+  };
+
+  const removePhoto = async () => {
+    const res = await fetch(
+      `http://localhost:8080/api/service/update/${serviceId}/delete-photo`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+        },
+      }
+    );
+
+    if (res.ok) {
+      setPreview();
+      setFile();
+      setFileUpload(true);
+    }
+  };
 
   return (
     <>
@@ -91,73 +203,107 @@ const ManageServiceForm = () => {
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Manage Service</Title>
-          <AddProductsForm>
+
+          <Alert className={responseClass} isVisible={responseVisible}>
+            {response}
+          </Alert>
+
+          <AddProductsForm onSubmit={handleFormSubmit}>
             <Wrapper1>
-              <Label>Service Name</Label>
+              <Label>Service Type</Label>
               <Input
                 spellcheck="false"
                 type="text"
-                name="name"
-                defaultValue={service.serviceName}
+                name="type"
+                defaultValue={service.type}
+                disabled
               />
             </Wrapper1>
-            <Wrapper1>
-              <SelectWrapper className="select-wrapper" onClick={openDropdown}>
-                <SelectLabel style={{ top: "0" }}>Service Type</SelectLabel>
-                <Select className="select">
-                  <SelectTrigger style={{ height: "73px" }}>
-                    <span style={{ paddingTop: "1rem" }}>{selectedOption}</span>
-                    <IoIosArrowDown />
-                  </SelectTrigger>
-                  <CustomOptions className="custom-options">
-                    <CustomOption
-                      data-value="Garden Setup"
-                      onClick={changeSelection}
-                    >
-                      Garden Setup
-                    </CustomOption>
-                    <CustomOption
-                      data-value="Garden Maintenace"
-                      onClick={changeSelection}
-                    >
-                      Garden Maintenace
-                    </CustomOption>
-                    <CustomOption
-                      data-value="Garden Clearance"
-                      onClick={changeSelection}
-                    >
-                      Garden Clearance
-                    </CustomOption>
-                  </CustomOptions>
-                </Select>
-              </SelectWrapper>
-            </Wrapper1>
+
             <Wrapper1>
               <Label>Service Rate</Label>
               <Input
                 spellcheck="false"
-                type="text"
+                type="number"
                 name="price"
                 defaultValue={service.price}
+                {...register("price", { required: "This field is required" })}
               />
+              <ValidationError>{errors.price?.message}</ValidationError>
             </Wrapper1>
             <Wrapper1>
               <Label>Service Discount</Label>
               <Input
                 spellcheck="false"
-                type="text"
+                type="number"
                 name="discount"
                 defaultValue={service.discount}
+                {...register("discount", {
+                  required: "This field is required",
+                })}
               />
+              <ValidationError>{errors.discount?.message}</ValidationError>
             </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
-              <Label>Service Description</Label>
+              <Label>Service Description ({details.length}/500)</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
-                name="description"
+                name="details"
+                defaultValue={service.details}
+                {...register("details", {
+                  required: "This field is required",
+                  minLength: {
+                    value: 30,
+                    message: "Details must be at least 30 characters long",
+                  },
+                  maxLength: {
+                    value: 500,
+                    message: "Details cannot be more than 500 characters",
+                  },
+                  onChange: (e) => setDetails(e.target.value),
+                })}
               />
+              <ValidationError>{errors.details?.message}</ValidationError>
             </Wrapper1>
+
+            {fileUpload && (
+              <>
+                <div className="photo-input">
+                  <Label htmlFor="photos" className="photo-label">
+                    Add Photo
+                  </Label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="photos"
+                    id="photos"
+                    multiple
+                    onChange={handleFileUpload}
+                  />
+                </div>
+
+                <ValidationError className="photo-error">
+                  {errors.photos?.message}
+                </ValidationError>
+              </>
+            )}
+
+            {preview && (
+              <div style={{ width: "100%" }}>
+                <span>Photo:</span>
+                <ProductImageContainer>
+                  <ProductImage src={preview} alt="" />
+                  <span
+                    onClick={() => {
+                      removePhoto();
+                    }}
+                  >
+                    <MdDelete />
+                  </span>
+                </ProductImageContainer>
+              </div>
+            )}
             <div>
               <DashboardButton className="primary">Publish</DashboardButton>
               <DashboardButton className="cancel">Cancel</DashboardButton>

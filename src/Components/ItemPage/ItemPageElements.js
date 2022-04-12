@@ -37,20 +37,40 @@ export const ItemContent = styled.div`
   justify-content: center;
   align-items: center;
 
-  & img {
-    border-radius: 15px;
-  }
-  & .product-image {
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    width: 40%;
-  }
   & .info {
     width: 45%;
     margin-left: 3rem;
   }
+
+  & .nursery-name {
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+    color: #0b3d2c;
+  }
 `;
+
+export const ProductImage = styled.div`
+  width: 40%;
+  height: 100%;
+
+  & .slick-slider,
+  & .slick-slider div {
+    height: 100%;
+    width: 100%;
+  }
+
+  & .image {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+
+    & img {
+      border-radius: 15px;
+      height: 20rem;
+    }
+  }
+`;
+
 export const Price = styled.div`
   display: flex;
   align-items: center;
@@ -58,7 +78,7 @@ export const Price = styled.div`
   color: #0b3d2c;
   font-weight: 500;
   font-size: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 
   & div.actual-price {
     color: #7d7d7d;
@@ -81,6 +101,18 @@ export const Description = styled.div`
     color: #0b3d2c;
     margin-bottom: 0.5rem;
     letter-spacing: 0px;
+  }
+`;
+
+export const StarsWrapper = styled.div`
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  & span {
+    font-size: 1rem;
+    color: #3f3f3f;
   }
 `;
 

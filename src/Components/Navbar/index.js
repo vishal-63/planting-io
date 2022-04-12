@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
+import { AuthContext } from "../../AuthContext";
 import {
   NavbarContainer,
   NavlinkWrapper,
@@ -14,15 +15,20 @@ import {
 } from "./NavbarElements";
 import logo from "../../Images/logo.svg";
 import LoginModal from "../LoginModal";
+import { Cookies } from "react-cookie";
 
 export const UserNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollNav, setScrollNav] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formMode, setFormMode] = useState("login");
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 
-  const authenticateUser = () => setIsUserAuthenticated(true);
+  const [
+    isUserAuthenticated,
+    setIsUserAuthenticated,
+    isAdminAuthenticated,
+    setIsAdminAuthenticated,
+  ] = useContext(AuthContext);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -64,6 +70,12 @@ export const UserNavbar = () => {
     setIsFormOpen(false);
   };
 
+  const logoutUser = () => {
+    setIsUserAuthenticated(false);
+    const cookies = new Cookies();
+    cookies.remove("userId");
+  };
+
   return (
     <>
       <NavbarContainer scrollNav={scrollNav}>
@@ -100,9 +112,7 @@ export const UserNavbar = () => {
         </NavlinkWrapper>
         <ButtonsContainer className="desktop-menu">
           {isUserAuthenticated ? (
-            <Button onClick={() => setIsUserAuthenticated(false)}>
-              Logout
-            </Button>
+            <Button onClick={logoutUser}>Logout</Button>
           ) : (
             <>
               <Button onClick={() => openForm("login")}>Login</Button>
@@ -157,7 +167,6 @@ export const UserNavbar = () => {
           mode={formMode}
           isFormOpen={isFormOpen}
           handleClose={closeForm}
-          authenticateUser={authenticateUser}
         />
       ) : (
         <></>

@@ -28,6 +28,13 @@ export const Wrapper1 = styled.div`
   flex-direction: column;
   width: 45%;
   margin: 1rem 0;
+
+  & img {
+    width: 125px;
+    height: 150px;
+    margin-top: 1rem;
+    border-radius: 4px;
+  }
 `;
 
 export const Input = styled.input`
@@ -36,11 +43,14 @@ export const Input = styled.input`
   width: 100%;
   height: 50px;
   outline: none;
-  padding: 0 0.5rem;
 
   &.invalid {
     border-color: #dc3545;
     background-color: rgb(220 53 69 / 25%);
+  }
+  &:disabled {
+    background: none;
+    color: inherit;
   }
 `;
 
@@ -62,6 +72,38 @@ export const ProductDescription = styled.textarea`
   }
 `;
 
+export const ProductImage = styled.img`
+  height: 150px;
+  object-fit: contain;
+  border-radius: 8px;
+`;
+
+export const ProductImageContainer = styled.div`
+  height: 100%;
+  width: max-content;
+  border-radius: 8px;
+  position: relative;
+  margin-right: 1rem;
+
+  & span {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    background-color: #888;
+    color: #fff;
+    padding: 0.25rem;
+    border-radius: 4px;
+    display: flex;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease;
+  }
+
+  &:hover span {
+    opacity: 1;
+  }
+`;
+
 export const DashboardButton = styled.button`
   font-size: 1rem;
   padding: 0.5rem 2rem;
@@ -80,6 +122,12 @@ export const DashboardButton = styled.button`
     color: #e16565;
     background-color: #fff;
     border: 1px solid #e16565;
+  }
+
+  &.tertiary {
+    color: #666;
+    background-color: #fff;
+    border: 1px solid #666;
   }
 
   &:hover {

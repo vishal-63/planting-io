@@ -6,7 +6,6 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useForm } from "react-hook-form";
 
 import { DashboardCard } from "../../../Components/Dashboard Items/DashboardElements";
-
 import {
   AddProductsForm,
   Wrapper1,
@@ -14,8 +13,9 @@ import {
   Input,
   ProductDescription,
   DashboardButton,
+  ProductImageContainer,
+  ProductImage,
 } from "../../../Components/DashboardInputs";
-
 import {
   CustomOption,
   CustomOptions,
@@ -24,11 +24,15 @@ import {
   SelectTrigger,
   SelectWrapper,
 } from "../../../Components/NurseryFormElements";
-import { NurseryMenu } from "../../../data/dashboard-menu-items";
 import {
   Alert,
   ValidationError,
 } from "../../../Components/LoginModal/LoginModalElements";
+
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
+import { Cookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 
 const Container = styled.section`
   width: 100vw;
@@ -54,7 +58,16 @@ const Title = styled.h4`
 const AddProduct = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
-  const [errorVisible, setErrorVisible] = useState(false);
+  const [details, setDetails] = useState("");
+
+  const [files, setFiles] = useState([]);
+  const [preview, setPreview] = useState([]);
+
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
+
+  const navigate = useNavigate();
 
   const openDropdown = (e) => {
     e.target.closest(".select").classList.toggle("open");
@@ -72,33 +85,99 @@ const AddProduct = () => {
     }
     setSelectedOption(el.innerText);
     el.classList.add("selected");
+    document.querySelector(".dropdown-error").innerHTML = "";
   };
 
   useEffect(() => {
+    if (new Cookies().get("nurseryId") === undefined)
+      navigate("/nursery/login");
+
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-
-  const handleFileUpload = (e) => {
-    const acceptedFiles = ["image/png", "image/jpeg"];
-    // BUG - won't check for more than one files
-    console.log(e.target.files);
-    const fileType = e.target.files[0].type;
-    if (!acceptedFiles.includes(fileType)) {
-      setErrorVisible(true);
-      e.target.value = null;
-    } else {
-      setErrorVisible(false);
-    }
-  };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data, e) => {
+    data.type = selectedOption;
+    delete data.photos;
+
+    const formData = new FormData();
+
+    files.map((file) => formData.append("files", file));
+    delete data.photos;
+
+    formData.append("product", JSON.stringify(data));
+
+    const res = await fetch("http://localhost:8080/api/product/add", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${new Cookies().get("nurseryId")}`,
+      },
+    });
+    const body = await res.json();
+
+    setResponse(body.message);
+    setResponseVisible(true);
+
+    if (res.ok) {
+      setResponseClass("success");
+      setTimeout(() => {
+        e.target.reset();
+        setDetails("");
+        setSelectedOption("");
+        setResponse("");
+        setResponseVisible(false);
+        setFiles([]);
+        setPreview([]);
+      }, 1500);
+    } else {
+      setResponseClass("error");
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (selectedOption === "") {
+      document.querySelector(".dropdown-error").innerHTML =
+        "Product type is required";
+    }
+    handleSubmit(onSubmit)(e);
+  };
+
+  const handleFileUpload = (e) => {
+    const acceptedFiles = ["image/png", "image/jpeg"];
+
+    const filesArray = Array.from(e.target.files);
+    let tempPreview = [...preview];
+    filesArray.forEach((file) => {
+      if (!acceptedFiles.includes(file.type)) {
+        document.querySelector(".photo-error").innerHTML =
+          "You must upload images only in JPEG/PNG format";
+        e.target.files = null;
+        tempPreview = [];
+        return;
+      } else {
+        document.querySelector(".photo-error").innerHTML = "";
+      }
+      tempPreview.push(URL.createObjectURL(file));
+    });
+    setFiles(filesArray);
+    setPreview(tempPreview);
+  };
+
+  const removePhoto = async (index) => {
+    const prev = preview.filter((item, i) => index !== i);
+    setPreview(prev);
+    const f = files.filter((item, i) => index !== i);
+    setFiles(f);
+  };
 
   return (
     <>
@@ -111,10 +190,15 @@ const AddProduct = () => {
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Add Products</Title>
+
+          <Alert className={responseClass} isVisible={responseVisible}>
+            {response}
+          </Alert>
+
           <AddProductsForm
             name="add-product"
             method="POST"
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleFormSubmit}
           >
             <Wrapper1>
               <Label>Product Name</Label>
@@ -147,6 +231,7 @@ const AddProduct = () => {
                   </CustomOptions>
                 </Select>
               </SelectWrapper>
+              <ValidationError className="dropdown-error"></ValidationError>
             </Wrapper1>
             <Wrapper1>
               <Label>Product Price</Label>
@@ -179,34 +264,67 @@ const AddProduct = () => {
               <ValidationError>{errors.quantity?.message}</ValidationError>
             </Wrapper1>
             <Wrapper1 style={{ width: "100%" }}>
-              <Label>Product Description</Label>
+              <Label>Product Description ({details.length}/500)</Label>
               <ProductDescription
                 spellcheck="false"
                 row="4"
-                name="description"
-                {...register("description", {
+                name="details"
+                value={details}
+                {...register("details", {
                   required: "Description is required",
+                  minLength: {
+                    value: 50,
+                    message: "Description must be at least 50 characters long",
+                  },
+                  maxLength: {
+                    value: 500,
+                    message: "Description must not be more than 255 characters",
+                  },
+                  onChange: (e) => setDetails(e.target.value),
                 })}
               />
               <ValidationError>{errors.description?.message}</ValidationError>
             </Wrapper1>
             <div className="photo-input">
-              <Label htmlFor="product-photos" className="photo-label">
+              <Label htmlFor="photos" className="photo-label">
                 Add Photos
               </Label>
               <input
                 type="file"
                 accept="image/*"
-                name="product-photos"
-                id="product-photos"
-                onChange={handleFileUpload}
+                name="photos"
+                id="photos"
                 multiple
+                {...register("photos", {
+                  required: "Product Photo is required",
+                  onChange: (e) => handleFileUpload(e),
+                })}
               />
             </div>
 
-            <Alert className="error" isVisible={errorVisible}>
-              You can only upload images of jpg/png format.
-            </Alert>
+            <ValidationError className="photo-error">
+              {errors.photos?.message}
+            </ValidationError>
+
+            {preview.length !== 0 && (
+              <div style={{ width: "100%" }}>
+                <span>Photo:</span>
+                <div style={{ display: "flex" }}>
+                  {preview.map((prev, index) => (
+                    <ProductImageContainer key={index}>
+                      <ProductImage src={prev} alt="" />
+                      <span
+                        onClick={() => {
+                          removePhoto(index);
+                        }}
+                      >
+                        <MdDelete />
+                      </span>
+                    </ProductImageContainer>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div>
               <DashboardButton type="submit" className="primary">

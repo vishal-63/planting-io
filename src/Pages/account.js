@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdAccountCircle } from "react-icons/md";
 import { useForm } from "react-hook-form";
 
@@ -26,11 +26,20 @@ import AddressSection from "../Components/AddressSection";
 import ModalContainer from "../Components/Backdrop";
 import { handleFormSubmit } from "../validation/passwordChangeValidation";
 import { handleInfoSubmit } from "../validation/editInfoValidation";
-import { ValidationError } from "../Components/LoginModal/LoginModalElements";
+import {
+  Alert,
+  ValidationError,
+} from "../Components/LoginModal/LoginModalElements";
+import { Cookies } from "react-cookie";
 
 const Account = () => {
-  const [tab, setTab] = useState("address");
+  const [tab, setTab] = useState("edit-info");
   const [modalOpen, setModalOpen] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const setName = (fname, lname) => {
+    setUsername(fname + " " + lname);
+  };
 
   const openForm = () => setModalOpen(true);
   const closeForm = () => setModalOpen(false);
@@ -46,22 +55,21 @@ const Account = () => {
           <Sidebar>
             <ProfileInfo>
               <MdAccountCircle />
-              <div className="name">Vishal Shah</div>
-              <span onClick={() => setTab("edit-info")}>Edit Info</span>
+              <div className="name">{username}</div>
               <span onClick={() => openForm()}>Change Password</span>
             </ProfileInfo>
             <SectionLinks>
+              <div
+                className={tab === "edit-info" ? "active" : ""}
+                onClick={() => setTab("edit-info")}
+              >
+                Edit Info
+              </div>
               <div
                 className={tab === "orders" ? "active" : ""}
                 onClick={() => setTab("orders")}
               >
                 View Orders
-              </div>
-              <div
-                className={tab === "address" ? "active" : ""}
-                onClick={() => setTab("address")}
-              >
-                Manage Addresses
               </div>
             </SectionLinks>
           </Sidebar>
@@ -71,7 +79,7 @@ const Account = () => {
             ) : tab === "address" ? (
               <AddressSection />
             ) : (
-              <EditInfo />
+              <EditInfo setName={setName} />
             )}
           </main>
         </div>
@@ -82,16 +90,63 @@ const Account = () => {
   );
 };
 
-const EditInfo = () => {
+const EditInfo = ({ setName }) => {
+  const [userInfo, setUserInfo] = useState({});
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
+
+  useEffect(async () => {
+    const res = await fetch(`http://localhost:8080/api/user/get-info`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${new Cookies().get("userId")}`,
+      },
+    });
+    const body = await res.json();
+    await setFname(body.fname);
+    await setLname(body.lname);
+    await setEmail(body.email);
+    await setPhone(body.phone);
+    setName(body.fname, body.lname);
+  }, []);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data) => {
+    data.phone = parseInt(data.phone);
+    const res = await fetch("http://localhost:8080/api/user/update", {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${new Cookies().get("userId")}`,
+      },
+    });
+    const body = await res.json();
+    setResponse(body.message);
+    setResponseVisible(true);
+    if (res.ok) setResponseClass("success");
+    else setResponseClass("error");
+  };
+
   return (
     <MainWrapper>
       <Title>Edit your personal Info</Title>
+
+      <Alert className={responseClass} isVisible={responseVisible}>
+        {response}
+      </Alert>
+
       <AccountForm
         name="edit-info"
         method="POST"
@@ -103,8 +158,12 @@ const EditInfo = () => {
             type="text"
             name="fname"
             id="fname"
-            defaultValue="Vishal"
-            {...register("fname", { required: "First name is required" })}
+            value={fname}
+            defaultValue={fname}
+            {...register("fname", {
+              required: "First name is required",
+              onChange: (e) => setFname(e.target.value),
+            })}
           />
           <ValidationError>{errors.fname?.message}</ValidationError>
         </InputWrapper>
@@ -114,8 +173,12 @@ const EditInfo = () => {
             type="text"
             name="lname"
             id="lname"
-            defaultValue="Shah"
-            {...register("lname", { required: "Last name is required" })}
+            value={lname}
+            defaultValue={lname}
+            {...register("lname", {
+              required: "Last name is required",
+              onChange: (e) => setLname(e.target.value),
+            })}
           />
           <ValidationError>{errors.lname?.message}</ValidationError>
         </InputWrapper>
@@ -125,9 +188,11 @@ const EditInfo = () => {
             type="email"
             name="email"
             id="email"
-            defaultValue="shahvishal662@gmail.com"
+            value={email}
+            defaultValue={email}
             {...register("email", {
               required: "Email is required",
+              onChange: (e) => setEmail(e.target.value),
               pattern: {
                 value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
                 message: "Invalid email address",
@@ -142,9 +207,11 @@ const EditInfo = () => {
             type="number"
             name="phone"
             id="phone"
-            defaultValue="9687312209"
+            value={phone}
+            defaultValue={phone}
             {...register("phone", {
               required: "Phone field is required",
+              onChange: (e) => setPhone(e.target.value),
               maxLength: {
                 value: 10,
                 message: "Phone No must be of 10 digits",
@@ -167,30 +234,94 @@ const EditInfo = () => {
 };
 
 const ChangePassword = ({ handleClose }) => {
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = async (data) => {
+    const res = await fetch("http://localhost:8080/api/user/change-password", {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        Authorization: `Bearer ${new Cookies().get("userId")}`,
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.text();
+    setResponse(body);
+    setResponseVisible(true);
+    if (res.ok) {
+      setResponseClass("success");
+      setTimeout(() => handleClose(), 1000);
+    } else setResponseClass("error");
+  };
+
   return (
     <ModalContainer onClick={handleClose}>
       <ChangePasswordWrapper onClick={(e) => e.stopPropagation()}>
         <Title>Change Password</Title>
+
+        <Alert className={responseClass} isVisible={responseVisible}>
+          {response}
+        </Alert>
+
         <AccountForm
           name="change-password"
           method="POST"
-          onSubmit={handleFormSubmit}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <InputWrapper style={{ width: "100%" }}>
             <Label htmlFor="old-password">Old Password</Label>
-            <Input type="password" name="old-password" id="old-password" />
-          </InputWrapper>
-          <InputWrapper>
-            <Label htmlFor="old-password">New Password</Label>
-            <Input type="password" name="new-password" id="new-password" />
-          </InputWrapper>
-          <InputWrapper>
-            <Label htmlFor="old-password">Confirm Password</Label>
             <Input
               type="password"
-              name="confirm-password"
-              id="confirm-password"
+              name="oldPassword"
+              id="oldPassword"
+              {...register("oldPassword", {
+                required: "This field is required",
+                pattern: {
+                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/,
+                  message: "Invalid password",
+                },
+              })}
             />
+            <ValidationError>{errors.oldPassword?.message}</ValidationError>
+          </InputWrapper>
+          <InputWrapper>
+            <Label htmlFor="newPassword">New Password</Label>
+            <Input
+              type="password"
+              name="newPassword"
+              id="newPassword"
+              {...register("newPassword", {
+                required: "This field is required",
+                pattern: {
+                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/,
+                  message: "Invalid password",
+                },
+              })}
+            />
+            <ValidationError>{errors.newPassword?.message}</ValidationError>
+          </InputWrapper>
+          <InputWrapper>
+            <Label htmlFor="confirmPassword">Confirm Password</Label>
+            <Input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              {...register("confirmPassword", {
+                required: "This field is required",
+                pattern: {
+                  value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,30}$/,
+                  message: "Invalid password",
+                },
+              })}
+            />
+            <ValidationError>{errors.confirmPassword?.message}</ValidationError>
           </InputWrapper>
           <div>
             <AccountButton className="primary" type="submit">

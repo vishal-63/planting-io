@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import loginSvg from "../../Images/login.svg";
@@ -13,6 +13,7 @@ import {
   SignInBtn,
   NewAccount,
   ValidationError,
+  Alert,
 } from "../../Components/LoginModal/LoginModalElements";
 
 import {
@@ -27,6 +28,7 @@ import {
 
 import { NurseryNavbar } from "../../Components/Navbar";
 import { inputsValid } from "../../validation/loginValidation";
+import { Cookies } from "react-cookie";
 
 function inputChange(e) {
   if (e.target.value !== "") {
@@ -36,13 +38,43 @@ function inputChange(e) {
   }
 }
 
-const NurseryLogin = () => {
+const NurseryLogin = ({ loginNursery }) => {
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
+
+  const navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/nursery/dashboard";
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  const onSubmit = async (data) => {
+    const res = await fetch("http://localhost:8080/api/nursery/login", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+    setResponse(body.message);
+    setResponseVisible(true);
+    if (res.ok) {
+      setResponseClass("success");
+      const cookie = new Cookies();
+      cookie.set("nurseryId", body.jwt);
+      cookie.set("nurseryName", body.name);
+      loginNursery();
+      navigate(from, { replace: true });
+    } else {
+      setResponseClass("error");
+    }
+  };
 
   return (
     <>
@@ -54,6 +86,9 @@ const NurseryLogin = () => {
           <LoginSvg src={loginSvg} alt="illustration" />
 
           <NurseryLoginContainer>
+            <Alert className={responseClass} isVisible={responseVisible}>
+              {response}
+            </Alert>
             <FormContainer
               method="POST"
               name="login"

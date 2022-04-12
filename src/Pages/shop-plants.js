@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { plants } from "../data/plants";
 import BreadCrumb from "../Components/BreadCrumb";
 import Footer from "../Components/Footer";
@@ -7,22 +7,23 @@ import ShopPage from "../Components/ShopPage";
 import Topbar from "../Components/Topbar";
 
 const ShopPlants = () => {
-  let items = [
-    ...plants,
-    ...plants,
-    ...plants,
-    ...plants,
-    ...plants,
-    ...plants,
-    ...plants,
-    // ...plants,
-  ];
+  const [items, setItems] = useState([]);
+
+  useEffect(async () => {
+    const res = await fetch("http://localhost:8080/api/product/get-all/Plant", {
+      method: "GET",
+    });
+    const body = await res.json();
+    // console.log(body);
+    setItems(body);
+  }, []);
+
   return (
     <>
       <Topbar />
       <UserNavbar />
       <BreadCrumb page="Plants" />
-      <ShopPage items={items} />
+      <ShopPage items={items} link="/shop-plants" />
       <Footer />
     </>
   );

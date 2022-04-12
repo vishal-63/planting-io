@@ -30,14 +30,19 @@ export const AdminMenu = [
     path: "/admin/orders",
   },
   {
-    name: "Bookings",
-    page: "bookings",
-    path: "/admin/bookings",
-  },
-  {
     name: "Complaints",
     page: "complaints",
     path: "/admin/complaints",
+  },
+  {
+    name: "Payments",
+    page: "payments",
+    path: "/admin/payments",
+  },
+  {
+    name: "Report",
+    page: "report",
+    path: "/admin/reports",
   },
 ];
 

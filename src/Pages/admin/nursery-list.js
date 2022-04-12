@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FiEdit, FiEye } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineUserDelete } from "react-icons/ai";
 
 import React, { useEffect, useState } from "react";
 import DashboardHeader from "../../Components/DashboardHeader";
@@ -11,7 +11,13 @@ import {
   DashboardCard,
   DashboardTable,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { nursery } from "../../data/nursery";
+import { Cookies } from "react-cookie";
+import { Link } from "react-router-dom";
+import ModalContainer from "../../Components/Backdrop";
+import {
+  Modalbutton,
+  ModalDiv,
+} from "../../Components/DashboardHeader/DashboardHeaderElements";
 
 const Container = styled.section`
   width: 100vw;
@@ -55,16 +61,39 @@ const Icon = styled.span`
   &.view {
     background-color: #2e7bc2;
   }
+
+  & a {
+    display: flex;
+  }
 `;
 
 const NurseryList = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [nurseries, setNurseries] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [deactivateNurseryId, setDeactivateNurseryId] = useState("");
 
   React.useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
+  useEffect(async () => {
+    const res = await fetch(
+      "http://localhost:8080/api/admin/get-all-nurseries",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("adminId")}`,
+        },
+      }
+    );
+    const body = await res.json();
+    setNurseries(body);
+  }, []);
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
+
+  const handleClose = () => setModalOpen(false);
 
   return (
     <>
@@ -82,27 +111,35 @@ const NurseryList = () => {
               <tr>
                 <th>Nursery Id</th>
                 <th>Nursery Name</th>
-                <th>email</th>
+                <th>Email</th>
                 <th>Mobile No.</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {nursery.map((nursery, index) => (
+              {nurseries.map((nursery, index) => (
                 <tr key={index}>
-                  <td>{nursery.id}</td>
+                  <td>#{nursery.id}</td>
                   <td>{nursery.name}</td>
                   <td>{nursery.email}</td>
                   <td>{nursery.phone}</td>
                   <td>
                     <div style={{ display: "flex" }}>
                       <Icon className="view">
-                        <FiEye />
+                        <Link to={`/admin/nursery/${nursery.id}`}>
+                          <FiEye />
+                        </Link>
                       </Icon>
                       <Icon className="edit">
                         <FiEdit />
                       </Icon>
-                      <Icon className="delete">
+                      <Icon
+                        className="delete"
+                        onClick={() => {
+                          setDeactivateNurseryId(nursery.id);
+                          setModalOpen(true);
+                        }}
+                      >
                         <AiOutlineDelete />
                       </Icon>
                     </div>
@@ -112,8 +149,39 @@ const NurseryList = () => {
             </tbody>
           </DashboardTable>
         </DashboardCard>
+
+        {modalOpen && (
+          <DeleteModal
+            handleClose={handleClose}
+            nurseryId={deactivateNurseryId}
+          />
+        )}
       </Container>
     </>
+  );
+};
+
+const DeleteModal = ({ handleClose, nurseryId }) => {
+  const deactivateUser = () => {};
+  return (
+    <ModalContainer onClick={handleClose}>
+      <ModalDiv onClick={(e) => e.stopPropagation()}>
+        <div>
+          <span>
+            <AiOutlineUserDelete />
+          </span>
+          Are you sure you want to deactivate this nursery? <br />
+        </div>
+        <div>
+          <Modalbutton className="cancel" onClick={handleClose}>
+            Cancel
+          </Modalbutton>
+          <Modalbutton className="logout" onClick={deactivateUser}>
+            Yes
+          </Modalbutton>
+        </div>
+      </ModalDiv>
+    </ModalContainer>
   );
 };
 

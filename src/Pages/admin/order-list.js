@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FiEdit, FiEye } from "react-icons/fi";
 
@@ -9,8 +9,9 @@ import {
   DashboardTable,
   DashboardTableStatus,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { orders } from "../../data/orders";
 import { AdminMenu } from "../../data/dashboard-menu-items";
+import { Cookies } from "react-cookie";
+import { Link } from "react-router-dom";
 
 const Container = styled.section`
   width: 100vw;
@@ -55,10 +56,22 @@ const Icon = styled.span`
 
 const AdminOrderList = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [orders, setOrders] = useState([]);
 
   React.useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
+
+  useEffect(async () => {
+    const res = await fetch("http://localhost:8080/api/admin/get-all-orders", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${new Cookies().get("adminId")}`,
+      },
+    });
+    const body = await res.json();
+    setOrders(body);
+  }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -77,11 +90,12 @@ const AdminOrderList = () => {
             <thead>
               <tr>
                 <th>Order Id</th>
-                <th>Product Name</th>
+                <th>Item Name</th>
+                <th>Item Type</th>
                 <th>Nursery</th>
                 <th>Customer</th>
-                <th>Price</th>
                 <th>Quantity</th>
+                <th>Sub Total</th>
                 <th>Date</th>
                 <th>Order Status</th>
                 <th>Payment Status</th>
@@ -91,25 +105,26 @@ const AdminOrderList = () => {
             <tbody>
               {orders.map((order, index) => (
                 <tr key={index}>
-                  <td>{order.id}</td>
-                  <td style={{ width: "18%" }}>{order.name}</td>
-                  <td>{order.nursery}</td>
-                  <td>{order.customer}</td>
-                  <td>{order.price}</td>
+                  <td>#{order.orderId}</td>
+                  <td>{order.itemName}</td>
+                  <td>{order.type}</td>
+                  <td>{order.nurseryName}</td>
+                  <td>{order.customerName}</td>
                   <td>{order.quantity}</td>
-                  <td>{order.date}</td>
+                  <td>{order.subTotal}.00</td>
+                  <td>{order.orderDate}</td>
                   <td>
-                    <DashboardTableStatus className={order.orderStatusClass}>
+                    <DashboardTableStatus className={order.orderStatus}>
                       {order.orderStatus}
                     </DashboardTableStatus>
                   </td>
                   <td>
                     <DashboardTableStatus
-                      className={`payment ${order.paymentStatusClass}`}
+                      className={`payment ${order.paymentStatus}`}
                     >
                       {order.paymentStatus}
                     </DashboardTableStatus>
-                    {order.paymentStatusClass == "pending" && (
+                    {order.paymentStatus === "Pending" && (
                       <span style={{ fontSize: "0.75rem", color: "#7d7d7d" }}>
                         (Due {order.paymentDue})
                       </span>
@@ -117,12 +132,11 @@ const AdminOrderList = () => {
                   </td>
                   <td>
                     <div style={{ display: "flex" }}>
-                      <Icon className="edit">
-                        <FiEdit />
-                      </Icon>
-                      <Icon className="view">
-                        <FiEye />
-                      </Icon>
+                      <Link to={`/admin/order/${order.orderId}`}>
+                        <Icon className="edit">
+                          <FiEye />
+                        </Icon>
+                      </Link>
                     </div>
                   </td>
                 </tr>

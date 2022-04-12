@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { FaInstagram, FaFacebookF, FaTwitter } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -10,8 +10,15 @@ import {
   FollowText,
   UserIconsWrapper,
 } from "./TopbarElements";
+import { AuthContext } from "../../AuthContext";
 
 const Topbar = () => {
+  const [
+    isUserAuthenticated,
+    setIsUserAuthenticated,
+    isAdminAuthenticated,
+    setIsAdminAuthenticated,
+  ] = useContext(AuthContext);
   return (
     <TopbarContainer>
       <FollowLinksWrapper>
@@ -27,12 +34,17 @@ const Topbar = () => {
         </a>
       </FollowLinksWrapper>
       <UserIconsWrapper>
-        <Link to="/cart">
-          <FiShoppingCart />
-        </Link>
-        <Link to="/account">
-          <CgProfile />
-        </Link>
+        {isUserAuthenticated && (
+          <>
+            <Link to="/cart">
+              <FiShoppingCart />
+            </Link>
+
+            <Link to="/account">
+              <CgProfile />
+            </Link>
+          </>
+        )}
       </UserIconsWrapper>
     </TopbarContainer>
   );

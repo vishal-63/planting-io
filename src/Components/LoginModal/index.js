@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { AiOutlineClose } from "react-icons/ai";
-import { inputsValid } from "../../validation/loginValidation";
-import { handleRegisterSubmit } from "../../validation/registrationValidation";
+import { Cookies } from "react-cookie";
+import { AuthContext } from "../../AuthContext";
+
 import ModalContainer from "../Backdrop";
 import {
   Container,
@@ -32,7 +32,7 @@ function inputChange(e) {
   }
 }
 
-const LoginModal = ({ mode, isFormOpen, handleClose, authenticateUser }) => {
+const LoginModal = ({ mode, handleClose }) => {
   const [formMode, setFormMode] = useState(`${mode}`);
   const toggleFormMode = (mode) => setFormMode(mode);
 
@@ -47,7 +47,6 @@ const LoginModal = ({ mode, isFormOpen, handleClose, authenticateUser }) => {
           <LoginForm
             toggleFormMode={toggleFormMode}
             handleClose={handleClose}
-            authenticateUser={authenticateUser}
           />
         ) : (
           <RegisterForm
@@ -60,10 +59,17 @@ const LoginModal = ({ mode, isFormOpen, handleClose, authenticateUser }) => {
   );
 };
 
-const LoginForm = ({ toggleFormMode, handleClose, authenticateUser }) => {
+const LoginForm = ({ toggleFormMode, handleClose }) => {
   const [response, setResponse] = useState("");
   const [responseVisible, setResponseVisible] = useState(false);
   const [responseClass, setResponseClass] = useState("");
+
+  const [
+    isUserAuthenticated,
+    setIsUserAuthenticated,
+    isAdminAuthenticated,
+    setIsAdminAuthenticated,
+  ] = useContext(AuthContext);
 
   const {
     register,
@@ -71,32 +77,35 @@ const LoginForm = ({ toggleFormMode, handleClose, authenticateUser }) => {
     formState: { errors },
   } = useForm();
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    handleSubmit(onSubmit)(e);
-  };
-  const onSubmit = (data, e) => loginUser(e);
+  const onSubmit = (data, e) => loginUser(data, e);
 
   // call api to login user
-  const loginUser = async (e) => {
-    const params = new URLSearchParams([...new FormData(e.target).entries()]);
-
-    const res = await fetch("CRUD/login", {
+  const loginUser = async (data, e) => {
+    const res = await fetch("http://localhost:8080/api/user/login", {
       method: "POST",
-      body: params,
+      body: JSON.stringify(data),
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    await console.log(res);
-    const body = await res.text();
-    setResponse(body);
+
+    const body = await res.json();
+
+    setResponse(body.message);
     setResponseVisible(true);
-    if (!res.ok) {
-      setResponseClass("error");
-    } else {
+
+    if (res.ok) {
       setResponseClass("success");
-      setTimeout(() => handleClose(), 1500);
+      new Cookies().set("userId", body.jwt, { path: "/" });
       authenticateUser();
+      setTimeout(() => handleClose(), 1000);
+    } else {
+      setResponseClass("error");
     }
   };
+
+  const authenticateUser = () => setIsUserAuthenticated(true);
 
   return (
     <LoginContainer onClick={(e) => e.stopPropagation()}>
@@ -110,7 +119,11 @@ const LoginForm = ({ toggleFormMode, handleClose, authenticateUser }) => {
         {response}
       </Alert>
 
-      <FormContainer name="login" method="POST" onSubmit={handleLoginSubmit}>
+      <FormContainer
+        name="login"
+        method="POST"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Wrapper className="emailinput">
           <Input
             spellcheck="false"
@@ -154,7 +167,7 @@ const LoginForm = ({ toggleFormMode, handleClose, authenticateUser }) => {
         </Wrapper>
 
         <ButtonContainer>
-          <ForgotPass to="/">Forgot Password?</ForgotPass>
+          <ForgotPass to="/forgot-password">Forgot Password?</ForgotPass>
           <SignInBtn type="submit">Sign In</SignInBtn>
         </ButtonContainer>
       </FormContainer>
@@ -168,11 +181,22 @@ const LoginForm = ({ toggleFormMode, handleClose, authenticateUser }) => {
 };
 
 const RegisterForm = ({ toggleFormMode, handleClose }) => {
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const [
+    isUserAuthenticated,
+    setIsUserAuthenticated,
+    isAdminAuthenticated,
+    setIsAdminAuthenticated,
+  ] = useContext(AuthContext);
 
   const onSubmit = (data) => {
     const confirmPasswordError = document.querySelector(
@@ -180,8 +204,36 @@ const RegisterForm = ({ toggleFormMode, handleClose }) => {
     );
     if (data.password !== data.confirmPassword) {
       confirmPasswordError.innerHTML = "Passwords do not match";
+    } else {
+      registerUser(data);
     }
   };
+
+  const registerUser = async (data) => {
+    const res = await fetch("http://localhost:8080/api/user/add", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+
+    setResponseVisible(true);
+    setResponse(body.message);
+
+    if (res.ok) {
+      setResponseClass("success");
+      new Cookies().set("userId", body.jwt, { path: "/" });
+      authenticateUser();
+      setTimeout(() => handleClose(), 1500);
+    } else {
+      setResponseClass("error");
+    }
+  };
+
+  const authenticateUser = () => setIsUserAuthenticated(true);
 
   return (
     <LoginContainer className="register" onClick={(e) => e.stopPropagation()}>
@@ -190,6 +242,10 @@ const RegisterForm = ({ toggleFormMode, handleClose }) => {
         <Tab className="register">Register</Tab>
       </TabsContainer>
       <p>Enter your Account Details</p>
+
+      <Alert className={responseClass} isVisible={responseVisible}>
+        {response}
+      </Alert>
 
       <FormContainer
         className="register"

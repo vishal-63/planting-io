@@ -2,7 +2,6 @@ import { validEmail } from "./regex";
 
 // handle login form submit
 export const inputsValid = (e) => {
-  console.log(e.target);
   const inputs = document.querySelectorAll("form[name='login'] input");
   const emailField = inputs[0];
   const passwordField = inputs[1];
@@ -16,7 +15,6 @@ export const inputsValid = (e) => {
       emailField.placeholder = "Invalid email address";
     }
   } else {
-    console.log("email empty");
     emailField.classList.add("invalid");
     emailField.value = "";
     emailField.placeholder = "Email Cannot be empty";

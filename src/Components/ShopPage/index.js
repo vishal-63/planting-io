@@ -12,6 +12,7 @@ import {
   PlantCardWrapper,
   PlantImg,
   PlantName,
+  NurseryName,
   PlantPrice,
   PlantStarsWrapper,
 } from "../InfoSection/InfoElements";
@@ -27,7 +28,7 @@ import {
   SidebarTitle,
 } from "./ShopPageElements";
 
-const ShopPage = ({ items }) => {
+const ShopPage = ({ items, link }) => {
   const itemsPerPage = 16;
 
   const [currentItems, setCurrentItems] = useState(null);
@@ -48,7 +49,7 @@ const ShopPage = ({ items }) => {
 
   return (
     <ShopContainer>
-      <Sidebar>
+      {/* <Sidebar>
         <div>
           <SidebarTitle>Search</SidebarTitle>
           <SidebarSearch>
@@ -80,19 +81,20 @@ const ShopPage = ({ items }) => {
           <Checkbox value="2500-3000" label="Rs.2500 - Rs.3000" />
           <Checkbox value=">3000" label="Above Rs.3000" />
         </div>
-      </Sidebar>
-      <div>
+      </Sidebar> */}
+      <div style={{ width: "100%" }}>
         <PageInfoDiv>
           <span>
-            Showing {itemOffset + 1} - {itemOffset + itemsPerPage} of{" "}
-            {items.length} Results
+            Showing {itemOffset + 1} -{" "}
+            {itemOffset + itemsPerPage > items.length
+              ? items.length
+              : itemOffset + itemsPerPage}{" "}
+            of {items.length} Results
           </span>
-          <span>
-            Sort By: Alphabetically (A-Z) <AiFillCaretDown />
-          </span>
+          <span>{/* Sort By: Alphabetically (A-Z) <AiFillCaretDown /> */}</span>
         </PageInfoDiv>
         <PlantCardWrapper style={{ justifyContent: "space-between" }}>
-          <Items currentItems={currentItems} />
+          <Items currentItems={currentItems} link={link} />
         </PlantCardWrapper>
         <PageInfoDiv className="second">
           <Pagination
@@ -109,8 +111,11 @@ const ShopPage = ({ items }) => {
             nextClassName="next"
           />
           <span>
-            Showing {itemOffset + 1} - {itemOffset + itemsPerPage} of{" "}
-            {items.length} Results
+            Showing {itemOffset + 1} -{" "}
+            {itemOffset + itemsPerPage > items.length
+              ? items.length
+              : itemOffset + itemsPerPage}{" "}
+            of {items.length} Results
           </span>
         </PageInfoDiv>
       </div>
@@ -118,42 +123,47 @@ const ShopPage = ({ items }) => {
   );
 };
 
-const Items = ({ currentItems }) => {
+const Items = ({ currentItems, link }) => {
   return (
     <>
       {currentItems &&
-        currentItems.map((item, index) => (
-          <PlantCard key={index}>
-            <Link to={`${item.link}/${item.id}`}>
-              <PlantImg src={item.img} alt={item.name} />
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  margin: "1rem .5rem 0",
-                }}
-              >
-                <PlantName>{item.name}</PlantName>
-                <PlantStarsWrapper>
-                  {[...Array(item.stars)].map((index) => (
-                    <AiFillStar key={index} />
-                  ))}
-                  {[...Array(5 - item.stars)].map((index) => (
-                    <AiFillStar key={index} style={{ color: "#dadada" }} />
-                  ))}
-                </PlantStarsWrapper>
-              </div>
-              <PlantPrice>
-                <DiscountedPrice>
-                  <BiRupee />
-                  <span>{item.discountedPrice}</span>
-                </DiscountedPrice>
-                <ActualPrice>{item.actualPrice}</ActualPrice>
-              </PlantPrice>
-            </Link>
-          </PlantCard>
-        ))}
+        currentItems.map((item, index) => {
+          item.stars === undefined && (item.stars = 0);
+          return (
+            <PlantCard key={index}>
+              <Link to={`${link}/${item.id}`}>
+                <PlantImg src={item.photoPath[0]} alt={item.name} />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    margin: "1rem .5rem 0",
+                  }}
+                >
+                  <PlantName>{item.name}</PlantName>
+                  <PlantStarsWrapper>
+                    {[...Array(item.stars)].map((val, index) => (
+                      <AiFillStar key={index} style={{ color: "#ffbf34" }} />
+                    ))}
+                    {[...Array(5 - item.stars)].map((val, index) => (
+                      <AiFillStar key={index} style={{ color: "#dadada" }} />
+                    ))}
+                    {"  "}({item.reviewCount})
+                  </PlantStarsWrapper>
+                </div>
+                <NurseryName>{item.nurseryName}</NurseryName>
+                <PlantPrice>
+                  <DiscountedPrice>
+                    <BiRupee />
+                    <span>{item.price - item.discount}.00</span>
+                  </DiscountedPrice>
+                  <ActualPrice>{item.price}.00</ActualPrice>
+                </PlantPrice>
+              </Link>
+            </PlantCard>
+          );
+        })}
     </>
   );
 };

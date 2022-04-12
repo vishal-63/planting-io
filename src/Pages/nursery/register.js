@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { useForm } from "react-hook-form";
+import { Cookies } from "react-cookie";
 
 import loginSvg from "../../Images/login.svg";
 import {
@@ -50,7 +51,13 @@ const NurseryLogin = () => {
   const [step, setStep] = useState("registration");
   const [selectedOption, setSelectedOption] = useState("");
 
+  const [response, setResponse] = useState("");
+  const [responseVisible, setResponseVisible] = useState(false);
+  const [responseClass, setResponseClass] = useState("");
+
   const [errorVisible, setErrorVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   step === "verification" ? setActiveStep(true) : setActiveStep(false);
@@ -59,7 +66,6 @@ const NurseryLogin = () => {
   const changeStep = () => {
     setActiveStep(true);
     setStep("verfication");
-    console.log(step, activeStep);
   };
 
   const openDropdown = (e) => {
@@ -96,7 +102,27 @@ const NurseryLogin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = async (data) => {
+    const res = await fetch("http://localhost:8080/api/nursery/add", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const body = await res.json();
+    setResponse(body.message);
+    setResponseVisible(true);
+    if (res.ok) {
+      setResponseClass("success");
+      new Cookies().set("nurseryId", body.jwt);
+      navigate("/nursery/dashboard", {
+        nurseryName: data.name,
+      });
+    } else {
+      setResponseClass("error");
+    }
+  };
 
   return (
     <>
@@ -111,17 +137,21 @@ const NurseryLogin = () => {
         >
           <Title>Welcome To Planting.io</Title>
           <Subtitle>Create Your Account To Start Selling</Subtitle>
-          <Steps>
+          {/* <Steps>
             <StepNumber activeStep={true}>1</StepNumber>
             <StepName>Registration</StepName>
             <Line></Line>
             <StepNumber activeStep={activeStep}>2</StepNumber>
             <StepName>Verification</StepName>
-          </Steps>
+          </Steps> */}
           <ContentWrapper>
             <LoginSvg src={loginSvg} alt="illustration" />
 
             <NurseryLoginContainer>
+              <Alert className={responseClass} isVisible={responseVisible}>
+                {response}
+              </Alert>
+
               {step === "registration" ? (
                 <FormContainer
                   name="register"

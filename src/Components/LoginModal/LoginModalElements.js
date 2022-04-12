@@ -356,4 +356,8 @@ export const AlreadyAccount = styled.div`
 export const ValidationError = styled.span`
   font-size: 0.8rem;
   color: #ac1212;
+
+  &.photo-error {
+    width: 100%;
+  }
 `;

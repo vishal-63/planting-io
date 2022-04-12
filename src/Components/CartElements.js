@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const CartContainer = styled.section`
   width: 100%;
   margin: 0 auto;
+  min-height: calc(100vh - 390px);
 
   @media (min-width: 1100px) {
     width: 87vw;
@@ -51,7 +52,7 @@ export const CartTable = styled.table`
     text-align: right;
     font-weight: 500;
   }
-  & td div {
+  & td > div {
     display: flex;
     align-items: center;
   }
@@ -103,6 +104,16 @@ export const Amount = styled.span`
   margin-left: 0.75rem;
 `;
 
+const loadingAnimation = keyframes`
+from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
 export const CheckoutButton = styled.button`
   color: #fff;
   background-color: #000;
@@ -112,4 +123,16 @@ export const CheckoutButton = styled.button`
   margin-top: 1rem;
   border: none;
   outline: none;
+  display: flex;
+
+  & span.loader {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: none;
+    border: 3px solid #dfdfdf;
+    border-top-color: #999;
+    border-radius: 20px;
+    animation: ${loadingAnimation} 1s linear infinite;
+  }
 `;

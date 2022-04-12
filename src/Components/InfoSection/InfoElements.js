@@ -68,7 +68,7 @@ export const PlantCardWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  max-width: 1100px;
+  max-width: 1300px;
 
   @media (min-width: 768px) {
     gap: 1.5rem;
@@ -105,6 +105,8 @@ export const PlantCard = styled.div`
 
 export const PlantImg = styled.img`
   width: 100%;
+  height: 200px;
+  object-fit: cover;
   border-radius: 15px;
 `;
 
@@ -113,9 +115,16 @@ export const PlantName = styled.p`
   font-size: 0.875rem;
 `;
 
+export const NurseryName = styled.span`
+  font-size: 0.8rem;
+  color: #666;
+  margin-left: 0.5rem;
+`;
+
 export const PlantStarsWrapper = styled.div`
-  color: #ffbf34;
+  font-size: 0.65rem;
   display: flex;
+  align-items: center;
 
   & svg {
     height: 0.75rem;

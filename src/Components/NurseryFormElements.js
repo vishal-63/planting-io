@@ -179,7 +179,7 @@ export const SelectTrigger = styled.div`
   height: 50px;
   cursor: pointer;
   border-bottom: 1px solid #000;
-  padding: 0 0.5rem;
+  padding-right: 0.5rem;
 `;
 
 export const CustomOptions = styled.div`
