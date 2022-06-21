@@ -5,7 +5,6 @@ import { AuthContext } from "../../AuthContext";
 
 import ModalContainer from "../Backdrop";
 import {
-  Container,
   LoginContainer,
   TabsContainer,
   Tab,
@@ -36,10 +35,6 @@ const LoginModal = ({ mode, handleClose }) => {
   const [formMode, setFormMode] = useState(`${mode}`);
   const toggleFormMode = (mode) => setFormMode(mode);
 
-  const handleRegisterSubmit = (e) => {
-    e.preventDefault();
-    // handleSubmit(onSubmit)(e);
-  };
   return (
     <>
       <ModalContainer onClick={handleClose}>

@@ -1,5 +1,4 @@
 import React from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import styled from "styled-components";
 
 const Backdrop = styled.div`

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Cookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { IoIosArrowDown } from "react-icons/io";
+import { MdDelete } from "react-icons/md";
+
 import DashboardHeader from "../../../Components/DashboardHeader";
 import DashboardMenu from "../../../Components/DashboardMenu";
-import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
-import { useForm } from "react-hook-form";
 
 import { DashboardCard } from "../../../Components/Dashboard Items/DashboardElements";
 import {
@@ -30,9 +34,6 @@ import {
 } from "../../../Components/LoginModal/LoginModalElements";
 
 import { NurseryMenu } from "../../../data/dashboard-menu-items";
-import { Cookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import { MdDelete } from "react-icons/md";
 
 const Container = styled.section`
   width: 100vw;

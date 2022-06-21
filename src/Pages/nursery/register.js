@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowDown } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { Cookies } from "react-cookie";
@@ -36,7 +36,6 @@ import {
   FileInputWrapper,
 } from "../../Components/NurseryFormElements";
 import { NurseryNavbar } from "../../Components/Navbar";
-import { handleNurseryRegisterSubmit } from "../../validation/registrationValidation";
 
 function inputChange(e) {
   if (e.target.value !== "") {
@@ -59,9 +58,9 @@ const NurseryLogin = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   step === "verification" ? setActiveStep(true) : setActiveStep(false);
-  // }, [step]);
+  useEffect(() => {
+    step === "verification" ? setActiveStep(true) : setActiveStep(false);
+  }, [step]);
 
   const changeStep = () => {
     setActiveStep(true);
@@ -137,13 +136,13 @@ const NurseryLogin = () => {
         >
           <Title>Welcome To Planting.io</Title>
           <Subtitle>Create Your Account To Start Selling</Subtitle>
-          {/* <Steps>
+          <Steps>
             <StepNumber activeStep={true}>1</StepNumber>
             <StepName>Registration</StepName>
             <Line></Line>
             <StepNumber activeStep={activeStep}>2</StepNumber>
             <StepName>Verification</StepName>
-          </Steps> */}
+          </Steps>
           <ContentWrapper>
             <LoginSvg src={loginSvg} alt="illustration" />
 

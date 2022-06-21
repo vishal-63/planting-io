@@ -20,6 +20,7 @@ const Admin = () => {
         activePage="dashboard"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <AdminDashboardItems />
     </>

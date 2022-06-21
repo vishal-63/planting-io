@@ -39,11 +39,6 @@ export const AdminMenu = [
     page: "payments",
     path: "/admin/payments",
   },
-  {
-    name: "Report",
-    page: "report",
-    path: "/admin/reports",
-  },
 ];
 
 export const NurseryMenu = [

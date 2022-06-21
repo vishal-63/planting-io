@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { tools } from "../data/tools";
+
 import BreadCrumb from "../Components/BreadCrumb";
 import Footer from "../Components/Footer";
 import { UserNavbar } from "../Components/Navbar";
@@ -14,7 +14,6 @@ const ShopTools = () => {
       method: "GET",
     });
     const body = await res.json();
-    // console.log(body);
     setItems(body);
   }, []);
 

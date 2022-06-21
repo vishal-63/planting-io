@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
@@ -12,17 +13,18 @@ import {
   Label,
 } from "../Components/AccountElements";
 import { ValidationError } from "../Components/LoginModal/LoginModalElements";
-import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [mode, setMode] = useState("email");
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const onSubmit = async (data) => {
     setLoading(true);
     const formData = new FormData();
@@ -31,8 +33,6 @@ const ForgotPassword = () => {
       method: "POST",
       body: formData,
     });
-    const body = await res.text();
-    console.log(body);
     if (res.ok) setMode("otp");
     setLoading(false);
   };
@@ -46,8 +46,6 @@ const ForgotPassword = () => {
       method: "POST",
       body: formData,
     });
-    const body = await res.text();
-    console.log(body);
     if (res.ok) setMode("password");
     setLoading(false);
   };

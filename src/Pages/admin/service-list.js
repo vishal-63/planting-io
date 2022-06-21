@@ -1,27 +1,26 @@
-import styled from "styled-components";
-import { FiEdit, FiEye } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
-
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import _ from "lodash";
+import { Cookies } from "react-cookie";
+import { FiEye } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+import { IoRemoveCircleOutline } from "react-icons/io5";
+import { BsKeyFill } from "react-icons/bs";
+
+import { AdminMenu } from "../../data/dashboard-menu-items";
+
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
-import AdminDashboardItems from "../../Components/Admin Dashboard Items";
-import { AdminMenu } from "../../data/dashboard-menu-items";
 import {
   DashboardCard,
   DashboardTable,
-  DashboardTableStatus,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { Cookies } from "react-cookie";
 import ModalContainer from "../../Components/Backdrop";
 import ProductModal from "../../Components/ProductModal";
 import {
   Modalbutton,
   ModalDiv,
 } from "../../Components/DashboardHeader/DashboardHeaderElements";
-import { IoRemoveCircleOutline } from "react-icons/io5";
-import _ from "lodash";
-import { BsKeyFill } from "react-icons/bs";
 
 const Container = styled.section`
   width: 100vw;
@@ -69,7 +68,6 @@ const Icon = styled.span`
 
 const ServiceList = () => {
   const [menuOpen, setMenuOpen] = React.useState(false);
-  const [services, setServices] = useState([]);
   const [activeServices, setActiveServices] = useState([]);
   const [inActiveServices, setInActiveServices] = useState([]);
 
@@ -81,34 +79,36 @@ const ServiceList = () => {
 
   const jwt = new Cookies().get("adminId");
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch(
-      "http://localhost:8080/api/admin/get-all-services",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      }
-    );
-    const body = await res.json();
-    setServices(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        "http://localhost:8080/api/admin/get-all-services",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      const body = await res.json();
 
-    setActiveServices(
-      _.remove(body, (service) => {
-        return service.is_active;
-      })
-    );
-    setInActiveServices(
-      _.remove(body, (service) => {
-        return !service.is_active;
-      })
-    );
-  }, []);
+      setActiveServices(
+        _.remove(body, (service) => {
+          return service.is_active;
+        })
+      );
+      setInActiveServices(
+        _.remove(body, (service) => {
+          return !service.is_active;
+        })
+      );
+    }
+    fetchData();
+  }, [jwt]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -125,7 +125,6 @@ const ServiceList = () => {
     );
     const body = await res.json();
     setCurrentService(body);
-    console.log(body);
     setServiceModalOpen(true);
   };
 
@@ -141,6 +140,7 @@ const ServiceList = () => {
         activePage="service-list"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>

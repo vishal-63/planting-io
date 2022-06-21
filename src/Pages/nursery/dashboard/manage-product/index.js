@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import _ from "lodash";
 import { Cookies } from "react-cookie";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
+import { IoRemoveCircleOutline } from "react-icons/io5";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { BsKeyFill } from "react-icons/bs";
+
+import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 
 import DashboardHeader from "../../../../Components/DashboardHeader";
 import DashboardMenu from "../../../../Components/DashboardMenu";
@@ -11,18 +17,11 @@ import {
   DashboardCard,
   DashboardTable,
 } from "../../../../Components/Dashboard Items/DashboardElements";
-
-import { getProducts } from "../../../../data/products";
-import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 import ModalContainer from "../../../../Components/Backdrop";
 import {
   Modalbutton,
   ModalDiv,
 } from "../../../../Components/DashboardHeader/DashboardHeaderElements";
-import { IoRemoveCircleOutline } from "react-icons/io5";
-import { RiArrowDropDownLine } from "react-icons/ri";
-import _ from "lodash";
-import { BsKeyFill } from "react-icons/bs";
 
 const Container = styled.section`
   width: 100vw;
@@ -119,7 +118,7 @@ const ManageProducts = () => {
 
   const navigate = useNavigate();
 
-  React.useEffect(async () => {
+  useEffect(async () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
 
     if (new Cookies().get("nurseryId") !== undefined) {

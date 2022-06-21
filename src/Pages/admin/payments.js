@@ -1,27 +1,16 @@
-import styled from "styled-components";
-import { FiEdit, FiEye } from "react-icons/fi";
-import { AiOutlineDelete, AiOutlineUserDelete } from "react-icons/ai";
-
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Cookies } from "react-cookie";
+import { BsFolderSymlinkFill } from "react-icons/bs";
+
+import { AdminMenu } from "../../data/dashboard-menu-items";
+
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
-import AdminDashboardItems from "../../Components/Admin Dashboard Items";
-import { AdminMenu } from "../../data/dashboard-menu-items";
 import {
   DashboardCard,
   DashboardTable,
-  DashboardTableStatus,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { Cookies } from "react-cookie";
-import { Link } from "react-router-dom";
-import ModalContainer from "../../Components/Backdrop";
-import ProductModal from "../../Components/ProductModal";
-import {
-  Modalbutton,
-  ModalDiv,
-} from "../../Components/DashboardHeader/DashboardHeaderElements";
-import { IoRemoveCircleOutline } from "react-icons/io5";
-import { BsFolderSymlinkFill } from "react-icons/bs";
 
 const Container = styled.section`
   width: 100vw;
@@ -82,17 +71,20 @@ const PaymentsList = () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch("http://localhost:8080/api/admin/get-payments", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${jwt}`,
-      },
-    });
-    const body = await res.json();
-    console.log(body);
-    setPayments(body);
-  }, []);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("http://localhost:8080/api/admin/get-payments", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      const body = await res.json();
+      console.log(body);
+      setPayments(body);
+    }
+    fetchData();
+  }, [jwt]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -103,6 +95,7 @@ const PaymentsList = () => {
         activePage="payments"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
@@ -117,7 +110,7 @@ const PaymentsList = () => {
                 <th>Commission</th>
                 <th>Amount to be Paid</th>
                 <th>Status</th>
-                {/* <th>Action</th> */}
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -138,7 +131,7 @@ const PaymentsList = () => {
                       </span>
                     )}
                   </td>
-                  {/* <td>
+                  <td>
                     {payment.status === "Pending" && (
                       <div style={{ display: "flex" }}>
                         <Icon className="send-payment">
@@ -146,61 +139,15 @@ const PaymentsList = () => {
                         </Icon>
                       </div>
                     )}
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </DashboardTable>
         </DashboardCard>
-
-        {/* {productModalOpen && (
-          <ProductInfo
-            item={currentProduct}
-            handleModalClose={handleModalClose}
-          />
-        )}
-
-        {deleteModalOpen && (
-          <DeleteModal
-            handleClose={handleModalClose}
-            productId={deactivateProductId}
-          />
-        )} */}
       </Container>
     </>
   );
 };
-
-// const ProductInfo = ({ item, handleModalClose }) => {
-//   return (
-//     <ModalContainer onClick={handleModalClose}>
-//       <ProductModal item={item} />
-//     </ModalContainer>
-//   );
-// };
-
-// const DeleteModal = ({ handleClose, productId }) => {
-//   const deactivateUser = () => {};
-//   return (
-//     <ModalContainer onClick={handleClose}>
-//       <ModalDiv onClick={(e) => e.stopPropagation()}>
-//         <div>
-//           <span>
-//             <IoRemoveCircleOutline />
-//           </span>
-//           Are you sure you want to deactivate this nursery? <br />
-//         </div>
-//         <div>
-//           <Modalbutton className="cancel" onClick={handleClose}>
-//             Cancel
-//           </Modalbutton>
-//           <Modalbutton className="logout" onClick={deactivateUser}>
-//             Yes
-//           </Modalbutton>
-//         </div>
-//       </ModalDiv>
-//     </ModalContainer>
-//   );
-// };
 
 export default PaymentsList;

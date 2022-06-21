@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Cookies } from "react-cookie";
+import { MdOutlineErrorOutline } from "react-icons/md";
 import { BsCartFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import { IoIosArrowDown, IoMdCheckmarkCircleOutline } from "react-icons/io";
@@ -22,8 +24,6 @@ import {
   ServiceStars,
 } from "./ServiceElements";
 import Alert from "./Alert";
-import { Cookies } from "react-cookie";
-import { MdOutlineErrorOutline } from "react-icons/md";
 
 const SericeCardComponent = ({ nurseryName, service }) => {
   const [selectedService, setSelectedService] = useState(service[0]);
@@ -34,12 +34,6 @@ const SericeCardComponent = ({ nurseryName, service }) => {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [alertClass, setAlertClass] = useState("");
-
-  // const setupPrice = service.setupPrice;
-  // const maintenancePrice = service.maintenancePrice;
-  // const clearancePrice = service.clearancePrice;
-
-  // const [price, setPrice] = useState(setupPrice);
 
   const openDropdown = (e) => {
     e.target.closest(".select").classList.toggle("open");
@@ -60,25 +54,13 @@ const SericeCardComponent = ({ nurseryName, service }) => {
     setSelectedService(service[index]);
   };
 
-  // useEffect(() => {
-  //   if (selectedOption === "Garden Setup") {
-  //     setPrice(setupPrice);
-  //   } else if (selectedOption === "Garden Maintenance") {
-  //     setPrice(maintenancePrice);
-  //   } else if (selectedOption === "Garden Clearance") {
-  //     setPrice(clearancePrice);
-  //   }
-  // }, [selectedOption, setPrice, setupPrice, maintenancePrice, clearancePrice]);
-
-  // console.log(service);
-
   const addToCart = async () => {
     const data = {
       itemId: selectedService.id,
       type: "Service",
       noOfItems: 1,
     };
-    console.log(data);
+
     const res = await fetch(`http://localhost:8080/api/cart/add`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -88,9 +70,12 @@ const SericeCardComponent = ({ nurseryName, service }) => {
       },
     });
     const body = await res.text();
+
     setAlertMessage(body);
+
     if (res.ok) setAlertClass("success");
     else setAlertClass("error");
+
     setAlertOpen(true);
   };
 
@@ -101,7 +86,7 @@ const SericeCardComponent = ({ nurseryName, service }) => {
       {alertOpen && (
         <Alert onClick={handleClose} className={alertClass}>
           <span style={{ fontSize: "1.6rem" }}>
-            {alertClass == "success" ? (
+            {alertClass === "success" ? (
               <IoMdCheckmarkCircleOutline />
             ) : (
               <MdOutlineErrorOutline />

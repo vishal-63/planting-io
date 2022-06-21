@@ -20,8 +20,6 @@ import {
 import ModalContainer from "./Backdrop";
 import { ValidationError } from "./LoginModal/LoginModalElements";
 
-import { handleAddressSubmit } from "../validation/addressValidation";
-
 const addresses = [
   {
     building: "202, Kanak Residency",

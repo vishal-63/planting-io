@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BsPersonCircle } from "react-icons/bs";
 
+import { AdminMenu } from "../../data/dashboard-menu-items";
+
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
 import { DashboardCard } from "../../Components/Dashboard Items/DashboardElements";
@@ -12,7 +14,6 @@ import {
   Input,
   DashboardButton,
 } from "../../Components/DashboardInputs";
-import { AdminMenu, NurseryMenu } from "../../data/dashboard-menu-items";
 
 const UserName = styled.p`
   font-size: 1.5rem;
@@ -87,7 +88,7 @@ const AdminProfile = () => {
   return (
     <>
       <DashboardHeader toggleMenu={toggleMenu} />
-      <DashboardMenu menuOpen={menuOpen} listItems={AdminMenu} />
+      <DashboardMenu menuOpen={menuOpen} listItems={AdminMenu} adminPage />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
           <Title>Your Account</Title>
@@ -112,9 +113,9 @@ const AdminProfile = () => {
               <Label>Phone No</Label>
               <Input spellcheck="false" type="text" name="phone" />
             </Wrapper1>
-            {/* <Wrapper1 style={{ width: "100%" }}>
+            <Wrapper1 style={{ width: "100%" }}>
               <ChangePassword>Change Password</ChangePassword>
-            </Wrapper1> */}
+            </Wrapper1>
             <div>
               <DashboardButton className="primary">Save</DashboardButton>
               <DashboardButton className="cancel">Cancel</DashboardButton>

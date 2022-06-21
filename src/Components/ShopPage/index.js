@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { AiFillCaretDown, AiFillStar, AiOutlineSearch } from "react-icons/ai";
 import { BiRupee } from "react-icons/bi";
-// import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 
-// import { plants } from "../../data/plants";
 import {
   ActualPrice,
   DiscountedPrice,
@@ -49,7 +47,7 @@ const ShopPage = ({ items, link }) => {
 
   return (
     <ShopContainer>
-      {/* <Sidebar>
+      <Sidebar>
         <div>
           <SidebarTitle>Search</SidebarTitle>
           <SidebarSearch>
@@ -81,7 +79,7 @@ const ShopPage = ({ items, link }) => {
           <Checkbox value="2500-3000" label="Rs.2500 - Rs.3000" />
           <Checkbox value=">3000" label="Above Rs.3000" />
         </div>
-      </Sidebar> */}
+      </Sidebar>
       <div style={{ width: "100%" }}>
         <PageInfoDiv>
           <span>
@@ -91,7 +89,9 @@ const ShopPage = ({ items, link }) => {
               : itemOffset + itemsPerPage}{" "}
             of {items.length} Results
           </span>
-          <span>{/* Sort By: Alphabetically (A-Z) <AiFillCaretDown /> */}</span>
+          <span>
+            Sort By: Alphabetically (A-Z) <AiFillCaretDown />
+          </span>
         </PageInfoDiv>
         <PlantCardWrapper style={{ justifyContent: "space-between" }}>
           <Items currentItems={currentItems} link={link} />

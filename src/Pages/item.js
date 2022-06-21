@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams, useHref } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 import Footer from "../Components/Footer";
 import ItemPage from "../Components/ItemPage";
 import { UserNavbar } from "../Components/Navbar";
@@ -12,21 +13,22 @@ const Item = () => {
   const [item, setItem] = useState();
   const [id, setId] = useState(params[key]);
 
-  useEffect(async () => {
+  useEffect(() => {
     setId(params[key]);
     window.scrollTo(0, 0);
   }, [params]);
 
-  useEffect(async () => {
-    const res = await fetch(`http://localhost:8080/api/product/get/${id}`, {
-      method: "GET",
-    });
-    const body = await res.json();
-    // console.log("body", body);
-    setItem(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`http://localhost:8080/api/product/get/${id}`, {
+        method: "GET",
+      });
+      const body = await res.json();
+      setItem(body);
+    }
+    fetchData();
   }, [id]);
 
-  // console.log("item", item);
   return (
     <>
       <Topbar />

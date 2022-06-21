@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
 import { AiOutlineDelete } from "react-icons/ai";
 
 import Topbar from "../Components/Topbar";
@@ -16,10 +17,6 @@ import {
   Label,
 } from "../Components/CartElements";
 
-import productImg1 from "../Images/plant-1.jpg";
-import { Cookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
@@ -29,31 +26,29 @@ const Cart = () => {
 
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
-
-  useEffect(async () => {
-    const userId = new Cookies().get("userId");
-    if (userId !== undefined) {
-      const res = await fetch("http://localhost:8080/api/cart/get", {
-        method: "GET",
-        headers: { Authorization: `Bearer ${userId}` },
-      });
-      console.log(res);
-      if (res.ok) {
-        const body = await res.json();
-        setCartItems(body);
+  useEffect(() => {
+    async function fetchData() {
+      const userId = new Cookies().get("userId");
+      if (userId !== undefined) {
+        const res = await fetch("http://localhost:8080/api/cart/get", {
+          method: "GET",
+          headers: { Authorization: `Bearer ${userId}` },
+        });
+        if (res.ok) {
+          const body = await res.json();
+          setCartItems(body);
+        }
       }
     }
+    fetchData();
   }, []);
 
   useEffect(() => {
-    console.log("called");
     let total = 0;
     cartItems.map((item) => (total += item.price * item.quantity));
     setCartTotal(total);
     const grand = cartTotal + (cartTotal * 5) / 100;
     setGrandTotal(grand);
-    console.log(grandTotal);
   }, [cartItems]);
 
   const changeQuantity = (id, no) => {
@@ -65,12 +60,10 @@ const Cart = () => {
     });
 
     setCartItems([...tempItems]);
-    console.log(cartItems);
   };
 
-  // console.log(cartTotal);
   const removeItem = (id) => {
-    const newItems = cartItems.filter((item) => item.id != id);
+    const newItems = cartItems.filter((item) => item.id !== id);
     setCartItems([...newItems]);
   };
 
@@ -93,13 +86,11 @@ const Cart = () => {
         body: JSON.stringify(data),
       }
     );
+
     if (res.ok) {
       const body = await res.json();
       console.log(body);
-      // window.location(body.url);
       openSession(body.url, "_self");
-    } else {
-      console.error(res.text());
     }
   };
 
@@ -179,7 +170,7 @@ const CartRow = (props) => {
   useEffect(() => {
     setItem(props.item);
     setTotal(item.price * item.quantity);
-  }, [props]);
+  });
 
   const imgSrc = Array.isArray(item.photoPath)
     ? item.photoPath[0]

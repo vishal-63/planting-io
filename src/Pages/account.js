@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
 import { MdAccountCircle } from "react-icons/md";
 import { useForm } from "react-hook-form";
 
@@ -24,13 +25,10 @@ import {
 import RecentOrders from "../Components/RecentOrders";
 import AddressSection from "../Components/AddressSection";
 import ModalContainer from "../Components/Backdrop";
-import { handleFormSubmit } from "../validation/passwordChangeValidation";
-import { handleInfoSubmit } from "../validation/editInfoValidation";
 import {
   Alert,
   ValidationError,
 } from "../Components/LoginModal/LoginModalElements";
-import { Cookies } from "react-cookie";
 
 const Account = () => {
   const [tab, setTab] = useState("edit-info");
@@ -91,7 +89,6 @@ const Account = () => {
 };
 
 const EditInfo = ({ setName }) => {
-  const [userInfo, setUserInfo] = useState({});
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
@@ -101,19 +98,22 @@ const EditInfo = ({ setName }) => {
   const [responseVisible, setResponseVisible] = useState(false);
   const [responseClass, setResponseClass] = useState("");
 
-  useEffect(async () => {
-    const res = await fetch(`http://localhost:8080/api/user/get-info`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${new Cookies().get("userId")}`,
-      },
-    });
-    const body = await res.json();
-    await setFname(body.fname);
-    await setLname(body.lname);
-    await setEmail(body.email);
-    await setPhone(body.phone);
-    setName(body.fname, body.lname);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`http://localhost:8080/api/user/get-info`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("userId")}`,
+        },
+      });
+      const body = await res.json();
+      await setFname(body.fname);
+      await setLname(body.lname);
+      await setEmail(body.email);
+      await setPhone(body.phone);
+      setName(body.fname, body.lname);
+    }
+    fetchData();
   }, []);
 
   const {

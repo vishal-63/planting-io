@@ -3,7 +3,9 @@ import { Line } from "react-chartjs-2";
 import { BsBox, BsPerson } from "react-icons/bs";
 import { GiWateringCan } from "react-icons/gi";
 import { IoLeafOutline } from "react-icons/io5";
+
 import { orders } from "../../data/orders";
+
 import {
   DashboardTable,
   DashboardTableStatus,

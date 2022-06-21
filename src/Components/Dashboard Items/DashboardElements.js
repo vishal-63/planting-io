@@ -6,17 +6,17 @@ export const Container = styled.section`
   overflow-y: scroll;
   background-color: #fbfbfb;
   padding: 2.5rem 1.5rem;
-  /* display: grid;
+  display: grid;
   grid-column-gap: 24px;
   grid-row-gap: 24px;
   grid-template-columns: auto;
-  grid-template-rows: repeat(5, 1fr); */
+  grid-template-rows: repeat(5, 1fr);
   position: relative;
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   gap: 2rem;
 
-  /* @media (min-width: 540px) {
+  @media (min-width: 540px) {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, 1fr);
   }
@@ -24,7 +24,7 @@ export const Container = styled.section`
   @media (min-width: 900px) {
     grid-template-columns: repeat(2, 175px) auto;
     grid-template-rows: repeat(5, 1fr);
-  } */
+  }
 
   @media (min-width: 1100px) {
     width: calc(100vw - 275px);
@@ -48,7 +48,7 @@ export const DashboardCard = styled.div`
   }
 
   &.statistics {
-    /* padding: 0.5rem 1.25rem 0.75rem; */
+    padding: 0.5rem 1.25rem 0.75rem;
     padding: 1rem 1.5rem 1.25rem;
     overflow: initial;
 
@@ -64,11 +64,11 @@ export const DashboardCard = styled.div`
 
   & canvas.earnings {
     height: 200px !important;
-    /* width: 100% !important; */
+    width: 100% !important;
     margin: 1rem auto auto;
   }
 
-  /* &:nth-child(1) {
+  &:nth-child(1) {
     @media (min-width: 540px) {
       grid-area: 1 / 1 / 2 / 2;
     }
@@ -115,7 +115,7 @@ export const DashboardCard = styled.div`
     @media (min-width: 900px) {
       grid-area: 4 / 1 / 6 / 4;
     }
-  } */
+  }
 `;
 
 export const DashboardCardTitle = styled.div`
@@ -156,7 +156,6 @@ export const DashboardStatistics = styled.div`
 export const StatisticsWrapper = styled.div`
   display: flex;
   align-items: center;
-  /* justify-content: center; */
   gap: 1rem;
 
   & .icon {

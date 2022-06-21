@@ -1,18 +1,18 @@
+import React, { useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FiEdit, FiEye } from "react-icons/fi";
 import { AiOutlineDelete, AiOutlineUserDelete } from "react-icons/ai";
 
-import React, { useEffect, useState } from "react";
+import { AdminMenu } from "../../data/dashboard-menu-items";
+
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
-import AdminDashboardItems from "../../Components/Admin Dashboard Items";
-import { AdminMenu } from "../../data/dashboard-menu-items";
 import {
   DashboardCard,
   DashboardTable,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { Cookies } from "react-cookie";
-import { Link } from "react-router-dom";
 import ModalContainer from "../../Components/Backdrop";
 import {
   Modalbutton,
@@ -77,18 +77,21 @@ const NurseryList = () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch(
-      "http://localhost:8080/api/admin/get-all-nurseries",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${new Cookies().get("adminId")}`,
-        },
-      }
-    );
-    const body = await res.json();
-    setNurseries(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        "http://localhost:8080/api/admin/get-all-nurseries",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${new Cookies().get("adminId")}`,
+          },
+        }
+      );
+      const body = await res.json();
+      setNurseries(body);
+    }
+    fetchData();
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -102,6 +105,7 @@ const NurseryList = () => {
         activePage="nurseries"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>

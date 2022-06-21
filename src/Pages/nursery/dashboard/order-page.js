@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
+
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
 import { DashboardCard } from "../../../Components/Dashboard Items/DashboardElements";
 import DashboardHeader from "../../../Components/DashboardHeader";
@@ -15,7 +16,6 @@ import {
   ShippingAddressDiv,
   InvoiceTotalInfo,
 } from "../../../Components/OrderPageElements";
-import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
 import logo from "../../../Images/logo.svg";
 
@@ -38,7 +38,6 @@ const OrderPage = () => {
       },
     });
     const body = await res.json();
-    console.log(body);
     setOrder(body);
   }, []);
 

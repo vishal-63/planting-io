@@ -19,7 +19,7 @@ const DashboardItems = () => {
   return (
     <Container>
       {/* Orders - Card 1 */}
-      {/* <DashboardCard>
+      <DashboardCard>
         <div>
           <DashboardCardTitle>
             Orders <span>(today)</span>
@@ -59,10 +59,10 @@ const DashboardItems = () => {
             layout: { padding: 0 },
           }}
         />
-      </DashboardCard> */}
+      </DashboardCard>
 
       {/* Profit - Card 2 */}
-      {/* <DashboardCard>
+      <DashboardCard>
         <div>
           <DashboardCardTitle>
             Profit <span>(today)</span>
@@ -102,7 +102,7 @@ const DashboardItems = () => {
             layout: { padding: 0 },
           }}
         />
-      </DashboardCard> */}
+      </DashboardCard>
 
       {/* Statistics - Card 3 */}
       <DashboardCard className="statistics">
@@ -153,7 +153,7 @@ const DashboardItems = () => {
       </DashboardCard>
 
       {/* Earnings - Card 4 */}
-      {/* <DashboardCard className="earnings">
+      <DashboardCard className="earnings">
         <div>
           <DashboardCardTitle>
             Earnings <span>(this month)</span>
@@ -187,7 +187,7 @@ const DashboardItems = () => {
             },
           }}
         />
-      </DashboardCard> */}
+      </DashboardCard>
 
       {/* Most Purchased Items - Card 5 */}
       <DashboardCard className="most-purchased">
@@ -294,7 +294,7 @@ const DashboardItems = () => {
               <td>1</td>
               <td>199</td>
               <td>
-                <DashboardTableStatus className="shipping">
+                <DashboardTableStatus className="Shipping">
                   Shipping
                 </DashboardTableStatus>
               </td>
@@ -306,7 +306,7 @@ const DashboardItems = () => {
               <td>3</td>
               <td>246</td>
               <td>
-                <DashboardTableStatus className="delivered">
+                <DashboardTableStatus className="Delivered">
                   Delivered
                 </DashboardTableStatus>
               </td>

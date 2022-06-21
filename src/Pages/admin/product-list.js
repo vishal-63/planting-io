@@ -1,29 +1,27 @@
-import styled from "styled-components";
-import { FiEdit, FiEye } from "react-icons/fi";
-import { AiOutlineDelete } from "react-icons/ai";
-
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { Cookies } from "react-cookie";
+import _ from "lodash";
+import { FiEye } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+import { IoRemoveCircleOutline } from "react-icons/io5";
+import { BsKeyFill } from "react-icons/bs";
+import { RiArrowDropDownLine } from "react-icons/ri";
+
+import { AdminMenu } from "../../data/dashboard-menu-items";
+
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
-import AdminDashboardItems from "../../Components/Admin Dashboard Items";
-import { AdminMenu } from "../../data/dashboard-menu-items";
 import {
   DashboardCard,
   DashboardTable,
-  DashboardTableStatus,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { Cookies } from "react-cookie";
-import { Link } from "react-router-dom";
 import ModalContainer from "../../Components/Backdrop";
 import ProductModal from "../../Components/ProductModal";
 import {
   Modalbutton,
   ModalDiv,
 } from "../../Components/DashboardHeader/DashboardHeaderElements";
-import { IoRemoveCircleOutline } from "react-icons/io5";
-import { BsKeyFill } from "react-icons/bs";
-import _ from "lodash";
-import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Container = styled.section`
   width: 100vw;
@@ -123,24 +121,29 @@ const ProductList = () => {
   const [dropdownMenuOpen, setDropdownMenuOpen] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch(
-      "http://localhost:8080/api/admin/get-all-products",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${jwt}`,
-        },
-      }
-    );
-    const body = await res.json();
-    console.log(body);
-    setProducts(body);
-    setFilteredProducts(_.filter(body, { type: "Plant" }));
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        "http://localhost:8080/api/admin/get-all-products",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${jwt}`,
+          },
+        }
+      );
+      const body = await res.json();
+      setProducts(body);
+      setFilteredProducts(_.filter(body, { type: "Plant" }));
+    }
+    fetchData();
+  }, [jwt]);
+
+  useEffect(() => {
     setActiveProducts(
       _.remove(filteredProducts, (product) => {
         return product.active;
@@ -151,7 +154,7 @@ const ProductList = () => {
         return !product.active;
       })
     );
-  }, []);
+  }, [filteredProducts]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -178,16 +181,6 @@ const ProductList = () => {
   const filterProducts = (productType) => {
     setSelectedOption(productType);
     setFilteredProducts(_.filter(products, { type: productType }));
-    setActiveProducts(
-      _.remove(filteredProducts, (product) => {
-        return product.active;
-      })
-    );
-    setInactiveProducts(
-      _.remove(filteredProducts, (product) => {
-        return !product.active;
-      })
-    );
   };
 
   return (
@@ -197,6 +190,7 @@ const ProductList = () => {
         activePage="product-list"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>

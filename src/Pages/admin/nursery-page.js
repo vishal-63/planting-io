@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { AiOutlinePhone } from "react-icons/ai";
+import { BsBox } from "react-icons/bs";
+import { BiRupee } from "react-icons/bi";
+import { IoLocationOutline } from "react-icons/io5";
+
+import { AdminMenu } from "../../data/dashboard-menu-items";
 
 import { DashboardCard } from "../../Components/Dashboard Items/DashboardElements";
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
-import { AdminMenu } from "../../data/dashboard-menu-items";
 import {
   StatisticsData,
   StatisticsWrapper,
 } from "../../Components/Dashboard Items/DashboardElements";
 import { ItemsTable } from "../../Components/OrderPageElements";
-
-import { AiOutlinePhone } from "react-icons/ai";
-import { BsBox } from "react-icons/bs";
-import { BiRupee } from "react-icons/bi";
-import { IoLocationOutline } from "react-icons/io5";
 
 const NurseryPage = () => {
   let params = useParams();
@@ -24,25 +24,34 @@ const NurseryPage = () => {
 
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [nursery, setNursery] = useState({});
+  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch(
-      `http://localhost:8080/api/admin/get-nursery/${nurseryId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${new Cookies().get("adminId")}`,
-        },
-      }
-    );
-    const body = await res.json();
-    console.log(body);
-    setNursery(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        `http://localhost:8080/api/admin/get-nursery/${nurseryId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${new Cookies().get("adminId")}`,
+          },
+        }
+      );
+      const body = await res.json();
+      setNursery(body);
+    }
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    setProducts(nursery.products);
+    setServices(nursery.services);
+  }, [nursery]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -53,6 +62,7 @@ const NurseryPage = () => {
         activePage="order-list"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1rem 1.5rem" }}>
@@ -125,7 +135,7 @@ const NurseryPage = () => {
               <th>Discount</th>
             </thead>
             <tbody>
-              {Array.from(nursery.products).map((product, index) => (
+              {products.map((product, index) => (
                 <tr key={index}>
                   <td> {index + 1}</td>
                   <td>{product.name}</td>
@@ -151,7 +161,7 @@ const NurseryPage = () => {
               <th>Discount</th>
             </thead>
             <tbody>
-              {Array.from(nursery.services).map((service, index) => (
+              {services.map((service, index) => (
                 <tr key={index}>
                   <td> {index + 1}</td>
                   <td>{service.type}</td>

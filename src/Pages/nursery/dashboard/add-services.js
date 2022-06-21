@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Cookies } from "react-cookie";
-
-import DashboardHeader from "../../../Components/DashboardHeader";
-import DashboardMenu from "../../../Components/DashboardMenu";
 import styled from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
 import { useForm } from "react-hook-form";
+import { Cookies } from "react-cookie";
+import { MdDelete } from "react-icons/md";
+
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
+
+import DashboardHeader from "../../../Components/DashboardHeader";
+import DashboardMenu from "../../../Components/DashboardMenu";
 
 import { DashboardCard } from "../../../Components/Dashboard Items/DashboardElements";
 
@@ -28,12 +31,10 @@ import {
   SelectTrigger,
   SelectWrapper,
 } from "../../../Components/NurseryFormElements";
-import { NurseryMenu } from "../../../data/dashboard-menu-items";
 import {
   Alert,
   ValidationError,
 } from "../../../Components/LoginModal/LoginModalElements";
-import { MdDelete } from "react-icons/md";
 
 const Container = styled.section`
   width: 100vw;
@@ -161,8 +162,6 @@ const AddServices = () => {
     } else {
       document.querySelector(".photo-error").innerHTML = "";
     }
-    // tempPreview.push(URL.createObjectURL(file));
-    // });
     setFile(file);
     setPreview(URL.createObjectURL(file));
   };
@@ -291,7 +290,6 @@ const AddServices = () => {
             {preview && (
               <div style={{ width: "100%" }}>
                 <span>Photo:</span>
-                {/* <div style={{ display: "flex" }}> */}
                 <ProductImageContainer>
                   <ProductImage src={preview} alt="" />
                   <span
@@ -302,7 +300,6 @@ const AddServices = () => {
                     <MdDelete />
                   </span>
                 </ProductImageContainer>
-                {/* </div> */}
               </div>
             )}
 

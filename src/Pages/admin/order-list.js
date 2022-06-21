@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { FiEdit, FiEye } from "react-icons/fi";
+import { Cookies } from "react-cookie";
+import { FiEye } from "react-icons/fi";
+
+import { AdminMenu } from "../../data/dashboard-menu-items";
 
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
@@ -9,9 +13,6 @@ import {
   DashboardTable,
   DashboardTableStatus,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { AdminMenu } from "../../data/dashboard-menu-items";
-import { Cookies } from "react-cookie";
-import { Link } from "react-router-dom";
 
 const Container = styled.section`
   width: 100vw;
@@ -62,15 +63,21 @@ const AdminOrderList = () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch("http://localhost:8080/api/admin/get-all-orders", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${new Cookies().get("adminId")}`,
-      },
-    });
-    const body = await res.json();
-    setOrders(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        "http://localhost:8080/api/admin/get-all-orders",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${new Cookies().get("adminId")}`,
+          },
+        }
+      );
+      const body = await res.json();
+      setOrders(body);
+    }
+    fetchData();
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -82,6 +89,7 @@ const AdminOrderList = () => {
         activePage="orders"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>

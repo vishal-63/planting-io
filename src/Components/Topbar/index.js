@@ -10,6 +10,7 @@ import {
   FollowText,
   UserIconsWrapper,
 } from "./TopbarElements";
+
 import { AuthContext } from "../../AuthContext";
 
 const Topbar = () => {

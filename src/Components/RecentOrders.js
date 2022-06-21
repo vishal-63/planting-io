@@ -5,12 +5,8 @@ import { useForm } from "react-hook-form";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BiRupee } from "react-icons/bi";
 
-import img1 from "../Images/plant-1.jpg";
-import img2 from "../Images/plant-2.jpg";
-
 import {
   AccountButton,
-  AccountForm,
   DetailTitle,
   Input,
   InputWrapper,
@@ -30,51 +26,21 @@ import {
 import ModalContainer from "./Backdrop";
 import { Alert, ValidationError } from "./LoginModal/LoginModalElements";
 
-// const orders = [
-//   {
-//     id: "#50873",
-//     img: img1,
-//     productName: "Areca Palm Plant",
-//     vendor: "Mother Natue",
-//     totalAmt: "412.25",
-//     productAmt: "345",
-//     shippingAmt: "40",
-//     tax: "17.25",
-//     shippingStatus: "Shipped",
-//     shippingStatusClass: "shipping",
-//     expectedDelivery: "Feb 05, 2022",
-//     shippingAddress:
-//       "202, Kanak Residency, Pritamnagar, Paldi, Ahmedabad, Gujarat, India",
-//   },
-//   {
-//     id: "#50872",
-//     img: img2,
-//     productName: "Snake Plant",
-//     vendor: "Vrundavan Nursery",
-//     totalAmt: "460",
-//     productAmt: "400",
-//     shippingAmt: "40",
-//     tax: "20",
-//     shippingStatus: "Delivered",
-//     shippingStatusClass: "delivered",
-//     shippingAddress:
-//       "202, Kanak Residency, Pritamnagar, Paldi, Ahmedabad, Gujarat, India",
-//   },
-// ];
-
 const RecentOrders = () => {
   const [orders, setOrders] = useState([]);
 
-  useEffect(async () => {
-    const res = await fetch("http://localhost:8080/api/order/get", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${new Cookies().get("userId")}`,
-      },
-    });
-    const body = await res.json();
-    console.log(body);
-    setOrders(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("http://localhost:8080/api/order/get", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("userId")}`,
+        },
+      });
+      const body = await res.json();
+      setOrders(body);
+    }
+    fetchData();
   }, []);
 
   return (
@@ -97,11 +63,12 @@ const OrderSection = ({ order }) => {
     setAllProducts([...order.products]);
     setFirstProduct(order.products[0]);
     setOtherProducts(order.products.filter((val, index) => index !== 0));
-  }, []);
+  }, [order]);
 
   const [rateProductModalOpen, setRateProductModalOpen] = useState(false);
-  const [productId, setProductId] = useState("");
   const [complaintModalOpen, setComplaintModalOpen] = useState(false);
+
+  const [productId, setProductId] = useState("");
   const [orderId, setOrderId] = useState("");
 
   const handleClose = () => {
@@ -159,13 +126,16 @@ const OrderSection = ({ order }) => {
                 )}
               </div>
             </ProductDetails>
+
             <OrderDate>
               <span>Date:</span> <br />
               {order.orderDate}
             </OrderDate>
+
             <OrderAmount>
               <BiRupee /> {order.grandTotal}
             </OrderAmount>
+
             <ShippingInfo>
               <div className={order.orderStatus}>{order.orderStatus}</div>
               {order.orderStatus === "Shipped" && (
@@ -182,12 +152,13 @@ const OrderSection = ({ order }) => {
             </ShippingInfo>
           </OrderInfo>
         </div>
+
         <OrderDetails className={showDetails ? "visible" : ""}>
           {otherProducts.map((product, index) => (
             <ProductDetails
               style={{ width: "100%", maxWidth: "100%", marginBottom: "1rem" }}
             >
-              <img src={product.productImg} />
+              <img src={product.productImg} alt="" />
               <div>
                 <div className="product-name" key={index}>
                   {product.quantity} x {product.productName}
@@ -277,6 +248,7 @@ const RateProductComponent = ({ productId, handleClose }) => {
         rating: reviewStars,
         feedbackDescription: document.querySelector("textarea.review").value,
       };
+
       const res = await fetch("http://localhost:8080/api/feedback/add", {
         method: "POST",
         body: JSON.stringify(data),
@@ -285,6 +257,7 @@ const RateProductComponent = ({ productId, handleClose }) => {
           Authorization: `Bearer ${new Cookies().get("userId")}`,
         },
       });
+
       setResponseVisible(true);
       if (res.ok) {
         const body = await res.text();

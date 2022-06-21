@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
+
 import DashboardItems from "../../../Components/Dashboard Items";
 import DashboardHeader from "../../../Components/DashboardHeader";
 import DashboardMenu from "../../../Components/DashboardMenu";
-import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
-const Dashboard = ({ nurseryName }) => {
+const Dashboard = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {

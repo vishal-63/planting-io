@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useNavigate, useParams } from "react-router-dom";
+import { Cookies } from "react-cookie";
+import { useForm } from "react-hook-form";
+import { MdDelete } from "react-icons/md";
+
 import DashboardHeader from "../../../../Components/DashboardHeader";
 import DashboardMenu from "../../../../Components/DashboardMenu";
-import styled from "styled-components";
-import { IoIosArrowDown } from "react-icons/io";
 import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 
 import { DashboardCard } from "../../../../Components/Dashboard Items/DashboardElements";
@@ -19,23 +23,9 @@ import {
 } from "../../../../Components/DashboardInputs";
 
 import {
-  CustomOption,
-  CustomOptions,
-  Select,
-  SelectLabel,
-  SelectTrigger,
-  SelectWrapper,
-} from "../../../../Components/NurseryFormElements";
-import { services } from "../../../../data/service";
-import { getProduct } from "../../../../data/products";
-import { useNavigate, useParams } from "react-router-dom";
-import { Cookies } from "react-cookie";
-import { useForm } from "react-hook-form";
-import {
   Alert,
   ValidationError,
 } from "../../../../Components/LoginModal/LoginModalElements";
-import { MdDelete } from "react-icons/md";
 
 const Container = styled.section`
   width: 100vw;
@@ -121,8 +111,6 @@ const ManageServiceForm = () => {
     formData.append("service", JSON.stringify(data));
 
     formData.append("file", file);
-    console.log(file);
-    console.log(formData.get("file"));
 
     const res = await fetch(
       `http://localhost:8080/api/service/update/${serviceId}`,

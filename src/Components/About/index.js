@@ -1,4 +1,5 @@
 import React from "react";
+import Slider from "react-slick";
 
 import img from "../../Images/about-1.png";
 import svg1 from "../../Images/services-1.svg";
@@ -27,7 +28,6 @@ import {
   ClientName,
   ClientReview,
 } from "../InfoSection/InfoElements";
-import Slider from "react-slick";
 
 const AboutComponent = () => {
   return (

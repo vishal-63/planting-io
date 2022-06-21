@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { Cookies } from "react-cookie";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
+import { IoRemoveCircleOutline } from "react-icons/io5";
+
+import { NurseryMenu } from "../../../../data/dashboard-menu-items";
 
 import {
   DashboardCard,
@@ -10,16 +14,11 @@ import {
 } from "../../../../Components/Dashboard Items/DashboardElements";
 import DashboardHeader from "../../../../Components/DashboardHeader";
 import DashboardMenu from "../../../../Components/DashboardMenu";
-
-import { NurseryMenu } from "../../../../data/dashboard-menu-items";
-import { services } from "../../../../data/service";
-import { Cookies } from "react-cookie";
 import ModalContainer from "../../../../Components/Backdrop";
 import {
   Modalbutton,
   ModalDiv,
 } from "../../../../Components/DashboardHeader/DashboardHeaderElements";
-import { IoRemoveCircleOutline } from "react-icons/io5";
 
 const Container = styled.section`
   width: 100vw;
@@ -67,7 +66,6 @@ const Icon = styled.span`
 
 const ManageServices = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
   const [services, setServices] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [deleteServiceId, setDeleteServiceId] = useState("");
@@ -179,8 +177,6 @@ const DeleteModal = ({ handleClose, serviceId }) => {
         },
       }
     );
-    const body = await res.text();
-    console.log(body);
     if (res.ok) setTimeout(() => handleClose(), 1000);
   };
   return (

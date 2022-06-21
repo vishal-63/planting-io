@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { useParams } from "react-router-dom";
 
+import { AdminMenu } from "../../data/dashboard-menu-items";
+
 import {
   DashboardCard,
   DashboardTableStatus,
@@ -17,7 +19,6 @@ import {
   ShippingAddressDiv,
   InvoiceTotalInfo,
 } from "../../Components/OrderPageElements";
-import { AdminMenu, NurseryMenu } from "../../data/dashboard-menu-items";
 
 import logo from "../../Images/logo.svg";
 
@@ -32,19 +33,22 @@ const AdminOrderPage = () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch(
-      `http://localhost:8080/api/admin/get-order/${orderId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${new Cookies().get("adminId")}`,
-        },
-      }
-    );
-    const body = await res.json();
-    console.log(body);
-    setOrder(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        `http://localhost:8080/api/admin/get-order/${orderId}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${new Cookies().get("adminId")}`,
+          },
+        }
+      );
+      const body = await res.json();
+      console.log(body);
+      setOrder(body);
+    }
+    fetchData();
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);

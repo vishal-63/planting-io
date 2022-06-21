@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { UserNavbar } from "../Components/Navbar";
 import Topbar from "../Components/Topbar";
+
 import orderSuccess from "../Images/order-success.gif";
 
 const SuccessContainer = styled.section`

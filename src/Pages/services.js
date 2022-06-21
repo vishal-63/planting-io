@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import _ from "lodash";
-import { services } from "../data/services";
 
 import { UserNavbar } from "../Components/Navbar";
 import Topbar from "../Components/Topbar";
@@ -17,16 +16,10 @@ const Services = () => {
       method: "GET",
     });
     const body = await res.json();
-    console.log(body);
     const servicesGrouped = _.groupBy(body, "nurseryName");
-    // console.log(servicesGrouped);
     setServices(servicesGrouped);
-    console.log(services);
-    // Object.entries(services).map((service) => console.log(service));
   }, []);
 
-  console.log(services);
-  console.clear();
   return (
     <>
       <Topbar />

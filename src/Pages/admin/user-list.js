@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { FiEdit } from "react-icons/fi";
+import { Cookies } from "react-cookie";
 import { AiOutlineDelete, AiOutlineUserDelete } from "react-icons/ai";
+
+import { AdminMenu } from "../../data/dashboard-menu-items";
 
 import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
-import { AdminMenu } from "../../data/dashboard-menu-items";
 import {
   DashboardCard,
   DashboardTable,
 } from "../../Components/Dashboard Items/DashboardElements";
-import { Cookies } from "react-cookie";
 import ModalContainer from "../../Components/Backdrop";
 import {
   Modalbutton,
   ModalDiv,
 } from "../../Components/DashboardHeader/DashboardHeaderElements";
-// import { users } from "../../data/user";
 
 const Container = styled.section`
   width: 100vw;
@@ -69,16 +68,18 @@ const UserList = () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch("http://localhost:8080/api/admin/get-all-users", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${new Cookies().get("adminId")}`,
-      },
-    });
-    const body = await res.json();
-    console.log(body);
-    setUsers(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("http://localhost:8080/api/admin/get-all-users", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("adminId")}`,
+        },
+      });
+      const body = await res.json();
+      setUsers(body);
+    }
+    fetchData();
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -92,6 +93,7 @@ const UserList = () => {
         activePage="users"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1rem" }}>
@@ -117,9 +119,6 @@ const UserList = () => {
                   <td>{user.phone}</td>
                   <td>
                     <div style={{ display: "flex" }}>
-                      {/* <Icon className="edit">
-                        <FiEdit />
-                      </Icon> */}
                       <Icon
                         className="delete"
                         onClick={() => {

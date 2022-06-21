@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Link as ScrollLink } from "react-scroll";
+import { Cookies } from "react-cookie";
+
 import { AuthContext } from "../../AuthContext";
+
 import {
   NavbarContainer,
   NavlinkWrapper,
@@ -13,9 +16,9 @@ import {
   HoverMenu,
   DropdownContainer,
 } from "./NavbarElements";
-import logo from "../../Images/logo.svg";
 import LoginModal from "../LoginModal";
-import { Cookies } from "react-cookie";
+
+import logo from "../../Images/logo.svg";
 
 export const UserNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);

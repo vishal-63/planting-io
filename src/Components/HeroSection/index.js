@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,10 +16,10 @@ import {
   HeroText,
   HeroButton,
 } from "./HeroElements";
+
 import img1 from "../../Images/hero-img-1.jpg";
 import imgMobile1 from "../../Images/hero-img-1-mobile.jpeg";
 import img2 from "../../Images/hero-img-2.jpg";
-import { Link } from "react-router-dom";
 
 function SampleNextArrow(props) {
   const { className, onClick } = props;

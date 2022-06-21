@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Cookies } from "react-cookie";
+import _ from "lodash";
 import { FiEdit, FiEye } from "react-icons/fi";
+
+import { NurseryMenu } from "../../../data/dashboard-menu-items";
 
 import DashboardHeader from "../../../Components/DashboardHeader";
 import DashboardMenu from "../../../Components/DashboardMenu";
@@ -10,9 +14,6 @@ import {
   DashboardTable,
   DashboardTableStatus,
 } from "../../../Components/Dashboard Items/DashboardElements";
-import { NurseryMenu } from "../../../data/dashboard-menu-items";
-import { Cookies } from "react-cookie";
-import _ from "lodash";
 
 const Container = styled.section`
   width: 100vw;
@@ -64,33 +65,6 @@ const DropdownContainer = styled.div`
 
   &:hover ul {
     visibility: visible;
-  }
-`;
-
-const DropdownMenu = styled.ul`
-  position: absolute;
-  width: max-content;
-  top: 100%;
-  right: 50%;
-  list-style: none;
-  font-size: 1rem;
-  color: #333;
-  z-index: 9;
-  visibility: hidden;
-
-  & li {
-    background-color: #fff;
-    border-bottom: 1px solid #aaa;
-    padding: 0.4rem 0.65rem;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #dadada;
-    }
-
-    &:last-child {
-      border: none;
-    }
   }
 `;
 
@@ -182,20 +156,16 @@ const OrderList = () => {
                     )}
                   </td>
                   <td>
-                    <Link to={`/nursery/dashboard/order/${order.orderId}`}>
-                      <Icon className="view">
-                        <FiEye />
+                    <div style={{ display: "flex" }}>
+                      <Link to={`/nursery/dashboard/order/${order.orderId}`}>
+                        <Icon className="view">
+                          <FiEye />
+                        </Icon>
+                      </Link>
+                      <Icon className="edit">
+                        <FiEdit />
                       </Icon>
-                    </Link>
-                    {/* <DropdownContainer>
-                      <Icon className="action">
-                        <BsThreeDots />
-                      </Icon>
-                      <DropdownMenu>
-                        <li>View</li>
-                        <li>Edit Order Status</li>
-                      </DropdownMenu>
-                    </DropdownContainer> */}
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Cookies } from "react-cookie";
+import Slider from "react-slick";
 import { BiRupee } from "react-icons/bi";
 import { AiFillStar } from "react-icons/ai";
 import { MdOutlineErrorOutline } from "react-icons/md";
@@ -31,21 +33,15 @@ import {
   PlantPrice,
   PlantStarsWrapper,
 } from "../InfoSection/InfoElements";
-import { plants } from "../../data/plants";
 import { Link } from "react-router-dom";
-import { seeds } from "../../data/seeds";
-import { tools } from "../../data/tools";
 import { AuthContext } from "../../AuthContext";
 import Alert from "../Alert";
-import { Cookies } from "react-cookie";
-import Slider from "react-slick";
 
 const ItemPage = ({ item }) => {
   const [noOfUnits, setNoOfUnits] = useState(0);
 
   const [mainItem, setMainItem] = useState(item);
   const [relatedProducts, setRelatedProducts] = useState();
-  const [categoryLink, setCategoryLink] = useState("");
 
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertClass, setAlertClass] = useState("");
@@ -54,21 +50,20 @@ const ItemPage = ({ item }) => {
   useEffect(() => {
     setMainItem(item);
     setNoOfUnits(0);
-    // console.log("itempage", item);
-    // console.log("first useeffect called");
   }, [item]);
 
-  useEffect(async () => {
-    // console.log("second");
-    const res = await fetch(
-      `http://localhost:8080/api/product/get-related/${item.type}/${item.id}`,
-      {
-        method: "GET",
-      }
-    );
-    const body = await res.json();
-    // console.log(body);
-    setRelatedProducts(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        `http://localhost:8080/api/product/get-related/${item.type}/${item.id}`,
+        {
+          method: "GET",
+        }
+      );
+      const body = await res.json();
+      setRelatedProducts(body);
+    }
+    fetchData();
   }, [mainItem]);
 
   const [
@@ -117,7 +112,7 @@ const ItemPage = ({ item }) => {
       {alertOpen && (
         <Alert onClick={handleClose} className={alertClass}>
           <span style={{ fontSize: "1.6rem" }}>
-            {alertClass == "success" ? (
+            {alertClass === "success" ? (
               <IoMdCheckmarkCircleOutline />
             ) : (
               <MdOutlineErrorOutline />
@@ -212,7 +207,7 @@ const ItemPage = ({ item }) => {
         >
           {relatedProducts &&
             relatedProducts.map((product, index) => {
-              product.stars == undefined && (product["stars"] = 0);
+              product.stars === undefined && (product["stars"] = 0);
               return (
                 <PlantCard key={index}>
                   <Link to={`${mainItem.categoryLink}/${product.id}`}>

@@ -34,3 +34,76 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
+.filterable-table-container {
+  width: 100%;
+}
+
+.filterable-table-container .header-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.filterable-table-container .filter-container {
+  display: flex;
+  align-items: center;
+}
+
+.filterable-table-container .filter-container input,
+.filterable-table-container div:nth-child(2) > select {
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #999;
+  color: #3f3f3f;
+}
+
+.filterable-table-container .filter-container span.close {
+  font-size: 1.5rem;
+  align-items: center;
+  cursor: pointer;
+  color: #7d7d7d;
+  margin-left: 0.6rem;
+}
+
+.filterable-table-container .header-row ul {
+  display: none;
+}
+
+.filterable-table-container table {
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  border-spacing: 0;
+  overflow: scroll;
+}
+
+.filterable-table-container table {
+  width: 100%;
+}
+
+.filterable-table-container table th,
+.filterable-table-container table td {
+  border-bottom: 1px solid #dadada;
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.filterable-table-container table th svg {
+  margin-left: 0.75rem;
+  transform: translateY(15%);
+}
+
+.filterable-table-container .table-container nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  color: #666;
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+}
+
+.filterable-table-container .table-container nav ul li {
+  cursor: pointer;
+}

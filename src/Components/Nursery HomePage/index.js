@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import ScrollMagic from "scrollmagic";
+
 import {
   Button,
   ContactUs,
@@ -26,7 +28,6 @@ import {
 
 import heroSvg from "../../Images/illustration.svg";
 import logo from "../../Images/logo.svg";
-import { Link } from "react-router-dom";
 
 const NurseryPage = () => {
   const controller = new ScrollMagic.Controller();
@@ -266,7 +267,7 @@ const NurseryPage = () => {
             <a
               href="mailto:contact@planting.io"
               target="_blank"
-              referrerPolicy="no-referrer "
+              rel="noreferrer"
             >
               contact@planting.io
             </a>

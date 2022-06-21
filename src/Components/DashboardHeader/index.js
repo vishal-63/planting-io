@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 import { BsTruck, BsBell, BsPersonCircle } from "react-icons/bs";
@@ -34,7 +34,6 @@ const DashboardHeader = ({ toggleMenu }) => {
       <Icons>
         <BsTruck />
         <div>
-          {/* <span className="notification-dot"></span> */}
           <BsBell />
         </div>
         <span className="nursery-name">{nurseryName}</span>
@@ -46,7 +45,7 @@ const DashboardHeader = ({ toggleMenu }) => {
               <Link to="/nursery/profile">Profile</Link>
             </li>
             <li onClick={() => setModalOpen(true)}>
-              <a>Logout</a>
+              <a href="#">Logout</a>
             </li>
           </DropDownMenu>
         </DropDownContainer>
@@ -60,10 +59,8 @@ const DashboardHeader = ({ toggleMenu }) => {
 const LogoutModal = ({ handleClose }) => {
   const navigate = useNavigate();
   const logoutNursery = () => {
-    // console.log(new Cookies().get("nurseryId"));
     new Cookies().remove("nurseryId");
     new Cookies().remove("nurseryName");
-    // console.log(new Cookies().get("nurseryId"));
     navigate("/nursery/login");
   };
   return (

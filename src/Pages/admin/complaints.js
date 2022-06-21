@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AiFillEdit, AiOutlineDelete } from "react-icons/ai";
-import { FiEdit, FiEye } from "react-icons/fi";
+import { AiFillEdit } from "react-icons/ai";
 
 import {
   DashboardCard,
@@ -10,7 +9,6 @@ import DashboardHeader from "../../Components/DashboardHeader";
 import DashboardMenu from "../../Components/DashboardMenu";
 import ModalContainer from "../../Components/Backdrop";
 import { AdminMenu } from "../../data/dashboard-menu-items";
-import { complaints } from "../../data/complaints";
 import {
   ComplaintDescription,
   ComplaintModalWrapper,
@@ -34,16 +32,18 @@ const Complaints = () => {
     window.innerWidth >= 1100 ? setMenuOpen(true) : setMenuOpen(false);
   }, [setMenuOpen]);
 
-  useEffect(async () => {
-    const res = await fetch("http://localhost:8080/api/complaint/get-all", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${new Cookies().get("adminId")}`,
-      },
-    });
-    const body = await res.json();
-    setComplaints(body);
-    console.log(body);
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch("http://localhost:8080/api/complaint/get-all", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${new Cookies().get("adminId")}`,
+        },
+      });
+      const body = await res.json();
+      setComplaints(body);
+    }
+    fetchData();
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -61,6 +61,7 @@ const Complaints = () => {
         activePage="complaints"
         menuOpen={menuOpen}
         listItems={AdminMenu}
+        adminPage
       />
       <Container>
         <DashboardCard style={{ padding: "1.5rem" }}>
@@ -97,9 +98,6 @@ const Complaints = () => {
                   </td>
                   <td>
                     <div style={{ display: "flex" }}>
-                      {/* <Icon className="view">
-                        <FiEye />
-                      </Icon> */}
                       <Icon
                         className="edit"
                         onClick={() => openModal(complaint)}
@@ -141,8 +139,6 @@ const ComplaintModal = ({ handleClose, complaint }) => {
         },
       }
     );
-    const body = await res.text();
-    console.log(body);
   };
 
   return (
